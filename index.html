@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Humanitas — Timeline of Greatness & Truth</title>
-  <meta name="description" content="Interactive timeline of the world’s greatest leaders, spiritual teachers, and servants of humanity—history, philosophy, creations, and a living thesis for nations and communities." />
+  <meta name="description" content="Interactive timeline of the world's greatest leaders, spiritual teachers, and servants of humanity." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -16,7 +16,6 @@
     <div class="orb orb-b"></div>
     <div class="grain"></div>
   </div>
-
   <header class="site-header" id="site-header">
     <div class="header-inner">
       <a href="#top" class="brand" data-nav="home">
@@ -34,20 +33,12 @@
     </div>
     <div class="progress-bar" id="progress-bar"></div>
   </header>
-
   <main id="top">
     <section class="hero" id="hero">
       <div class="hero-inner">
         <p class="eyebrow">3,800 years · 28 lives · one living question</p>
-        <h1 class="hero-title">
-          The timeline of those who<br />
-          <em>served humanity</em>
-        </h1>
-        <p class="hero-lead">
-          Scroll a constellation of lawgivers, prophets, philosophers, liberators, and builders.
-          Open any life for full history, creations that still stand or were destroyed, and the
-          philosophies of how humans should live together—then generate a thesis for nations and communities today.
-        </p>
+        <h1 class="hero-title">The timeline of those who<br /><em>served humanity</em></h1>
+        <p class="hero-lead">Scroll a constellation of lawgivers, prophets, philosophers, liberators, and builders. Open any life for full history, creations that still stand or were destroyed, and the philosophies of how humans should live together—then generate a thesis for nations and communities today.</p>
         <div class="hero-actions">
           <button type="button" class="btn btn-primary" data-nav="timeline">Enter the timeline</button>
           <button type="button" class="btn btn-ghost" data-nav="thesis">AI-powered thesis</button>
@@ -60,7 +51,6 @@
         <div class="orbit-core"></div>
       </div>
     </section>
-
     <section class="controls" id="controls">
       <div class="controls-inner">
         <div class="search-wrap">
@@ -71,26 +61,18 @@
         <p class="result-meta" id="result-meta"></p>
       </div>
     </section>
-
     <section class="timeline-section" id="timeline">
       <div class="timeline-spine" aria-hidden="true"></div>
       <ol class="timeline" id="timeline-list"></ol>
     </section>
-
     <section class="thesis-section" id="thesis">
       <div class="thesis-inner">
         <p class="eyebrow">Synthesis engine</p>
         <h2 class="section-title">AI-powered thesis on greatness & truth</h2>
-        <p class="section-lead">
-          This engine reads every biography, principle, and creation on the timeline—then composes
-          a structured thesis: how nations and communities can practice those principles daily,
-          and what life would look like if we continued the path.
-        </p>
+        <p class="section-lead">This engine reads every biography, principle, and creation on the timeline—then composes a structured thesis for nations and communities today.</p>
         <div class="thesis-stats" id="thesis-stats"></div>
         <div class="thesis-actions">
-          <button type="button" class="btn btn-primary" id="btn-generate">
-            <span class="btn-label">Generate full thesis</span>
-          </button>
+          <button type="button" class="btn btn-primary" id="btn-generate"><span class="btn-label">Generate full thesis</span></button>
           <button type="button" class="btn btn-ghost" id="btn-copy" hidden>Copy full text</button>
         </div>
         <div class="thesis-status" id="thesis-status" hidden></div>
@@ -98,34 +80,23 @@
       </div>
     </section>
   </main>
-
   <footer class="site-footer">
     <div class="footer-inner">
-      <p>Humanitas — free public history & philosophy timeline. Content drawn from established historical scholarship; religious sources treated with care as faith documents and history.</p>
+      <p>Humanitas — free public history & philosophy timeline.</p>
       <p class="footer-note">Not affiliated with any government or faith body.</p>
     </div>
   </footer>
-
   <div class="drawer-backdrop" id="drawer-backdrop" hidden></div>
   <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" hidden>
-    <div class="drawer-chrome">
-      <button type="button" class="drawer-close" id="drawer-close" aria-label="Close">×</button>
-    </div>
+    <div class="drawer-chrome"><button type="button" class="drawer-close" id="drawer-close" aria-label="Close">×</button></div>
     <div class="drawer-body" id="drawer-body"></div>
   </aside>
-
   <div class="explore-overlay" id="explore-overlay" hidden>
-    <div class="explore-header">
-      <h2>Constellation</h2>
-      <button type="button" class="btn btn-ghost btn-sm" id="explore-close">Close</button>
-    </div>
-    <div class="explore-canvas-wrap">
-      <canvas id="explore-canvas"></canvas>
-      <p class="explore-hint">Tap a star to open a life · drag to pan · scroll to zoom</p>
-    </div>
+    <div class="explore-header"><h2>Constellation</h2><button type="button" class="btn btn-ghost btn-sm" id="explore-close">Close</button></div>
+    <div class="explore-canvas-wrap"><canvas id="explore-canvas"></canvas><p class="explore-hint">Tap a star to open a life · drag to pan · scroll to zoom</p></div>
   </div>
-
-  <script src="data.js"></script>
+  <script src="data1.js"></script>
+  <script src="data2.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
