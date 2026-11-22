@@ -5,28 +5,26 @@
 (function (global) {
   var P = {
   "view": 64,
-  "y0": 7,
-  "y1": 57,
-  "turns": 2.35,
-  "leanDeg": 8.5,
-  "radiusEnd": 6.4,
-  "radiusMid": 14.6,
-  "strokeEnd": 0.62,
-  "strokeMid": 2.4,
-  "samples": 80,
+  "y0": 7.2,
+  "y1": 56.8,
+  "turns": 1.75,
+  "leanDeg": 6,
+  "radiusEnd": 9.2,
+  "radiusMid": 13.6,
+  "strokeEnd": 0.58,
+  "strokeMid": 0.88,
+  "samples": 96,
   "rungScales": [
-    0.58,
-    0.8,
-    0.68,
+    0.92,
+    0.97,
     1,
-    0.7,
-    0.82,
-    0.6
+    0.94,
+    0.96
   ],
-  "rungWidth": 1.7,
-  "rungT0": 0.13,
-  "rungT1": 0.87,
-  "staticPhase": 0.9738937226128359,
+  "rungWidth": 1.28,
+  "rungT0": 0.17,
+  "rungT1": 0.83,
+  "staticPhase": 1.319468914507713,
   "periodMs": 9000
 };
   var TAU = Math.PI * 2;
@@ -35,6 +33,7 @@
   function env(t) { return Math.pow(Math.sin(Math.PI * t), 0.82); }
   function fmt(n) { return n.toFixed(2); }
   function clamp(n, a, b) { return Math.max(a, Math.min(b, n)); }
+  function depthNorm(z) { return clamp(0.5 + 0.5 * (z / P.radiusMid), 0, 1); }
 
   function pt(s, t, phase) {
     var lean = P.leanDeg * Math.PI / 180;
@@ -63,7 +62,7 @@
     var b = atEnd ? points[points.length - 1] : points[0];
     var dx = b.x - a.x, dy = b.y - a.y;
     var len = Math.hypot(dx, dy) || 1;
-    var ext = Math.max(b.w * 0.85, 0.35);
+    var ext = Math.max(b.w * 0.9, 0.28);
     return { x: b.x + (dx / len) * ext, y: b.y + (dy / len) * ext };
   }
 
@@ -121,6 +120,15 @@
     return s / pts.length;
   }
 
+  function scaleRun(points, widthScale) {
+    var out = [], i, p;
+    for (i = 0; i < points.length; i++) {
+      p = points[i];
+      out.push({ x: p.x, y: p.y, z: p.z, t: p.t, s: p.s, w: p.w * widthScale });
+    }
+    return out;
+  }
+
   function setGroup(el, html) {
     if (!el) return;
     while (el.firstChild) el.removeChild(el.firstChild);
@@ -135,14 +143,22 @@
   function draw(svg, prefix, phase) {
     var live = svg.querySelector("#" + prefix + "-live");
     if (!live) return;
-    var items = [], s, i, n = P.samples, pts, k, run, ts, t, a, b, mx, my, ax, ay, bx, by, len, z, op, r;
+    var items = [], s, i, n = P.samples, pts, k, run, r, ts, t, a, b, mx, my, ax, ay, bx, by, len, z, dn, op, w;
     for (s = 0; s < 2; s++) {
       pts = [];
       for (i = 0; i <= n; i++) pts.push(pt(s, i / n, phase));
       run = runs(pts);
       for (i = 0; i < run.length; i++) {
         r = run[i];
-        items.push({ kind: "strand", z: meanZ(r.points), d: ribbon(r.points, r.capStart, r.capEnd) });
+        z = meanZ(r.points);
+        dn = depthNorm(z);
+        items.push({
+          kind: "strand",
+          s: s,
+          z: z,
+          op: lerp(0.72, 1, dn),
+          d: ribbon(scaleRun(r.points, lerp(0.86, 1, dn)), r.capStart, r.capEnd)
+        });
       }
     }
     ts = P.rungScales;
@@ -150,21 +166,27 @@
       t = lerp(P.rungT0, P.rungT1, ts.length === 1 ? 0.5 : k / (ts.length - 1));
       a = pt(0, t, phase); b = pt(1, t, phase);
       mx = (a.x + b.x) / 2; my = (a.y + b.y) / 2;
-      ax = mx + (a.x - mx) * ts[k]; ay = my + (a.y - my) * ts[k];
-      bx = mx + (b.x - mx) * ts[k]; by = my + (b.y - my) * ts[k];
+      ax = mx + (a.x - mx) * ts[k] * 0.96; ay = my + (a.y - my) * ts[k] * 0.96;
+      bx = mx + (b.x - mx) * ts[k] * 0.96; by = my + (b.y - my) * ts[k] * 0.96;
       len = Math.hypot(bx - ax, by - ay);
-      if (len < 1.1) continue;
+      if (len < 0.35) continue;
       z = (a.z + b.z) / 2;
-      op = clamp(0.22 + 0.55 * (0.5 + 0.5 * (z / P.radiusMid)), 0.14, 0.8);
-      items.push({ kind: "rung", z: z, d: "M" + fmt(ax) + " " + fmt(ay) + "L" + fmt(bx) + " " + fmt(by), op: op });
+      dn = depthNorm(z);
+      op = lerp(0.62, 0.96, dn);
+      w = lerp(P.rungWidth * 0.85, P.rungWidth, dn);
+      items.push({ kind: "rung", z: z, d: "M" + fmt(ax) + " " + fmt(ay) + "L" + fmt(bx) + " " + fmt(by), op: op, w: w });
     }
     items.sort(function (u, v) { return u.z - v.z; });
-    var h = "", gs = "url(#" + prefix + "-grad)", gr = "url(#" + prefix + "-rung)";
+    var h = "";
     for (i = 0; i < items.length; i++) {
-      if (items[i].kind === "strand") h += '<path d="' + items[i].d + '" fill="' + gs + '"/>';
-      else h += '<path d="' + items[i].d + '" fill="none" stroke="' + gr + '" stroke-width="' + P.rungWidth + '" stroke-linecap="round" opacity="' + items[i].op.toFixed(2) + '"/>';
+      if (items[i].kind === "strand") {
+        h += '<path d="' + items[i].d + '" fill="url(#' + prefix + "-grad" + items[i].s + ')" opacity="' + items[i].op.toFixed(2) + '"/>';
+      } else {
+        h += '<path d="' + items[i].d + '" fill="none" stroke="url(#' + prefix + '-rung)" stroke-width="' + items[i].w.toFixed(2) + '" stroke-linecap="round" opacity="' + items[i].op.toFixed(2) + '"/>';
+      }
     }
-    setGroup(live, h); setGroup(svg.querySelector("#" + prefix + "-glow-layer"), h);
+    setGroup(live, h);
+    setGroup(svg.querySelector("#" + prefix + "-glow-layer"), h);
   }
 
   function start(svg) {

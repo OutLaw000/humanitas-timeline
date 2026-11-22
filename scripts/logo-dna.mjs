@@ -6,16 +6,19 @@
  * trace, import, or embed any stock icon, clip art, or third-party path data.
  * Every coordinate is computed from the parameters below and written to SVG.
  *
- * Signature ("leaning lantern"):
- *   - 2.35 turns (not an integer), so the top and bottom do not mirror
- *   - axis leans 8.5° in the plane
- *   - radius swells in the middle and tapers at the ends (lantern envelope)
- *   - strands themselves taper to points, drawn as continuous ribbons
- *   - seven rungs in a short–long rhythm with a slightly longer "key" rung
- *     just above center
+ * Signature (refined "leaning lantern"):
+ *   - 1.75 turns so the ladder stays legible at 34px / 32px
+ *   - axis leans 6° in the plane
+ *   - slight mid-swell and tapered, pointed strand ends
+ *   - two thin, separate backbones (stroke about one-third the first draft)
+ *   - strand A: mint teal → gold; strand B: gold → pink-violet
+ *   - five rungs in a short–long rhythm with a slightly longer "key" rung
+ *     just above center; rungs fade and thin with depth
+ *   - back segments are dimmer and slightly thinner; front segments are brighter
  *
  * Usage: node scripts/logo-dna.mjs
- * Writes: logos/dna-strand.svg, logos/dna-strand-inline.svg, favicon.svg
+ * Writes: logos/dna-strand.svg, logos/dna-strand-inline.svg,
+ *         logos/dna-runtime.js, favicon.svg
  */
 
 import { writeFileSync, mkdirSync } from "node:fs";
@@ -26,20 +29,23 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 export const PARAMS = {
   view: 64,
-  y0: 7.0,
-  y1: 57.0,
-  turns: 2.35,
-  leanDeg: 8.5,
-  radiusEnd: 6.4,
-  radiusMid: 14.6,
-  strokeEnd: 0.62,
-  strokeMid: 2.4,
-  samples: 80,
-  rungScales: [0.58, 0.8, 0.68, 1, 0.7, 0.82, 0.6],
-  rungWidth: 1.7,
-  rungT0: 0.13,
-  rungT1: 0.87,
-  staticPhase: Math.PI * 0.31,
+  y0: 7.2,
+  y1: 56.8,
+  turns: 1.75,
+  leanDeg: 6,
+  radiusEnd: 9.2,
+  radiusMid: 13.6,
+  // Half-widths. Mid total width is 1.6 units vs 4.8 in the first draft (~1/3).
+  strokeEnd: 0.58,
+  strokeMid: 0.88,
+  samples: 96,
+  // Five rungs; index 2 is the slightly longer "key" rung.
+  rungScales: [0.92, 0.97, 1, 0.94, 0.96],
+  rungWidth: 1.28,
+  rungT0: 0.17,
+  rungT1: 0.83,
+  // 3/4 ladder: rungs read clearly, crossings stay visible.
+  staticPhase: Math.PI * 0.42,
   periodMs: 9000,
   colors: {
     teal: "#5eead4",
@@ -102,11 +108,11 @@ function meanZ(pts) {
   return pts.reduce((s, p) => s + p.z, 0) / pts.length;
 }
 
-/**
- * Split a sampled strand into contiguous runs around z = 0.
- * Each run overlaps the crossing by one sample so seams don't show,
- * and we tag which ends are true tips (rounded) vs depth cuts (butt).
- */
+/** 0 = far back, 1 = nearest front. */
+function depthNorm(z, p = PARAMS) {
+  return clamp(0.5 + 0.5 * (z / p.radiusMid), 0, 1);
+}
+
 function splitRuns(pts) {
   const runs = [];
   let start = 0;
@@ -115,11 +121,11 @@ function splitRuns(pts) {
     const b = pts[i];
     const crossed = !(a.z === 0 || b.z === 0 || (a.z < 0) === (b.z < 0));
     if (crossed) {
-      const slice = pts.slice(start, i + 1); // overlap past the cut
+      const slice = pts.slice(start, i + 1);
       if (slice.length >= 2) {
         runs.push({ points: slice, capStart: start === 0, capEnd: false });
       }
-      start = i - 1; // overlap the previous sample
+      start = i - 1;
     }
   }
   const tail = pts.slice(start);
@@ -129,7 +135,6 @@ function splitRuns(pts) {
   return runs;
 }
 
-/** Continuous tapered ribbon. Rounded caps only on true tips, not depth cuts. */
 export function ribbonPath(points, capStart = true, capEnd = true) {
   if (points.length < 2) return "";
   const left = [];
@@ -148,9 +153,7 @@ export function ribbonPath(points, capStart = true, capEnd = true) {
   }
   let d = `M${fmt(left[0][0])} ${fmt(left[0][1])}`;
   for (let i = 1; i < left.length; i++) d += `L${fmt(left[i][0])} ${fmt(left[i][1])}`;
-  const last = points[points.length - 1];
   const rLast = right[right.length - 1];
-  // Pointed tips (signature taper). Depth cuts close with a butt join.
   if (capEnd) {
     const tip = extendTip(points, true);
     d += `L${fmt(tip.x)} ${fmt(tip.y)}L${fmt(rLast[0])} ${fmt(rLast[1])}`;
@@ -173,8 +176,12 @@ function extendTip(points, atEnd) {
   const dx = b.x - a.x;
   const dy = b.y - a.y;
   const len = Math.hypot(dx, dy) || 1;
-  const ext = Math.max(b.w * 0.85, 0.35);
+  const ext = Math.max(b.w * 0.9, 0.28);
   return { x: b.x + (dx / len) * ext, y: b.y + (dy / len) * ext };
+}
+
+function scaleRun(points, widthScale) {
+  return points.map((pt) => ({ ...pt, w: pt.w * widthScale }));
 }
 
 function rungItems(phase, p = PARAMS) {
@@ -187,19 +194,24 @@ function rungItems(phase, p = PARAMS) {
     const b0 = helixPoint(1, t, phase, p);
     const mx = (a0.x + b0.x) / 2;
     const my = (a0.y + b0.y) / 2;
-    const ax = mx + (a0.x - mx) * scale;
-    const ay = my + (a0.y - my) * scale;
-    const bx = mx + (b0.x - mx) * scale;
-    const by = my + (b0.y - my) * scale;
+    // Leave a hairline inset so the rung meets the backbone without covering it.
+    const inset = 0.96;
+    const ax = mx + (a0.x - mx) * scale * inset;
+    const ay = my + (a0.y - my) * scale * inset;
+    const bx = mx + (b0.x - mx) * scale * inset;
+    const by = my + (b0.y - my) * scale * inset;
     const len = Math.hypot(bx - ax, by - ay);
-    if (len < 1.1) continue;
+    if (len < 0.35) continue;
     const z = (a0.z + b0.z) / 2;
-    const opacity = clamp(0.22 + 0.55 * (0.5 + 0.5 * (z / p.radiusMid)), 0.14, 0.8);
+    const dn = depthNorm(z, p);
+    const opacity = lerp(0.62, 0.96, dn);
+    const width = lerp(p.rungWidth * 0.85, p.rungWidth, dn);
     out.push({
       kind: "rung",
       z,
       d: `M${fmt(ax)} ${fmt(ay)}L${fmt(bx)} ${fmt(by)}`,
       opacity,
+      width,
     });
   }
   return out;
@@ -211,7 +223,16 @@ export function primitives(phase, p = PARAMS) {
     const pts = [];
     for (let i = 0; i <= p.samples; i++) pts.push(helixPoint(s, i / p.samples, phase, p));
     for (const run of splitRuns(pts)) {
-      items.push({ kind: "strand", z: meanZ(run.points), d: ribbonPath(run.points, run.capStart, run.capEnd) });
+      const z = meanZ(run.points);
+      const dn = depthNorm(z, p);
+      const points = scaleRun(run.points, lerp(0.86, 1, dn));
+      items.push({
+        kind: "strand",
+        s,
+        z,
+        opacity: lerp(0.72, 1, dn),
+        d: ribbonPath(points, run.capStart, run.capEnd),
+      });
     }
   }
   items.push(...rungItems(phase, p));
@@ -220,14 +241,16 @@ export function primitives(phase, p = PARAMS) {
 }
 
 function markupFromPrimitives(items, prefix) {
-  const fillS = `url(#${prefix}-grad)`;
-  const strokeR = `url(#${prefix}-rung)`;
   let out = "";
   for (const it of items) {
     if (it.kind === "strand") {
-      out += `<path d="${it.d}" fill="${fillS}"/>`;
+      const fill = `url(#${prefix}-grad${it.s})`;
+      const op = it.opacity.toFixed(2);
+      out += `<path d="${it.d}" fill="${fill}" opacity="${op}"/>`;
     } else {
-      out += `<path d="${it.d}" fill="none" stroke="${strokeR}" stroke-width="${PARAMS.rungWidth}" stroke-linecap="round" opacity="${it.opacity.toFixed(2)}"/>`;
+      const stroke = `url(#${prefix}-rung)`;
+      const w = (it.width ?? PARAMS.rungWidth).toFixed(2);
+      out += `<path d="${it.d}" fill="none" stroke="${stroke}" stroke-width="${w}" stroke-linecap="round" opacity="${it.opacity.toFixed(2)}"/>`;
     }
   }
   return out;
@@ -237,9 +260,12 @@ function defs(prefix, { glow } = {}) {
   const { teal, gold, violet } = PARAMS.colors;
   return `
   <defs>
-    <linearGradient id="${prefix}-grad" x1="18" y1="6" x2="48" y2="58" gradientUnits="userSpaceOnUse" color-interpolation="sRGB">
+    <linearGradient id="${prefix}-grad0" x1="24" y1="8" x2="40" y2="56" gradientUnits="userSpaceOnUse" color-interpolation="sRGB">
       <stop offset="0%" stop-color="${teal}"/>
-      <stop offset="46%" stop-color="${gold}"/>
+      <stop offset="100%" stop-color="${gold}"/>
+    </linearGradient>
+    <linearGradient id="${prefix}-grad1" x1="24" y1="8" x2="40" y2="56" gradientUnits="userSpaceOnUse" color-interpolation="sRGB">
+      <stop offset="0%" stop-color="${gold}"/>
       <stop offset="100%" stop-color="${violet}"/>
     </linearGradient>
     <linearGradient id="${prefix}-rung" x1="20" y1="14" x2="44" y2="50" gradientUnits="userSpaceOnUse" color-interpolation="sRGB">
@@ -249,8 +275,8 @@ function defs(prefix, { glow } = {}) {
     </linearGradient>
     ${
       glow
-        ? `<filter id="${prefix}-glow" x="-35%" y="-35%" width="170%" height="170%">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="0.9"/>
+        ? `<filter id="${prefix}-glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="0.5"/>
     </filter>`
         : ""
     }
@@ -265,12 +291,12 @@ export function buildSvg(opts = {}) {
   const body = markupFromPrimitives(items, prefix);
   const glowStyle = glow
     ? `#${prefix}-glow-layer{animation:${prefix}-breathe 4.2s ease-in-out infinite}` +
-      `@keyframes ${prefix}-breathe{0%,100%{opacity:.32}50%{opacity:.62}}` +
-      `@media (prefers-reduced-motion:reduce){#${prefix}-glow-layer{animation:none!important;opacity:.32}}`
+      `@keyframes ${prefix}-breathe{0%,100%{opacity:.22}50%{opacity:.42}}` +
+      `@media (prefers-reduced-motion:reduce){#${prefix}-glow-layer{animation:none!important;opacity:.22}}`
     : "";
   const style = `<style>${glowStyle}</style>`;
   const glowLayer = glow
-    ? `<g id="${prefix}-glow-layer" filter="url(#${prefix}-glow)" opacity=".4">${body}</g>`
+    ? `<g id="${prefix}-glow-layer" filter="url(#${prefix}-glow)" opacity=".28">${body}</g>`
     : "";
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${p.view} ${p.view}" fill="none" role="img" aria-label="Humanitas" class="humanitas-dna" data-dna-prefix="${prefix}">
@@ -292,11 +318,12 @@ export function buildInline(opts = {}) {
 export function buildFaviconSvg() {
   const saved = { ...PARAMS };
   Object.assign(PARAMS, {
-    samples: 64,
-    strokeEnd: 0.85,
-    strokeMid: 2.75,
-    radiusEnd: 6.8,
-    radiusMid: 15.0,
+    samples: 80,
+    strokeEnd: 0.7,
+    strokeMid: 1.08,
+    radiusEnd: 9.6,
+    radiusMid: 14.0,
+    rungWidth: 1.4,
   });
   const prefix = "fav";
   const items = primitives(PARAMS.staticPhase, PARAMS);
@@ -309,11 +336,6 @@ export function buildFaviconSvg() {
 </svg>`;
 }
 
-/**
- * Browser runtime: same math as this generator. Written to logos/dna-runtime.js
- * so the inline SVGs stay script-free (safe to place in HTML) and one file
- * can animate every .humanitas-dna mark on the page.
- */
 export function buildRuntimeJs(p = PARAMS) {
   const payload = {
     view: p.view,
@@ -345,6 +367,7 @@ export function buildRuntimeJs(p = PARAMS) {
   function env(t) { return Math.pow(Math.sin(Math.PI * t), 0.82); }
   function fmt(n) { return n.toFixed(2); }
   function clamp(n, a, b) { return Math.max(a, Math.min(b, n)); }
+  function depthNorm(z) { return clamp(0.5 + 0.5 * (z / P.radiusMid), 0, 1); }
 
   function pt(s, t, phase) {
     var lean = P.leanDeg * Math.PI / 180;
@@ -373,7 +396,7 @@ export function buildRuntimeJs(p = PARAMS) {
     var b = atEnd ? points[points.length - 1] : points[0];
     var dx = b.x - a.x, dy = b.y - a.y;
     var len = Math.hypot(dx, dy) || 1;
-    var ext = Math.max(b.w * 0.85, 0.35);
+    var ext = Math.max(b.w * 0.9, 0.28);
     return { x: b.x + (dx / len) * ext, y: b.y + (dy / len) * ext };
   }
 
@@ -431,6 +454,15 @@ export function buildRuntimeJs(p = PARAMS) {
     return s / pts.length;
   }
 
+  function scaleRun(points, widthScale) {
+    var out = [], i, p;
+    for (i = 0; i < points.length; i++) {
+      p = points[i];
+      out.push({ x: p.x, y: p.y, z: p.z, t: p.t, s: p.s, w: p.w * widthScale });
+    }
+    return out;
+  }
+
   function setGroup(el, html) {
     if (!el) return;
     while (el.firstChild) el.removeChild(el.firstChild);
@@ -445,14 +477,22 @@ export function buildRuntimeJs(p = PARAMS) {
   function draw(svg, prefix, phase) {
     var live = svg.querySelector("#" + prefix + "-live");
     if (!live) return;
-    var items = [], s, i, n = P.samples, pts, k, run, ts, t, a, b, mx, my, ax, ay, bx, by, len, z, op, r;
+    var items = [], s, i, n = P.samples, pts, k, run, r, ts, t, a, b, mx, my, ax, ay, bx, by, len, z, dn, op, w;
     for (s = 0; s < 2; s++) {
       pts = [];
       for (i = 0; i <= n; i++) pts.push(pt(s, i / n, phase));
       run = runs(pts);
       for (i = 0; i < run.length; i++) {
         r = run[i];
-        items.push({ kind: "strand", z: meanZ(r.points), d: ribbon(r.points, r.capStart, r.capEnd) });
+        z = meanZ(r.points);
+        dn = depthNorm(z);
+        items.push({
+          kind: "strand",
+          s: s,
+          z: z,
+          op: lerp(0.72, 1, dn),
+          d: ribbon(scaleRun(r.points, lerp(0.86, 1, dn)), r.capStart, r.capEnd)
+        });
       }
     }
     ts = P.rungScales;
@@ -460,21 +500,27 @@ export function buildRuntimeJs(p = PARAMS) {
       t = lerp(P.rungT0, P.rungT1, ts.length === 1 ? 0.5 : k / (ts.length - 1));
       a = pt(0, t, phase); b = pt(1, t, phase);
       mx = (a.x + b.x) / 2; my = (a.y + b.y) / 2;
-      ax = mx + (a.x - mx) * ts[k]; ay = my + (a.y - my) * ts[k];
-      bx = mx + (b.x - mx) * ts[k]; by = my + (b.y - my) * ts[k];
+      ax = mx + (a.x - mx) * ts[k] * 0.96; ay = my + (a.y - my) * ts[k] * 0.96;
+      bx = mx + (b.x - mx) * ts[k] * 0.96; by = my + (b.y - my) * ts[k] * 0.96;
       len = Math.hypot(bx - ax, by - ay);
-      if (len < 1.1) continue;
+      if (len < 0.35) continue;
       z = (a.z + b.z) / 2;
-      op = clamp(0.22 + 0.55 * (0.5 + 0.5 * (z / P.radiusMid)), 0.14, 0.8);
-      items.push({ kind: "rung", z: z, d: "M" + fmt(ax) + " " + fmt(ay) + "L" + fmt(bx) + " " + fmt(by), op: op });
+      dn = depthNorm(z);
+      op = lerp(0.62, 0.96, dn);
+      w = lerp(P.rungWidth * 0.85, P.rungWidth, dn);
+      items.push({ kind: "rung", z: z, d: "M" + fmt(ax) + " " + fmt(ay) + "L" + fmt(bx) + " " + fmt(by), op: op, w: w });
     }
     items.sort(function (u, v) { return u.z - v.z; });
-    var h = "", gs = "url(#" + prefix + "-grad)", gr = "url(#" + prefix + "-rung)";
+    var h = "";
     for (i = 0; i < items.length; i++) {
-      if (items[i].kind === "strand") h += '<path d="' + items[i].d + '" fill="' + gs + '"/>';
-      else h += '<path d="' + items[i].d + '" fill="none" stroke="' + gr + '" stroke-width="' + P.rungWidth + '" stroke-linecap="round" opacity="' + items[i].op.toFixed(2) + '"/>';
+      if (items[i].kind === "strand") {
+        h += '<path d="' + items[i].d + '" fill="url(#' + prefix + "-grad" + items[i].s + ')" opacity="' + items[i].op.toFixed(2) + '"/>';
+      } else {
+        h += '<path d="' + items[i].d + '" fill="none" stroke="url(#' + prefix + '-rung)" stroke-width="' + items[i].w.toFixed(2) + '" stroke-linecap="round" opacity="' + items[i].op.toFixed(2) + '"/>';
+      }
     }
-    setGroup(live, h); setGroup(svg.querySelector("#" + prefix + "-glow-layer"), h);
+    setGroup(live, h);
+    setGroup(svg.querySelector("#" + prefix + "-glow-layer"), h);
   }
 
   function start(svg) {
