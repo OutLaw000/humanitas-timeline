@@ -1,0 +1,46 @@
+{
+  "_doc": "Community grading rubric. ONE file: edit here, nowhere else. Documented in docs/GRADING.md. Objective public signals only: never politics, party, sentiment or recent-news spikes.",
+  "version": 1,
+  "threshold": 60,
+  "gates": {
+    "requireHuman": true,
+    "requireEnglishWikipedia": true,
+    "blockedInstanceOf": ["Q15632617", "Q95074", "Q4271324", "Q3658341"],
+    "minLanguageEditionsDeceased": 8,
+    "minLanguageEditionsLiving": 20,
+    "minMedianMonthlyViews": 400
+  },
+  "components": {
+    "languageEditions": { "max": 30, "pointsPerEdition": 0.5, "note": "Wikipedia language editions with an article (Wikidata sitelinks)" },
+    "recordedAchievements": {
+      "max": 32,
+      "awards": { "perItem": 3, "cap": 12, "note": "distinct awards received (Wikidata P166)" },
+      "offices": { "perItem": 4, "cap": 12, "note": "distinct positions held (Wikidata P39)" },
+      "works": { "perItem": 2, "cap": 8, "note": "distinct notable works (Wikidata P800)" }
+    },
+    "articleDepth": { "max": 13, "fullPointsBytes": 80000, "note": "size of the English Wikipedia article" },
+    "readershipLongevity": {
+      "max": 25,
+      "windowMonths": 60,
+      "medianMonthlyViewsForFullPoints": 50000,
+      "activeMonthViews": 1000,
+      "minActiveShare": 0.7,
+      "shortHistoryCapShare": 0.4,
+      "note": "median monthly pageviews over five years; spikes cannot lift a median; thin or short histories are capped"
+    }
+  },
+  "limits": {
+    "requestsPerMinutePerClient": 12,
+    "requestsPerHourPerClient": 120,
+    "requestsPerMinuteGlobal": 150,
+    "freshGradingsPerMinuteGlobal": 30,
+    "communityAdditionsPerHour": 20,
+    "communityAdditionsPerDay": 100,
+    "communityMaxMembers": 2000,
+    "recentListSize": 40,
+    "weeklyCandidateCap": 600,
+    "weeklyTop": 20,
+    "gradeCacheDaysPass": 7,
+    "gradeCacheDaysFail": 2
+  }
+}

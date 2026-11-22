@@ -310,31 +310,11 @@ function openFigure(slug) {
   }
   const body = $("#drawer-body");
   if (!body) return;
-  const badges = (f.categories||[]).map((c) => `<span class="badge">${CATEGORY_LABELS[c]||c}</span>`).join(" ");
-  const quotes = (f.philosophy.keyQuotes||[]).map((q) => `<blockquote class="quote-block"><p>“${q.text}”</p>${q.source ? `<footer>— ${q.source}</footer>` : ""}</blockquote>`).join("");
-  const principles = (f.philosophy.corePrinciples||[]).map((p) => `<li style="margin:4px 0;color:#f5f7f8">· ${p}</li>`).join("");
-  const creations = (f.creations||[]).map((c) => {
-    const st = (STATUS_LABELS&&STATUS_LABELS[c.status]) || c.status;
-    return `<div class="creation-card"><div style="display:flex;justify-content:space-between;gap:8px"><div><h3>${c.name}</h3><div class="type">${c.type||""}</div></div><span class="badge badge-status ${c.status}">${st}</span></div><p>${c.description||""}</p>${c.modernPresence?`<p><span style="color:var(--fg-subtle)">Today: </span>${c.modernPresence}</p>`:""}</div>`;
-  }).join("");
-  const related = (f.relatedSlugs||[]).map((s) => findFigure(s)).filter(Boolean).map((r) => `<button type="button" class="related-btn" data-open="${r.slug}"><span><strong>${r.name}</strong><span>${r.epithet||""}</span></span><span>→</span></button>`).join("");
-  const today = (f.todayRelevance||[]).map((t) => `<p style="padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:var(--bg);margin:0 0 8px">${t}</p>`).join("");
-  const photo = figureImage(f, "drawer-photo");
-  const accomplishments = (f.accomplishments || []).map((a) => `<li>${a}</li>`).join("");
-  body.innerHTML = `${photo}<div class="tl-badges">${badges}</div><h1 id="drawer-title">${f.name}</h1><p class="epithet">${f.epithet||""}</p>
-    <dl class="drawer-dl"><div><dt>Lived</dt><dd>${formatLifespan(f)}</dd></div><div><dt>Era</dt><dd>${f.eraLabel||""}</dd></div><div><dt>Region</dt><dd>${f.region||""}</dd></div><div><dt>Civilization</dt><dd>${f.civilization||""}</dd></div></dl>
-    <div class="drawer-section"><p style="color:#f5f7f8;font-size:1.05rem">${f.summary||""}</p></div>
-    ${accomplishments ? `<div class="drawer-section"><h2>Greatest accomplishments</h2><ol class="accomplishments-list">${accomplishments}</ol></div>` : ""}
-    <div class="drawer-section"><h2>Historical life</h2>${(f.biography||[]).map((p)=>`<p>${p}</p>`).join("")}</div>
-    <div class="drawer-section"><h2>Philosophy of the human person</h2>
-      <p><strong style="color:var(--fg-subtle);font-size:11px;text-transform:uppercase;letter-spacing:.06em">View of humanity</strong><br/>${f.philosophy.viewOfHumanity||""}</p>
-      <p><strong style="color:var(--fg-subtle);font-size:11px;text-transform:uppercase;letter-spacing:.06em">How we should operate</strong><br/>${f.philosophy.howWeOperate||""}</p>
-      <p><strong style="color:var(--fg-subtle);font-size:11px;text-transform:uppercase;letter-spacing:.06em">Core principles</strong></p>
-      <ul style="list-style:none;padding:0;margin:0">${principles}</ul></div>
-    ${quotes ? `<div class="drawer-section"><h2>Words that endure</h2>${quotes}</div>` : ""}
-    <div class="drawer-section"><h2>Creations — standing, lost, living ideas</h2>${creations||"<p>See legacy.</p>"}</div>
-    <div class="drawer-section"><h2>Legacy & why it matters now</h2><p>${f.legacy||""}</p>${today}</div>
-    ${related ? `<div class="drawer-section"><h2>Related figures</h2><div class="related-list">${related}</div></div>` : ""}`;
+  const model = HumanitasBio.fromCurated(f, { CAT: CATEGORY_LABELS, STATUS: STATUS_LABELS, formatLifespan, sources: window.HUMANITAS_SOURCES, figures });
+  model.photo = figureImage(f, "drawer-photo");
+  model.related = model.related.map((r) => ({ ...r, href: "/figure/" + r.href.split("/").pop() }));
+  model.actions = `<div class="fig-actions"><a class="btn btn-ghost btn-sm" href="/figure/${f.slug}">Open full page</a></div>`;
+  body.innerHTML = HumanitasBio.render(model, { titleId: "drawer-title" });
   $("#drawer").hidden = false;
   $("#drawer-backdrop").hidden = false;
   document.body.style.overflow = "hidden";

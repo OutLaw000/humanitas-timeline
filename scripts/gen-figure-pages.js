@@ -23,6 +23,13 @@ const src = dataFiles
   .join("\n");
 eval(src.replace(/window\./g, "g.window."));
 const figures = g.window.HUMANITAS.figures;
+const Ed = require(path.join(root, "editorial.js"));
+let SOURCES = {};
+try {
+  const gs = { window: {} };
+  eval(fs.readFileSync(path.join(root, "data-sources.js"), "utf8").replace(/window\./g, "gs.window."));
+  SOURCES = gs.window.HUMANITAS_SOURCES || {};
+} catch (_) {}
 if (!figures || !figures.length) {
   throw new Error("no figures loaded");
 }
@@ -43,7 +50,7 @@ function setTagged(html, re, replacement) {
 }
 
 function description(f) {
-  return String(f.summary || f.epithet || "").slice(0, 160);
+  return String(Ed.trimLead(f.summary || "") || f.epithet || "").slice(0, 160);
 }
 
 function absUrl(url) {
@@ -98,11 +105,17 @@ function pageFor(f, template) {
     "@context": "https://schema.org",
     "@type": "Person",
     name: f.name,
-    description: f.summary,
+    description: Ed.trimLead(f.summary || ""),
     url: pageUrl,
     image: absUrl(f.image && f.image.url),
     birthDate: f.birthYear != null ? String(f.birthYear) : undefined,
     deathDate: f.deathYear != null ? String(f.deathYear) : undefined,
+    sameAs: SOURCES[f.slug]
+      ? [
+          "https://en.wikipedia.org/wiki/" + encodeURIComponent(SOURCES[f.slug].w).replace(/%2F/g, "/").replace(/%3A/g, ":"),
+          "https://www.wikidata.org/wiki/" + SOURCES[f.slug].q,
+        ]
+      : undefined,
   };
   Object.keys(ld).forEach((k) => {
     if (ld[k] === undefined) delete ld[k];

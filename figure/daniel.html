@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.css?v=12" />
+  <link rel="stylesheet" href="/styles.css?v=14" />
   <style>
     .fig-page { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; padding: 40px 20px 80px; }
     .fig-back { display: inline-flex; margin-bottom: 24px; color: var(--fg-muted); font-size: 14px; }
@@ -52,7 +52,7 @@
     .fig-missing { text-align: center; padding: 80px 20px; }
   </style>
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Person","name":"Daniel","description":"Exile who served empires without swallowing their gods—lions’ den, writing on the wall, and visions of kingdoms that fall.","url":"https://humanitysatlas.com/figure/daniel","image":"https://humanitysatlas.com/images/figures/daniel.jpg","birthDate":"-620","deathDate":"-538"}
+  {"@context":"https://schema.org","@type":"Person","name":"Daniel","description":"Exile who served empires without swallowing their gods—lions’ den, writing on the wall, and visions of kingdoms that fall.","url":"https://humanitysatlas.com/figure/daniel","image":"https://humanitysatlas.com/images/figures/daniel.jpg","birthDate":"-620","deathDate":"-538","sameAs":["https://en.wikipedia.org/wiki/Daniel_(biblical_figure)","https://www.wikidata.org/wiki/Q171724"]}
   </script>
 </head>
 <body>
@@ -105,6 +105,7 @@
       <nav class="nav">
         <a class="nav-btn" href="/#timeline">Timeline</a>
         <a class="nav-btn" href="/#thesis">Thesis</a>
+        <a class="nav-btn" href="/community">Community</a>
         <a class="nav-btn nav-btn-accent" href="/">Home</a>
       </nav>
     </div>
@@ -117,6 +118,7 @@
 
   <footer class="site-footer">
     <div class="footer-inner">
+      <nav class="footer-links" aria-label="More"><a href="/community">Community timeline</a><a href="/recent">Recently explored</a><a href="/trending">Most explored this week</a></nav>
       <ameriking-made></ameriking-made>
     </div>
   </footer>
@@ -132,6 +134,9 @@
   <script src="/data-enrichment.js"></script>
   <script src="/data-images.js"></script>
   <script src="/data-images-opt.js"></script>
+  <script src="/data-sources.js?v=1"></script>
+  <script src="/editorial.js?v=8"></script>
+  <script src="/bio.js?v=1"></script>
   <script src="/who-search.js"></script>
   <script>
     (() => {
@@ -219,51 +224,17 @@
       upsertMeta('link[rel="canonical"]', "rel", "canonical", pageUrl);
 
 
-      const badges = (f.categories || []).map((c) => `<span class="badge">${CAT[c] || c}</span>`).join(" ");
       const photo = f.image?.url
         ? `<figure class="fig-hero-photo">${(window.HUMANITAS && HUMANITAS.figurePicture) ? HUMANITAS.figurePicture(f, "", { alt: f.name, loading: "eager" }) : `<img src="${f.image.url}" alt="${f.name}" />`}<figcaption>${f.image.caption || f.name}${f.image.credit ? " · " + f.image.credit : ""}</figcaption></figure>`
         : "";
-      const principles = (f.philosophy?.corePrinciples || []).map((p) => `<li>${p}</li>`).join("");
-      const quotes = (f.philosophy?.keyQuotes || []).map((q) =>
-        `<blockquote class="quote-block"><p>“${q.text}”</p>${q.source ? `<footer>— ${q.source}</footer>` : ""}</blockquote>`
-      ).join("");
-      const creations = (f.creations || []).map((c) =>
-        `<div class="creation-card"><h3>${c.name}</h3><span class="badge badge-status ${c.status}">${STATUS[c.status] || c.status}</span><p>${c.description || ""}</p></div>`
-      ).join("");
-      const related = (f.relatedSlugs || []).map((s) => figures.find((x) => x.slug === s)).filter(Boolean)
-        .map((r) => `<a class="related-btn" href="/figure/${r.slug}"><span><strong>${r.name}</strong><span>${r.epithet || ""}</span></span><span>→</span></a>`).join("");
-
-      root.innerHTML = `
-        ${photo}
-        <div class="tl-badges">${badges}</div>
-        <h1>${f.name}</h1>
-        <p class="epithet">${f.epithet || ""}</p>
-        <dl class="fig-meta">
-          <div><dt>Lived</dt><dd>${formatLifespan(f)}</dd></div>
-          <div><dt>Era</dt><dd>${f.eraLabel || ""}</dd></div>
-          <div><dt>Region</dt><dd>${f.region || ""}</dd></div>
-          <div><dt>Civilization</dt><dd>${f.civilization || ""}</dd></div>
-        </dl>
-        <div class="fig-actions">
+      const model = HumanitasBio.fromCurated(f, { CAT, STATUS, formatLifespan, sources: window.HUMANITAS_SOURCES, figures });
+      model.photo = photo;
+      model.actions = `<div class="fig-actions">
           <a class="btn btn-primary btn-sm" href="/#figure=${f.slug}">Open in app</a>
           <button type="button" class="btn btn-ghost btn-sm" id="btn-share">Share</button>
           <a class="btn btn-ghost btn-sm" href="/embed/${f.slug}" target="_blank">Embed card</a>
-        </div>
-        <section><p style="color:var(--fg);font-size:1.08rem">${f.summary || ""}</p></section>
-        ${(f.accomplishments || []).length ? `<section><h2>Greatest accomplishments</h2><ol class="accomplishments-list">${(f.accomplishments || []).map((a) => `<li>${a}</li>`).join("")}</ol></section>` : ""}
-        <section><h2>Historical life</h2>${(f.biography || []).map((p) => `<p>${p}</p>`).join("")}</section>
-        <section>
-          <h2>Philosophy</h2>
-          <p><strong>View of humanity</strong><br/>${f.philosophy?.viewOfHumanity || ""}</p>
-          <p><strong>How we should operate</strong><br/>${f.philosophy?.howWeOperate || ""}</p>
-          <p><strong>Core principles</strong></p>
-          <ul>${principles}</ul>
-        </section>
-        ${quotes ? `<section><h2>Words that endure</h2>${quotes}</section>` : ""}
-        <section><h2>Creations</h2>${creations || "<p>—</p>"}</section>
-        <section><h2>Legacy</h2><p>${f.legacy || ""}</p></section>
-        ${related ? `<section><h2>Related figures</h2><div class="related-list">${related}</div></section>` : ""}
-      `;
+        </div>`;
+      root.innerHTML = HumanitasBio.render(model);
 
       document.getElementById("btn-share")?.addEventListener("click", async () => {
         const url = location.href;
@@ -272,6 +243,9 @@
         }
         try { await navigator.clipboard.writeText(url); alert("Link copied"); } catch { prompt("Copy:", url); }
       });
+
+      // Anonymous exploration count (server validates the slug; nothing else is sent).
+      try { fetch("/api/explore", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ slug: f.slug }), keepalive: true }).catch(() => {}); } catch (_) {}
 
       // JSON-LD
       const ld = {

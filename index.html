@@ -27,7 +27,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=12" />
+  <link rel="stylesheet" href="styles.css?v=14" />
   <style>
     .ha-splash-overlay{display:none;position:fixed;inset:0;z-index:9999;align-items:center;justify-content:center;background:#03050a;color:#f5f7f8}
     html.ha-splash .ha-splash-overlay,html.ha-splash-out .ha-splash-overlay{display:flex}
@@ -156,6 +156,7 @@
       <nav class="nav">
         <button type="button" class="nav-btn" data-nav="timeline">Timeline</button>
         <button type="button" class="nav-btn" data-nav="thesis">Thesis</button>
+        <a class="nav-btn" href="/community">Community</a>
         <button type="button" class="nav-btn nav-btn-accent" data-nav="explore">Explore</button>
       </nav>
     </div>
@@ -225,7 +226,8 @@
 
     <section class="feature-section ak-section" id="studio-cta">
       <div class="section-inner">
-        <ameriking-made></ameriking-made>
+        <nav class="footer-links" aria-label="More"><a href="/community">Community timeline</a><a href="/recent">Recently explored</a><a href="/trending">Most explored this week</a></nav>
+      <ameriking-made></ameriking-made>
       </div>
     </section>
   </main>
@@ -269,6 +271,9 @@
   <script src="data-enrichment.js"></script>
   <script src="data-images.js"></script>
   <script src="data-images-opt.js"></script>
+  <script src="data-sources.js?v=1"></script>
+  <script src="editorial.js?v=8"></script>
+  <script src="bio.js?v=1"></script>
   <script src="field.js"></script>
   <script src="who-search.js"></script>
   <script src="app.js"></script>
