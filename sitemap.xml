@@ -4,6 +4,8 @@
   <url><loc>https://humanitysatlas.com/classroom</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://humanitysatlas.com/who</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://humanitysatlas.com/community</loc><changefreq>daily</changefreq><priority>0.5</priority></url>
+  <url><loc>https://humanitysatlas.com/recent</loc><changefreq>daily</changefreq><priority>0.4</priority></url>
+  <url><loc>https://humanitysatlas.com/trending</loc><changefreq>daily</changefreq><priority>0.4</priority></url>
   <url><loc>https://humanitysatlas.com/figure/hammurabi</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://humanitysatlas.com/figure/david</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://humanitysatlas.com/figure/solomon</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>

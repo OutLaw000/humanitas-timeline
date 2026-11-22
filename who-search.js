@@ -1,5 +1,5 @@
 /**
- * Header search: any name → catalog figure, generated public-record page, or roast.
+ * Header search: any name → catalog figure, generated public-record page, or a clean not-found.
  */
 (() => {
   const $ = (sel, el = document) => el.querySelector(sel);

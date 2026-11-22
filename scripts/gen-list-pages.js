@@ -45,7 +45,7 @@ for (const p of pages) {
   const footer = who.slice(footerStart, footerEnd);
   const tail = `
 
-  <script src="/list-pages.js?v=2"></script>
+  <script src="/list-pages.js?v=3"></script>
   <script src="https://ameriking.io/made.js?v=6" defer></script>
 <script src="/logos/dna-runtime.js" defer></script>
 </body>

@@ -521,6 +521,7 @@
       const verdict = j.community === "added" ? "Added to the <a href=\"/community\">Community timeline</a>."
         : j.community === "member" ? "On the <a href=\"/community\">Community timeline</a>."
         : j.community === "pending-store" ? "Qualifies for the <a href=\"/community\">Community timeline</a> (listing activates once the shared store is connected)."
+        : j.community === "queued-cap" ? "Qualifies for the <a href=\"/community\">Community timeline</a>; the list is at its hourly cap and will pick this up shortly."
         : "Below the Community threshold. Grades use public, objective signals only.";
       box.hidden = false;
       box.innerHTML = `<h2>Community grade</h2><p class="bio-grade-line"><strong>${j.score}</strong> / 100 · threshold ${j.threshold} · ${verdict}</p><p class="bio-source-note">Scored server-side from Wikipedia and Wikidata: languages, recorded awards, offices and works, article depth, and long-run readership. Never politics or sentiment. <a href="/community#rubric">See the rubric</a>.</p>`;

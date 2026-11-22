@@ -15,6 +15,46 @@
   const empty = (msg) => `<div class="list-empty"><p>${msg}</p><div class="who-actions"><a class="btn btn-primary btn-sm" href="/#timeline">See the 115</a><a class="btn btn-ghost btn-sm" href="/who">Search a name</a></div></div>`;
   const offline = `<div class="list-empty"><p><strong>Not connected yet.</strong> These lists are backed by a small anonymous store that has not been switched on for this deployment, so nothing is recorded or shown here yet.</p></div>`;
 
+  function portrait(it) {
+    const fallback = `<div class="tl-portrait-fallback" aria-hidden="true"><span>${initial(it.name)}</span></div>`;
+    if (it.slug) {
+      const s = encodeURIComponent(it.slug);
+      const onerr =
+        "this.onerror=null;this.style.display='none';var pic=this.closest('picture');if(pic)pic.remove();";
+      return `<div class="tl-portrait">${fallback}<picture>
+        <source type="image/avif" srcset="/images/figures/${s}.avif">
+        <source type="image/webp" srcset="/images/figures/${s}.webp">
+        <img src="/images/figures/${s}.jpg" alt="" loading="lazy" decoding="async" onerror="${onerr}">
+      </picture></div>`;
+    }
+    return `<div class="tl-portrait" data-wiki-name="${esc(it.name)}">${fallback}</div>`;
+  }
+
+  function fillWikiThumbs(box) {
+    box.querySelectorAll("[data-wiki-name]").forEach(async (el) => {
+      const name = el.getAttribute("data-wiki-name");
+      if (!name) return;
+      try {
+        const r = await fetch(
+          "https://en.wikipedia.org/api/rest_v1/page/summary/" + encodeURIComponent(name.replace(/ /g, "_")),
+          { headers: { Accept: "application/json" } }
+        );
+        if (!r.ok) return;
+        const s = await r.json();
+        const src = s && s.thumbnail && s.thumbnail.source;
+        if (!src) return;
+        const img = document.createElement("img");
+        img.src = String(src).split("?")[0];
+        img.alt = "";
+        img.loading = "lazy";
+        img.decoding = "async";
+        img.referrerPolicy = "no-referrer";
+        img.onerror = () => img.remove();
+        el.appendChild(img);
+      } catch {}
+    });
+  }
+
   function renderCommunity(j) {
     if (!j.items.length) return empty("No one has qualified yet. Search a name: if their public record clears the threshold, they appear here automatically.");
     const items = j.items
@@ -22,7 +62,7 @@
         (it) => `<li class="tl-item">
         <span class="tl-dot" aria-hidden="true"></span>
         <a class="tl-person" href="${href(it)}">
-          <div class="tl-portrait"><div class="tl-portrait-fallback" aria-hidden="true"><span>${initial(it.name)}</span></div></div>
+          ${portrait(it)}
           <div class="tl-details">
             <div class="tl-year">${esc(span(it.birth, it.death))}</div>
             <h2 class="tl-name">${esc(it.name)}</h2>
@@ -76,6 +116,7 @@
       const j = await r.json();
       if (!j.configured) { root.innerHTML = offline; return; }
       root.innerHTML = kind === "community" ? renderCommunity(j) : renderRows(j, kind === "week");
+      fillWikiThumbs(root);
     } catch {
       root.innerHTML = offline;
     }
