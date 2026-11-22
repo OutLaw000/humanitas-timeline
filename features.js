@@ -15,7 +15,43 @@
     el._t = setTimeout(() => { el.hidden = true; }, 1800);
   }
 
-  function speakFigure(f, seconds = 55) {
+  const FEMALE =
+    /female|woman|zira|samantha|karen|aria|jenny|sonia|hazel|susan|moira|tessa|ava|zoe|victoria|allison|catherine|linda|michelle|eva|heera|nicky|fiona|kathy|\bana\b/i;
+  const NEURAL = /neural|natural|online|premium|enhanced|wavenet|studio/i;
+  const MALE = /male|\bman\b|david|mark|george|daniel|james|fred|\btom\b|ravi|richard|\balex\b|microsoft david|google us english$/i;
+  let cachedVoice = null;
+
+  function scoreVoice(v) {
+    const n = (v.name || "") + " " + (v.lang || "");
+    let s = 0;
+    if (FEMALE.test(n)) s += 80;
+    if (NEURAL.test(n)) s += 40;
+    if (/google uk english female/i.test(n)) s += 25;
+    if (/en-GB|en_GB|en-AU|en-IE/i.test(n)) s += 10;
+    if (/en-US|en_US/i.test(n)) s += 6;
+    if (MALE.test(n) && !/female/i.test(n)) s -= 120;
+    return s;
+  }
+
+  function pickWoman(voices) {
+    const en = voices.filter((v) => /^en(-|_)/i.test(v.lang) || /english/i.test(v.name));
+    const pool = (en.length ? en : voices).slice().sort((a, b) => scoreVoice(b) - scoreVoice(a));
+    const woman = pool.find((v) => scoreVoice(v) > 0);
+    return woman || pool[0] || null;
+  }
+
+  function loadVoices() {
+    return new Promise((resolve) => {
+      if (!window.speechSynthesis) return resolve([]);
+      const ready = () => resolve(speechSynthesis.getVoices() || []);
+      const now = speechSynthesis.getVoices();
+      if (now && now.length) return resolve(now);
+      speechSynthesis.addEventListener("voiceschanged", ready, { once: true });
+      setTimeout(ready, 600);
+    });
+  }
+
+  async function speakFigure(f, seconds = 55) {
     if (!window.speechSynthesis) {
       flashStatus("Speech not available here");
       return;
@@ -32,10 +68,15 @@
       f.legacy || "",
     ].filter(Boolean);
     const u = new SpeechSynthesisUtterance(parts.join(" ").slice(0, 1200));
-    u.rate = 0.95;
-    const voices = speechSynthesis.getVoices();
-    const en = voices.find((v) => /en[-_]?US|en[-_]?GB|English/i.test(v.lang + v.name));
-    if (en) u.voice = en;
+    u.lang = "en-GB";
+    u.rate = 0.88;
+    u.pitch = 1.04;
+    u.volume = 1;
+    if (!cachedVoice) cachedVoice = pickWoman(await loadVoices());
+    if (cachedVoice) {
+      u.voice = cachedVoice;
+      u.lang = cachedVoice.lang || u.lang;
+    }
     window.speechSynthesis.speak(u);
     setTimeout(() => {
       if (window.speechSynthesis.speaking) window.speechSynthesis.cancel();
@@ -103,6 +144,9 @@
     if (window.AmeriKingCTA?.render) window.AmeriKingCTA.render();
     bindFeatures();
     applyRoute();
+    loadVoices().then((list) => {
+      if (!cachedVoice) cachedVoice = pickWoman(list);
+    });
     if (core()) {
       const prev = core().onFigureOpen;
       core().onFigureOpen = (f) => {
