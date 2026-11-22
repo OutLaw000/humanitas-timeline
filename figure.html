@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.css?v=2" />
+  <link rel="stylesheet" href="/styles.css?v=4" />
   <style>
     .fig-page { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; padding: 40px 20px 80px; }
     .fig-back { display: inline-flex; margin-bottom: 24px; color: var(--fg-muted); font-size: 14px; }
@@ -36,6 +36,29 @@
   <canvas id="phylo-field" aria-hidden="true"></canvas>
   <div class="field-veil" aria-hidden="true"></div>
 
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a href="/" class="brand">
+        <span class="brand-mark" aria-hidden="true">H</span>
+        <span class="brand-text">
+          <span class="brand-name">Humanitas</span>
+          <span class="brand-sub">Phylogeny of greatness</span>
+        </span>
+      </a>
+      <form class="who-search" action="/who" method="get" role="search">
+        <label class="sr-only" for="who-q">Search any name</label>
+        <input id="who-q" name="q" type="search" placeholder="Search any name…" maxlength="80" autocomplete="off" enterkeyhint="search" />
+        <button type="submit">Search</button>
+        <div class="who-suggest" hidden></div>
+      </form>
+      <nav class="nav">
+        <a class="nav-btn" href="/#timeline">Timeline</a>
+        <a class="nav-btn" href="/#thesis">Thesis</a>
+        <a class="nav-btn nav-btn-accent" href="/">Home</a>
+      </nav>
+    </div>
+  </header>
+
   <main class="fig-page" id="fig-page">
     <a class="fig-back" href="/">← Humanitas timeline</a>
     <div id="fig-root"><p class="section-lead">Loading…</p></div>
@@ -55,6 +78,7 @@
   <script src="/data6.js"></script>
   <script src="/data-enrichment.js"></script>
   <script src="/data-images.js"></script>
+  <script src="/who-search.js"></script>
   <script>
     (() => {
       const figures = window.HUMANITAS.figures;

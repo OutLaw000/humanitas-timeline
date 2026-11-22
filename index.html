@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=2" />
+  <link rel="stylesheet" href="styles.css?v=4" />
 </head>
 <body>
   <canvas id="phylo-field" aria-hidden="true"></canvas>
@@ -30,6 +30,12 @@
           <span class="brand-sub">Phylogeny of greatness</span>
         </span>
       </a>
+      <form class="who-search" action="/who" method="get" role="search">
+        <label class="sr-only" for="who-q">Search any name</label>
+        <input id="who-q" name="q" type="search" placeholder="Search any name…" maxlength="80" autocomplete="off" enterkeyhint="search" />
+        <button type="submit">Search</button>
+        <div class="who-suggest" hidden></div>
+      </form>
       <nav class="nav">
         <button type="button" class="nav-btn" data-nav="timeline">Timeline</button>
         <button type="button" class="nav-btn" data-nav="thesis">Thesis</button>
@@ -144,6 +150,7 @@
   <script src="data-enrichment.js"></script>
   <script src="data-images.js"></script>
   <script src="field.js"></script>
+  <script src="who-search.js"></script>
   <script src="app.js"></script>
   <script src="https://ameriking.io/made.js?v=6" defer></script>
   <script src="features.js"></script>

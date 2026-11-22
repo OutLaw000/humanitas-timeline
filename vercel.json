@@ -4,7 +4,8 @@
   "trailingSlash": false,
   "rewrites": [
     { "source": "/figure/:path*", "destination": "/figure" },
-    { "source": "/embed/:path*", "destination": "/embed" }
+    { "source": "/embed/:path*", "destination": "/embed" },
+    { "source": "/who/:path*", "destination": "/who" }
   ],
   "headers": [
     {

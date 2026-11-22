@@ -16,6 +16,7 @@ let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
 xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
 xml += `  <url><loc>${base}/</loc><changefreq>weekly</changefreq><priority>1</priority></url>\n`;
 xml += `  <url><loc>${base}/classroom</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>\n`;
+xml += `  <url><loc>${base}/who</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
 for (const f of figs) {
   xml += `  <url><loc>${base}/figure/${f.slug}</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>\n`;
 }
@@ -25,4 +26,4 @@ fs.writeFileSync(
   path.join(root, "robots.txt"),
   `User-agent: *\nAllow: /\nSitemap: ${base}/sitemap.xml\n`
 );
-console.log("wrote sitemap with", figs.length + 2, "urls");
+console.log("wrote sitemap with", figs.length + 3, "urls");

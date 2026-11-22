@@ -10,6 +10,7 @@ Prophets, mothers of faith, Native nations, Americans, philosophers, and captain
 ## Pages
 - `/` timeline, search, constellation, thesis
 - `/figure/{slug}` single life
+- `/who?q=Name` lookup: the 110, a public encyclopedia record, or a roast if the archive is empty
 - `/classroom` printable discussion pack
 - `/embed/{slug}` embeddable card
 
