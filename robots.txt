@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /logo-preview
+Disallow: /embed
+Disallow: /api/
 Sitemap: https://humanitysatlas.com/sitemap.xml

@@ -7,7 +7,8 @@
   <meta name="description" content="Historical figure profile from Humanity’s Atlas — living phylogeny of greatness and truth." />
   <meta property="og:title" content="Figure — Humanity’s Atlas" />
   <meta property="og:description" content="Historical figure profile from Humanity’s Atlas — living phylogeny of greatness and truth." />
-  <meta property="og:type" content="article" />
+  <meta name="robots" content="noindex, follow" />
+  <meta property="og:type" content="profile" />
   <meta property="og:url" content="https://humanitysatlas.com/figure" />
   <meta property="og:site_name" content="Humanity’s Atlas" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -24,11 +25,10 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon.ico" sizes="32x32" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  <meta property="og:type" content="profile" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.css?v=14" />
+  <link rel="stylesheet" href="/styles.css?v=19" />
   <style>
     .fig-page { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; padding: 40px 20px 80px; }
     .fig-back { display: inline-flex; margin-bottom: 24px; color: var(--fg-muted); font-size: 14px; }
@@ -190,7 +190,23 @@
         return;
       }
 
-      document.title = f.name + " — Humanity’s Atlas";
+      function bindShare() {
+        document.getElementById("btn-share")?.addEventListener("click", async () => {
+          const url = location.href;
+          if (navigator.share) {
+            try { await navigator.share({ title: f.name, text: f.summary, url }); return; } catch (_) {}
+          }
+          try { await navigator.clipboard.writeText(url); alert("Link copied"); } catch { prompt("Copy:", url); }
+        });
+        try { fetch("/api/explore", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ slug: f.slug }), keepalive: true }).catch(() => {}); } catch (_) {}
+      }
+
+      if (root && root.getAttribute("data-static") === "1") {
+        bindShare();
+        return;
+      }
+
+      document.title = f.name + " — Biography | Humanity’s Atlas";
       const desc = (f.summary || f.epithet || "").slice(0, 160);
       document.querySelector('meta[name="description"]').setAttribute("content", desc);
       let og = document.querySelector('meta[property="og:title"]');
@@ -232,36 +248,7 @@
           <a class="btn btn-ghost btn-sm" href="/embed/${f.slug}" target="_blank">Embed card</a>
         </div>`;
       root.innerHTML = HumanitasBio.render(model);
-
-      document.getElementById("btn-share")?.addEventListener("click", async () => {
-        const url = location.href;
-        if (navigator.share) {
-          try { await navigator.share({ title: f.name, text: f.summary, url }); return; } catch (_) {}
-        }
-        try { await navigator.clipboard.writeText(url); alert("Link copied"); } catch { prompt("Copy:", url); }
-      });
-
-      // Anonymous exploration count (server validates the slug; nothing else is sent).
-      try { fetch("/api/explore", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ slug: f.slug }), keepalive: true }).catch(() => {}); } catch (_) {}
-
-      // JSON-LD
-      const ld = {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        name: f.name,
-        description: f.summary,
-        url: location.href,
-        image: f.image?.url || undefined,
-        birthDate: String(f.birthYear),
-        deathDate: f.deathYear != null ? String(f.deathYear) : undefined,
-      };
-      let s = document.querySelector('script[type="application/ld+json"]');
-      if (!s) {
-        s = document.createElement("script");
-        s.type = "application/ld+json";
-        document.head.appendChild(s);
-      }
-      s.textContent = JSON.stringify(ld);
+      bindShare();
     })();
   </script>
   <script src="https://ameriking.io/made.js?v=6" defer></script>

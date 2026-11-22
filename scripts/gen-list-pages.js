@@ -15,10 +15,12 @@ const pages = [
     lead: "Search any name. If the public record is strong enough, they appear here — same biography as the 115." },
   { file: "recent.html", path: "/recent", kind: "recent", h1: "Recently explored", tab: "recent",
     title: "Recently explored — Humanity’s Atlas",
-    lead: "The latest people opened on Humanity’s Atlas. Anonymous: only who was opened is kept, never by whom." },
+    lead: "The latest people opened on Humanity’s Atlas. Anonymous: only who was opened is kept, never by whom.",
+    noindex: true },
   { file: "trending.html", path: "/trending", kind: "week", h1: "Most explored this week", tab: "week",
     title: "Most explored this week — Humanity’s Atlas",
-    lead: "Ranked by unique explorers this ISO week, so one person refreshing cannot move the list." },
+    lead: "Ranked by unique explorers this ISO week, so one person refreshing cannot move the list.",
+    noindex: true },
 ];
 const tab = (id, href, label, cur) => `<a class="list-tab${id === cur ? " is-active" : ""}" href="${href}"${id === cur ? ' aria-current="page"' : ""}>${label}</a>`;
 for (const p of pages) {
@@ -31,7 +33,20 @@ for (const p of pages) {
     .replace(/(<meta property="og:url" content=")[^"]*/, `$1https://humanitysatlas.com${p.path}`)
     .replace(/(<meta name="twitter:title" content=")[^"]*/, `$1${p.title}`)
     .replace(/(<meta name="twitter:description" content=")[^"]*/, `$1${p.lead}`)
-    .replace(/(<link rel="canonical" href=")[^"]*/, `$1https://humanitysatlas.com${p.path}`);
+    .replace(/(<link rel="canonical" href=")[^"]*/, `$1https://humanitysatlas.com${p.path}`)
+    .replace(/\s*<script type="application\/ld\+json">[\s\S]*?<\/script>/, "");
+  if (p.noindex) head += `  <meta name="robots" content="noindex, follow" />\n`;
+  else {
+    const ld = {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: p.title,
+      url: "https://humanitysatlas.com" + p.path,
+      description: p.lead,
+      isPartOf: { "@id": "https://humanitysatlas.com/#website" },
+    };
+    head += `  <script type="application/ld+json">\n  ${JSON.stringify(ld)}\n  </script>\n`;
+  }
   const header = who.slice(bodyStart, mainStart);
   const main = `<main class="who-page fig-page list-page" id="who-page">
     <a class="fig-back" href="/">← Humanity’s Atlas timeline</a>

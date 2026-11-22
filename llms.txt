@@ -1,0 +1,130 @@
+# Humanity’s Atlas
+
+> A living timeline of 115 historical figures who redirected humanity — law, faith, science, liberation, and ideas. Search any name. Biographies use public Wikipedia, Wikidata, and Wikiquote only.
+
+Site: https://humanitysatlas.com/
+
+## Pages
+- Homepage timeline: https://humanitysatlas.com/
+- Search any name: https://humanitysatlas.com/who?q={name}
+- Community (auto-graded public lives): https://humanitysatlas.com/community
+- Classroom pack: https://humanitysatlas.com/classroom
+
+## Figures
+Each curated life has a static page:
+
+- Noah: https://humanitysatlas.com/figure/noah
+- Imhotep: https://humanitysatlas.com/figure/imhotep
+- Abraham: https://humanitysatlas.com/figure/abraham
+- Hammurabi: https://humanitysatlas.com/figure/hammurabi
+- Moses: https://humanitysatlas.com/figure/moses
+- Joshua: https://humanitysatlas.com/figure/joshua
+- Deborah: https://humanitysatlas.com/figure/deborah
+- Zoroaster (Zarathustra): https://humanitysatlas.com/figure/zoroaster
+- Gideon: https://humanitysatlas.com/figure/gideon
+- King David: https://humanitysatlas.com/figure/david
+- King Solomon: https://humanitysatlas.com/figure/solomon
+- Elijah: https://humanitysatlas.com/figure/elijah
+- Isaiah: https://humanitysatlas.com/figure/isaiah
+- Jeremiah: https://humanitysatlas.com/figure/jeremiah
+- Daniel: https://humanitysatlas.com/figure/daniel
+- Laozi (Lao Tzu): https://humanitysatlas.com/figure/laozi
+- Cyrus the Great: https://humanitysatlas.com/figure/cyrus-the-great
+- Siddhartha Gautama (the Buddha): https://humanitysatlas.com/figure/buddha
+- Confucius (Kong Qiu): https://humanitysatlas.com/figure/confucius
+- Socrates: https://humanitysatlas.com/figure/socrates
+- Hippocrates of Kos: https://humanitysatlas.com/figure/hippocrates
+- Plato: https://humanitysatlas.com/figure/plato
+- Aristotle: https://humanitysatlas.com/figure/aristotle
+- Alexander the Great: https://humanitysatlas.com/figure/alexander-the-great
+- Ashoka Maurya: https://humanitysatlas.com/figure/ashoka
+- Archimedes: https://humanitysatlas.com/figure/archimedes
+- Qin Shi Huang: https://humanitysatlas.com/figure/qin-shi-huang
+- Judah Maccabee: https://humanitysatlas.com/figure/judah-maccabee
+- Marcus Tullius Cicero: https://humanitysatlas.com/figure/cicero
+- Augustus (Octavian): https://humanitysatlas.com/figure/augustus
+- Mary of Nazareth: https://humanitysatlas.com/figure/mary
+- John the Baptist: https://humanitysatlas.com/figure/john-the-baptist
+- Jesus of Nazareth: https://humanitysatlas.com/figure/jesus
+- Paul the Apostle: https://humanitysatlas.com/figure/paul-the-apostle
+- Epictetus: https://humanitysatlas.com/figure/epictetus
+- Marcus Aurelius: https://humanitysatlas.com/figure/marcus-aurelius
+- Constantine the Great: https://humanitysatlas.com/figure/constantine
+- Augustine of Hippo: https://humanitysatlas.com/figure/augustine
+- Hypatia of Alexandria: https://humanitysatlas.com/figure/hypatia
+- Justinian I: https://humanitysatlas.com/figure/justinian
+- Muhammad ibn Abd Allah: https://humanitysatlas.com/figure/muhammad
+- Charles Martel: https://humanitysatlas.com/figure/charles-martel
+- Charlemagne: https://humanitysatlas.com/figure/charlemagne
+- Muḥammad ibn Mūsā al-Khwārizmī: https://humanitysatlas.com/figure/al-khwarizmi
+- Ibn Sina (Avicenna): https://humanitysatlas.com/figure/ibn-sina
+- Al-Ghazālī: https://humanitysatlas.com/figure/al-ghazali
+- Saladin (Ṣalāḥ ad-Dīn): https://humanitysatlas.com/figure/saladin
+- Moses Maimonides: https://humanitysatlas.com/figure/maimonides
+- Genghis Khan: https://humanitysatlas.com/figure/genghis-khan
+- Francis of Assisi: https://humanitysatlas.com/figure/francis-of-assisi
+- Jalal al-Din Rumi: https://humanitysatlas.com/figure/rumi
+- Thomas Aquinas: https://humanitysatlas.com/figure/thomas-aquinas
+- Johannes Gutenberg: https://humanitysatlas.com/figure/johannes-gutenberg
+- Hiawatha: https://humanitysatlas.com/figure/hiawatha
+- Joan of Arc: https://humanitysatlas.com/figure/joan-of-arc
+- Leonardo da Vinci: https://humanitysatlas.com/figure/leonardo-da-vinci
+- Guru Nanak: https://humanitysatlas.com/figure/guru-nanak
+- Nicolaus Copernicus: https://humanitysatlas.com/figure/nicolaus-copernicus
+- Martin Luther: https://humanitysatlas.com/figure/martin-luther
+- Galileo Galilei: https://humanitysatlas.com/figure/galileo
+- William Shakespeare: https://humanitysatlas.com/figure/william-shakespeare
+- John III Sobieski: https://humanitysatlas.com/figure/jan-sobieski
+- John Locke: https://humanitysatlas.com/figure/john-locke
+- Isaac Newton: https://humanitysatlas.com/figure/isaac-newton
+- Benjamin Franklin: https://humanitysatlas.com/figure/benjamin-franklin
+- Adam Smith: https://humanitysatlas.com/figure/adam-smith
+- Immanuel Kant: https://humanitysatlas.com/figure/immanuel-kant
+- George Washington: https://humanitysatlas.com/figure/george-washington
+- John Adams: https://humanitysatlas.com/figure/john-adams
+- James Watt: https://humanitysatlas.com/figure/james-watt
+- Thomas Jefferson: https://humanitysatlas.com/figure/thomas-jefferson
+- Edward Jenner: https://humanitysatlas.com/figure/edward-jenner
+- James Madison: https://humanitysatlas.com/figure/james-madison
+- Tecumseh: https://humanitysatlas.com/figure/tecumseh
+- Napoleon Bonaparte: https://humanitysatlas.com/figure/napoleon-bonaparte
+- Sequoyah: https://humanitysatlas.com/figure/sequoyah
+- Simón Bolívar: https://humanitysatlas.com/figure/simon-bolivar
+- Sacagawea: https://humanitysatlas.com/figure/sacagawea
+- Abraham Lincoln: https://humanitysatlas.com/figure/abraham-lincoln
+- Charles Darwin: https://humanitysatlas.com/figure/charles-darwin
+- Harriet Beecher Stowe: https://humanitysatlas.com/figure/harriet-beecher-stowe
+- Frederick Douglass: https://humanitysatlas.com/figure/frederick-douglass
+- Karl Marx: https://humanitysatlas.com/figure/karl-marx
+- Florence Nightingale: https://humanitysatlas.com/figure/florence-nightingale
+- Susan B. Anthony: https://humanitysatlas.com/figure/susan-b-anthony
+- Clara Barton: https://humanitysatlas.com/figure/clara-barton
+- Harriet Tubman: https://humanitysatlas.com/figure/harriet-tubman
+- Louis Pasteur: https://humanitysatlas.com/figure/louis-pasteur
+- Henry Dunant: https://humanitysatlas.com/figure/henry-dunant
+- Sitting Bull (Tȟatȟáŋka Íyotake): https://humanitysatlas.com/figure/sitting-bull
+- Crazy Horse (Tȟašúŋke Witkó): https://humanitysatlas.com/figure/crazy-horse
+- Chief Joseph (Hinmatóowyalahtq̓it): https://humanitysatlas.com/figure/chief-joseph
+- Thomas Edison: https://humanitysatlas.com/figure/thomas-edison
+- Black Elk (Heȟáka Sápa): https://humanitysatlas.com/figure/black-elk
+- George Washington Carver: https://humanitysatlas.com/figure/george-washington-carver
+- Marie Skłodowska Curie: https://humanitysatlas.com/figure/marie-curie
+- W. E. B. Du Bois: https://humanitysatlas.com/figure/w-e-b-du-bois
+- Mohandas K. Gandhi: https://humanitysatlas.com/figure/mahatma-gandhi
+- Winston Churchill: https://humanitysatlas.com/figure/winston-churchill
+- Albert Einstein: https://humanitysatlas.com/figure/albert-einstein
+- Alexander Fleming: https://humanitysatlas.com/figure/alexander-fleming
+- Franklin D. Roosevelt: https://humanitysatlas.com/figure/franklin-d-roosevelt
+- Eleanor Roosevelt: https://humanitysatlas.com/figure/eleanor-roosevelt
+- Rachel Carson: https://humanitysatlas.com/figure/rachel-carson
+- Mother Teresa: https://humanitysatlas.com/figure/mother-teresa
+- Alan Turing: https://humanitysatlas.com/figure/alan-turing
+- Rosa Parks: https://humanitysatlas.com/figure/rosa-parks
+- Jonas Salk: https://humanitysatlas.com/figure/jonas-salk
+- Norman Borlaug: https://humanitysatlas.com/figure/norman-borlaug
+- Nelson Mandela: https://humanitysatlas.com/figure/nelson-mandela
+- Martin Luther King Jr.: https://humanitysatlas.com/figure/martin-luther-king-jr
+- Desmond Tutu: https://humanitysatlas.com/figure/desmond-tutu
+- Wangari Maathai: https://humanitysatlas.com/figure/wangari-maathai
+- Tim Berners-Lee: https://humanitysatlas.com/figure/tim-berners-lee
+- Malala Yousafzai: https://humanitysatlas.com/figure/malala-yousafzai
