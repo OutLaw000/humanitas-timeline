@@ -22,12 +22,12 @@
   let raf = 0;
 
   const COLORS = {
-    life: [64, 224, 208],
+    life: [232, 184, 74],
     energy: [255, 184, 77],
     mind: [167, 139, 250],
     star: [220, 235, 255],
     warm: [255, 220, 180],
-    pairA: [45, 212, 191],
+    pairA: [232, 184, 74],
     pairT: [251, 146, 60],
     pairC: [129, 140, 248],
     pairG: [244, 114, 182],
@@ -414,7 +414,7 @@
   function drawGravityWell() {
     if (!pointer.active) return;
     const g = ctx.createRadialGradient(pointer.x, pointer.y, 0, pointer.x, pointer.y, 160);
-    g.addColorStop(0, 'rgba(64,224,208,0.1)');
+    g.addColorStop(0, 'rgba(232, 184, 74,0.1)');
     g.addColorStop(0.4, 'rgba(167,139,250,0.05)');
     g.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.fillStyle = g;
@@ -434,7 +434,7 @@
 
     const wash = ctx.createLinearGradient(0, 0, 0, innerHeight);
     wash.addColorStop(0, `rgba(8, 12, 32, ${0.2 + scrollP * 0.08})`);
-    wash.addColorStop(0.5, `rgba(4, 20, 28, ${0.1 + scrollP * 0.1})`);
+    wash.addColorStop(0.5, `rgba(28, 20, 4, ${0.1 + scrollP * 0.1})`);
     wash.addColorStop(1, `rgba(14, 6, 28, ${0.14 + scrollP * 0.12})`);
     ctx.fillStyle = wash;
     ctx.fillRect(0, 0, innerWidth, innerHeight);
