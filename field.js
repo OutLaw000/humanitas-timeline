@@ -131,23 +131,23 @@
       });
     }
 
-    // DNA lives in the fixed starfield, not on the living cell.
+    // DNA lives in the fixed starfield, off the living cell and off the type.
     helix = mobile()
       ? {
           cx: innerWidth * 0.9,
-          cy: innerHeight * 0.28,
-          amp: 18,
-          turns: 2.5,
-          h: 170,
-          a: 0.34,
+          cy: innerHeight * 0.22,
+          amp: 16,
+          turns: 2.4,
+          h: 150,
+          a: 0.36,
         }
       : {
-          cx: innerWidth * 0.13,
-          cy: innerHeight * 0.52,
-          amp: 26,
-          turns: 2.8,
-          h: 300,
-          a: 0.32,
+          cx: innerWidth * 0.91,
+          cy: innerHeight * 0.2,
+          amp: 22,
+          turns: 2.6,
+          h: 190,
+          a: 0.36,
         };
   }
 
