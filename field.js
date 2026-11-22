@@ -117,8 +117,8 @@
       });
     }
 
-    // Chromosomes (kept)
-    const cCount = mobile() ? 2 : 4;
+    // Chromosomes read as X-shapes on a wide canvas. Skip them on a phone.
+    const cCount = mobile() ? 0 : 4;
     for (let i = 0; i < cCount; i++) {
       chromosomes.push({
         x: (i + 0.5) * (innerWidth / (cCount + 0.5)) + (Math.random() - 0.5) * 40,
@@ -131,13 +131,23 @@
       });
     }
 
-    helix = {
-      cx: innerWidth * 0.78,
-      cy: Math.min(innerHeight * 0.42, 340),
-      amp: mobile() ? 0 : 42,
-      turns: 3.2,
-      h: mobile() ? 0 : 260,
-    };
+    helix = mobile()
+      ? {
+          cx: innerWidth * 0.82,
+          cy: innerHeight * 0.36,
+          amp: 22,
+          turns: 2.7,
+          h: 210,
+          a: 0.42,
+        }
+      : {
+          cx: innerWidth * 0.78,
+          cy: Math.min(innerHeight * 0.42, 340),
+          amp: 42,
+          turns: 3.2,
+          h: 260,
+          a: 0.55,
+        };
   }
 
   function makeMeteor(initial) {
@@ -383,15 +393,16 @@
 
   function drawDNAHelix() {
     if (!helix || !helix.amp) return;
-    const { cx, cy, amp, turns, h: hh } = helix;
-    const steps = 80;
-    ctx.lineWidth = 1.4;
+    const { cx, cy, amp, turns, h: hh, a } = helix;
+    const alpha = a == null ? 0.55 : a;
+    const steps = mobile() ? 56 : 80;
+    ctx.lineWidth = mobile() ? 1.7 : 1.4;
     ctx.lineCap = 'round';
 
     for (let strand = 0; strand < 2; strand++) {
       const offset = strand * Math.PI;
       const col = strand === 0 ? COLORS.pairA : COLORS.pairC;
-      ctx.strokeStyle = rgba(col, 0.55);
+      ctx.strokeStyle = rgba(col, alpha);
       ctx.beginPath();
       for (let i = 0; i <= steps; i++) {
         const u = i / steps;
@@ -411,8 +422,8 @@
       const x1 = cx + Math.sin(ang) * amp;
       const x2 = cx + Math.sin(ang + Math.PI) * amp;
       const pair = i % 6 === 0 ? COLORS.pairA : i % 6 === 3 ? COLORS.pairG : COLORS.pairT;
-      ctx.strokeStyle = rgba(pair, 0.35 + 0.2 * Math.sin(t * 0.004 + i));
-      ctx.lineWidth = 1;
+      ctx.strokeStyle = rgba(pair, alpha * 0.7 + 0.2 * Math.sin(t * 0.004 + i));
+      ctx.lineWidth = mobile() ? 1.2 : 1;
       ctx.beginPath();
       ctx.moveTo(x1, yy);
       ctx.lineTo(x2, yy);
