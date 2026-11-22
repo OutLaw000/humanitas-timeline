@@ -11,7 +11,7 @@
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const mobile = () => innerWidth < 768;
 
-  let dpr = 1, t = 0, scrollP = 0;
+  let dpr = 1, t = 0, scrollP = 0, seededW = 0;
   const pointer = { x: -9999, y: -9999, active: false, gx: 0, gy: 0 };
   const stars = [];
   const atoms = [];
@@ -37,14 +37,23 @@
     return `rgba(${c[0]},${c[1]},${c[2]},${a})`;
   }
 
-  function resize() {
+  function sizeCanvas() {
     dpr = Math.min(devicePixelRatio || 1, 2);
     canvas.width = Math.floor(innerWidth * dpr);
     canvas.height = Math.floor(innerHeight * dpr);
     canvas.style.width = innerWidth + 'px';
     canvas.style.height = innerHeight + 'px';
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    seed();
+  }
+
+  function resize() {
+    sizeCanvas();
+    const w = innerWidth;
+    // Phone URL-bar show/hide changes height and fires resize. Keep the same sky.
+    if (!seededW || Math.abs(w - seededW) >= 48) {
+      seededW = w;
+      seed();
+    }
   }
 
   function seed() {
@@ -532,6 +541,9 @@
   else frame(0);
 
   addEventListener('resize', resize, { passive: true });
+  if (window.visualViewport) {
+    visualViewport.addEventListener('resize', sizeCanvas, { passive: true });
+  }
   addEventListener('scroll', onScroll, { passive: true });
   addEventListener('pointermove', onPointer, { passive: true });
   addEventListener('pointerdown', onPointer, { passive: true });
