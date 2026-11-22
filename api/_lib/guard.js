@@ -10,8 +10,23 @@ const cfg = require("../../config/grading.config.json");
 // Used when RATE_LIMIT_SALT is not set: random per server instance, never persisted.
 const INSTANCE_SALT = crypto.randomBytes(16).toString("hex");
 
+function headerVal(req, name) {
+  const v = req.headers[name];
+  if (Array.isArray(v)) return String(v[0] || "");
+  return String(v || "");
+}
+function clientIp(req) {
+  // Prefer the address Vercel itself observed. Client-supplied x-real-ip can
+  // arrive alongside the platform header as an array and split the same visitor
+  // across many rate-limit keys.
+  const raw = headerVal(req, "x-vercel-forwarded-for") || headerVal(req, "x-forwarded-for") || headerVal(req, "x-real-ip");
+  let ip = raw.split(",")[0].trim().replace(/^\[|\]$/g, "");
+  const mapped = /^::ffff:(\d{1,3}(?:\.\d{1,3}){3})$/i.exec(ip);
+  if (mapped) ip = mapped[1];
+  return ip;
+}
 function clientKey(req) {
-  const fwd = String(req.headers["x-real-ip"] || req.headers["x-forwarded-for"] || "").split(",")[0].trim();
+  const fwd = clientIp(req);
   const day = new Date().toISOString().slice(0, 10);
   const salt = (process.env.RATE_LIMIT_SALT || INSTANCE_SALT) + ":" + day;
   return crypto.createHmac("sha256", salt).update(fwd || "unknown").digest("hex").slice(0, 20);
@@ -66,8 +81,11 @@ async function rateLimit(req) {
     ["INCR", `rl:g:${minute}`],
     ["EXPIRE", `rl:g:${minute}`, 90],
   ]);
-  const ok = res[0] <= L.requestsPerMinutePerClient && res[2] <= L.requestsPerHourPerClient && res[4] <= L.requestsPerMinuteGlobal;
-  return { ok, id, reason: ok ? "" : "rate-limited" };
+  const minuteCount = Number(res[0]);
+  const hourCount = Number(res[2]);
+  const globalCount = Number(res[4]);
+  const ok = minuteCount <= L.requestsPerMinutePerClient && hourCount <= L.requestsPerHourPerClient && globalCount <= L.requestsPerMinuteGlobal;
+  return { ok, id, reason: ok ? "" : "rate-limited", remaining: Math.max(0, L.requestsPerMinutePerClient - minuteCount) };
 }
 
 /** Global budget for fresh gradings (each one calls Wikimedia). */

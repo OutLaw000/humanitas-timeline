@@ -61,7 +61,14 @@ module.exports = async function handler(req, res) {
   if (!body || typeof body !== "object") return send(res, 400, { error: "bad-json" });
 
   let rl;
-  try { rl = await guard.rateLimit(req); } catch { rl = { ok: true, id: guard.clientKey(req) }; }
+  try { rl = await guard.rateLimit(req); }
+  catch (err) {
+    console.error("rate-limit-error", err && err.message ? String(err.message).slice(0, 80) : "error");
+    // If the store is up we cannot count, do not fail open.
+    if (store.configured()) { res.setHeader("Retry-After", "30"); return send(res, 429, { error: "rate-limited" }); }
+    rl = { ok: true, id: guard.clientKey(req) };
+  }
+  if (rl.remaining != null) res.setHeader("X-RateLimit-Remaining", String(rl.remaining));
   if (!rl.ok) { res.setHeader("Retry-After", "60"); return send(res, 429, { error: "rate-limited" }); }
   const hasStore = store.configured();
 
