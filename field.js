@@ -97,10 +97,10 @@
       });
     }
 
-    // Occasional meteors / shooting stars — keep these on the phone
+    // Occasional meteors / shooting stars — some cross behind the headline
     const mCount = mobile() ? 3 : 4;
     for (let i = 0; i < mCount; i++) {
-      meteors.push(makeMeteor(true));
+      meteors.push(makeMeteor(true, i < 2 ? "headline" : "sky"));
     }
 
     // Atoms: three on a phone, parked toward the edges so they do not cover type.
@@ -160,21 +160,42 @@
         };
   }
 
-  function makeMeteor(initial) {
+  function makeMeteor(initial, kind) {
+    const headline = kind ? kind === "headline" : Math.random() < 0.55;
     const fromTop = Math.random() > 0.35;
     return {
+      headline,
       x: Math.random() * innerWidth * 1.2,
       y: initial ? Math.random() * innerHeight : (fromTop ? -20 : Math.random() * innerHeight * 0.4),
       vx: 2.2 + Math.random() * 3.5,
       vy: 1.4 + Math.random() * 2.2,
-      len: 40 + Math.random() * 70,
+      len: headline ? 70 + Math.random() * 50 : 40 + Math.random() * 70,
       life: 0,
-      maxLife: 90 + Math.random() * 100,
-      delay: initial
-        ? Math.random() * (mobile() ? 70 : 200)
-        : (mobile() ? 18 : 40) + Math.random() * (mobile() ? 90 : 180),
+      maxLife: headline ? 120 + Math.random() * 50 : 90 + Math.random() * 100,
+      delay: headline
+        ? (initial ? 12 + Math.random() * 80 : 40 + Math.random() * 160)
+        : initial
+          ? Math.random() * (mobile() ? 70 : 200)
+          : (mobile() ? 18 : 40) + Math.random() * (mobile() ? 90 : 180),
       active: false,
     };
+  }
+
+  function launchHeadline(m) {
+    m.active = true;
+    m.life = 0;
+    m.x = -40 - Math.random() * 60;
+    m.y = 4 + Math.random() * 64;
+    const tx = innerWidth * (mobile() ? 0.52 : 0.34) + (Math.random() - 0.5) * 70;
+    const ty = (mobile() ? 210 : 270) + (Math.random() - 0.5) * 50;
+    const dx = tx - m.x;
+    const dy = ty - m.y;
+    const dist = Math.hypot(dx, dy) || 1;
+    const speed = 3.4 + Math.random() * 2.4;
+    m.vx = (dx / dist) * speed;
+    m.vy = (dy / dist) * speed;
+    m.len = 70 + Math.random() * 50;
+    m.maxLife = 120 + Math.random() * 50;
   }
 
   function applyGravity(p, strength) {
@@ -234,12 +255,15 @@
       if (!m.active) {
         m.delay -= 1;
         if (m.delay <= 0) {
-          m.active = true;
-          m.life = 0;
-          m.x = Math.random() * innerWidth * 0.7;
-          m.y = -30 - Math.random() * 40;
-          m.vx = 2.5 + Math.random() * 3;
-          m.vy = 1.8 + Math.random() * 2.2;
+          if (m.headline) launchHeadline(m);
+          else {
+            m.active = true;
+            m.life = 0;
+            m.x = Math.random() * innerWidth * 0.7;
+            m.y = -30 - Math.random() * 40;
+            m.vx = 2.5 + Math.random() * 3;
+            m.vy = 1.8 + Math.random() * 2.2;
+          }
         }
         continue;
       }
