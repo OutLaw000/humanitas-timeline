@@ -331,7 +331,11 @@ function closeDrawer() {
   if (b) b.hidden = true;
   document.body.style.overflow = "";
   state.activeSlug = null;
-  if (window.speechSynthesis) window.speechSynthesis.cancel();
+  if (window.HumanitasFeatures && typeof window.HumanitasFeatures.stopSpeak === "function") {
+    window.HumanitasFeatures.stopSpeak();
+  } else if (window.speechSynthesis) {
+    window.speechSynthesis.cancel();
+  }
 }
 const CLUSTER_DEFS = [
   { id: "truth", title: "Truth over Face-Saving", match: (p) => /truth|honest|examined|knowledge|name|speech|rectif|evidence|data|understand|wisdom|discern/i.test(p), description: "Greatness begins when communities stop lying to themselves.", modern: "Protect free inquiry; publish understandable rules and outcomes." },

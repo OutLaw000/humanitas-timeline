@@ -15,72 +15,79 @@
     el._t = setTimeout(() => { el.hidden = true; }, 1800);
   }
 
-  const FEMALE =
-    /female|woman|zira|samantha|karen|aria|jenny|sonia|hazel|susan|moira|tessa|ava|zoe|victoria|allison|catherine|linda|michelle|eva|heera|nicky|fiona|kathy|\bana\b/i;
-  const NEURAL = /neural|natural|online|premium|enhanced|wavenet|studio/i;
-  const MALE = /male|\bman\b|david|mark|george|daniel|james|fred|\btom\b|ravi|richard|\balex\b|microsoft david|google us english$/i;
-  let cachedVoice = null;
+  let player = null;
+  let playingSlug = null;
+  let objectUrl = null;
 
-  function scoreVoice(v) {
-    const n = (v.name || "") + " " + (v.lang || "");
-    let s = 0;
-    if (FEMALE.test(n)) s += 80;
-    if (NEURAL.test(n)) s += 40;
-    if (/google uk english female/i.test(n)) s += 25;
-    if (/en-GB|en_GB|en-AU|en-IE/i.test(n)) s += 10;
-    if (/en-US|en_US/i.test(n)) s += 6;
-    if (MALE.test(n) && !/female/i.test(n)) s -= 120;
-    return s;
+  function listenButtons() {
+    return document.querySelectorAll("[data-tts]");
   }
 
-  function pickWoman(voices) {
-    const en = voices.filter((v) => /^en(-|_)/i.test(v.lang) || /english/i.test(v.name));
-    const pool = (en.length ? en : voices).slice().sort((a, b) => scoreVoice(b) - scoreVoice(a));
-    const woman = pool.find((v) => scoreVoice(v) > 0);
-    return woman || pool[0] || null;
-  }
-
-  function loadVoices() {
-    return new Promise((resolve) => {
-      if (!window.speechSynthesis) return resolve([]);
-      const ready = () => resolve(speechSynthesis.getVoices() || []);
-      const now = speechSynthesis.getVoices();
-      if (now && now.length) return resolve(now);
-      speechSynthesis.addEventListener("voiceschanged", ready, { once: true });
-      setTimeout(ready, 600);
+  function setListenLabel(slug, label) {
+    listenButtons().forEach((b) => {
+      if (!slug || b.dataset.tts === slug) b.textContent = label;
     });
   }
 
-  async function speakFigure(f, seconds = 55) {
-    if (!window.speechSynthesis) {
-      flashStatus("Speech not available here");
+  function stopSpeak() {
+    if (player) {
+      player.pause();
+      player.removeAttribute("src");
+      player = null;
+    }
+    if (objectUrl) {
+      URL.revokeObjectURL(objectUrl);
+      objectUrl = null;
+    }
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    playingSlug = null;
+    setListenLabel(null, "▶ Listen");
+  }
+
+  async function speakFigure(f) {
+    if (playingSlug === f.slug) {
+      stopSpeak();
       return;
     }
-    window.speechSynthesis.cancel();
-    const parts = [
-      f.name + ".",
-      f.epithet || "",
-      core()?.formatLifespan?.(f.birthYear, f.deathYear) || "",
-      f.summary || "",
-      "Greatest accomplishments: " + ((f.accomplishments || []).slice(0, 5).join(". ") || "") + ".",
-      (f.biography || []).slice(0, 2).join(" "),
-      (f.philosophy?.corePrinciples || []).slice(0, 4).join(". ") + ".",
-      f.legacy || "",
-    ].filter(Boolean);
-    const u = new SpeechSynthesisUtterance(parts.join(" ").slice(0, 1200));
-    u.lang = "en-GB";
-    u.rate = 0.88;
-    u.pitch = 1.04;
-    u.volume = 1;
-    if (!cachedVoice) cachedVoice = pickWoman(await loadVoices());
-    if (cachedVoice) {
-      u.voice = cachedVoice;
-      u.lang = cachedVoice.lang || u.lang;
+    stopSpeak();
+    setListenLabel(f.slug, "…");
+    flashStatus("Ara is speaking…");
+    try {
+      const r = await fetch("/api/tts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ slug: f.slug }),
+      });
+      if (r.status === 429) {
+        flashStatus("Give it a moment, then listen again");
+        setListenLabel(f.slug, "▶ Listen");
+        return;
+      }
+      if (r.status === 503) {
+        flashStatus("Grok voice isn’t connected yet");
+        setListenLabel(f.slug, "▶ Listen");
+        return;
+      }
+      if (!r.ok) {
+        flashStatus("Could not play this life");
+        setListenLabel(f.slug, "▶ Listen");
+        return;
+      }
+      const blob = await r.blob();
+      objectUrl = URL.createObjectURL(blob);
+      player = new Audio(objectUrl);
+      player.onended = () => stopSpeak();
+      player.onerror = () => {
+        flashStatus("Could not play this life");
+        stopSpeak();
+      };
+      playingSlug = f.slug;
+      setListenLabel(f.slug, "■ Stop");
+      await player.play();
+    } catch (_) {
+      flashStatus("Could not play this life");
+      setListenLabel(f.slug, "▶ Listen");
     }
-    window.speechSynthesis.speak(u);
-    setTimeout(() => {
-      if (window.speechSynthesis.speaking) window.speechSynthesis.cancel();
-    }, seconds * 1000);
   }
 
   async function shareFigure(f) {
@@ -144,9 +151,6 @@
     if (window.AmeriKingCTA?.render) window.AmeriKingCTA.render();
     bindFeatures();
     applyRoute();
-    loadVoices().then((list) => {
-      if (!cachedVoice) cachedVoice = pickWoman(list);
-    });
     if (core()) {
       const prev = core().onFigureOpen;
       core().onFigureOpen = (f) => {
@@ -156,7 +160,7 @@
     }
   }
 
-  window.HumanitasFeatures = { init, enhanceDrawer, speakFigure, shareFigure };
+  window.HumanitasFeatures = { init, enhanceDrawer, speakFigure, shareFigure, stopSpeak };
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => setTimeout(init, 0));

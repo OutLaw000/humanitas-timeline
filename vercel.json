@@ -2,6 +2,9 @@
   "version": 2,
   "cleanUrls": true,
   "trailingSlash": false,
+  "functions": {
+    "api/tts.js": { "maxDuration": 30 }
+  },
   "rewrites": [
     {
       "source": "/embed/hammurabi",
@@ -585,7 +588,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; frame-src 'none'; script-src 'self' 'unsafe-inline' https://ameriking.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://upload.wikimedia.org https://commons.wikimedia.org https://en.wikipedia.org https://*.wikimedia.org https://ameriking.io; connect-src 'self' https://en.wikipedia.org https://www.wikidata.org https://query.wikidata.org https://en.wikiquote.org https://ameriking.io; frame-ancestors 'self'; upgrade-insecure-requests"
+          "value": "default-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; frame-src 'none'; script-src 'self' 'unsafe-inline' https://ameriking.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://upload.wikimedia.org https://commons.wikimedia.org https://en.wikipedia.org https://*.wikimedia.org https://ameriking.io; media-src 'self' blob:; connect-src 'self' https://en.wikipedia.org https://www.wikidata.org https://query.wikidata.org https://en.wikiquote.org https://ameriking.io; frame-ancestors 'self'; upgrade-insecure-requests"
         },
         {
           "key": "X-Frame-Options",

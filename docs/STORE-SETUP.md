@@ -9,6 +9,16 @@ Free option: **Upstash Redis** (free tier) via the Vercel Marketplace, or direct
 3. Optional but recommended: add `RATE_LIMIT_SALT` (any long random string) so hashed rate-limit keys cannot be guessed.
 4. Redeploy. No code change is needed.
 
+## Grok voice (Listen)
+
+Listen uses **Ara**, a Grok female voice from the xAI Text-to-Speech API. Browser voices stay robotic; this path does not.
+
+1. Create an API key at [console.x.ai](https://console.x.ai/team/default/api-keys).
+2. Vercel dashboard → project `humanitas` → Settings → Environment Variables → add `XAI_API_KEY` for Production (and Preview if you want it there).
+3. Redeploy. Do not commit the key.
+
+Without `XAI_API_KEY`, Listen shows “Grok voice isn’t connected yet.”
+
 Stored: public Wikidata IDs, grades, a recent list, weekly unique-explorer counters (HyperLogLog), and short-lived hashed rate-limit counters. Not stored: IPs, user agents, cookies, names typed, accounts.
 
 Local testing: `node scripts/mock-upstash.js 4399` and run the dev server with `UPSTASH_REDIS_REST_URL=http://localhost:4399 UPSTASH_REDIS_REST_TOKEN=mock-token node scripts/dev-server.js`.
