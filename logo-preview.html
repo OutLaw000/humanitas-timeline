@@ -3,20 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Humanitas — Logo concepts</title>
+  <title>Humanitas — DNA strand mark</title>
   <meta name="robots" content="noindex" />
   <meta name="theme-color" content="#03050a" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=10" />
+  <link rel="stylesheet" href="styles.css?v=11" />
   <style>
     .logo-preview {
       position: relative;
       z-index: 1;
-      max-width: 1120px;
+      max-width: 920px;
       margin: 0 auto;
       padding: 28px 20px 80px;
     }
@@ -34,65 +35,46 @@
       margin-bottom: 28px;
     }
     .logo-preview .lede strong { color: #f5f7f8; font-weight: 500; }
-    .concept-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-    @media (max-width: 860px) {
-      .concept-grid { grid-template-columns: 1fr; }
-    }
-    .concept {
-      background: var(--bg-panel, #0a1220);
-      border: 1px solid var(--border-strong, rgba(94,234,212,.25));
-      border-radius: 16px;
-      padding: 20px 18px 24px;
-    }
-    .concept h2 {
-      font-family: var(--font-display);
-      font-size: 1.45rem;
-      font-weight: 500;
-      margin: 0 0 4px;
-      color: #f5f7f8;
-    }
-    .concept .num {
-      font-family: var(--font-mono, ui-monospace, monospace);
-      font-size: 11px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: #a78bfa;
-    }
-    .concept p {
-      color: #c5d0cc;
-      font-size: 0.92rem;
-      line-height: 1.5;
-      margin: 0 0 16px;
-    }
     .stage-large {
       display: grid;
       place-items: center;
       background:
         radial-gradient(circle at 30% 25%, rgba(94,234,212,.12), transparent 55%),
         #070b12;
-      border-radius: 14px;
-      height: 280px;
-      margin-bottom: 16px;
+      border: 1px solid rgba(94,234,212,.22);
+      border-radius: 20px;
+      height: 420px;
+      margin-bottom: 28px;
     }
-    .stage-large svg { width: 220px; height: 220px; display: block; }
-    .row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-top: 10px;
+    .stage-large svg { width: 320px; height: 320px; display: block; overflow: visible; }
+    .sizes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
     }
-    .row-label {
-      font-family: var(--font-mono, ui-monospace, monospace);
-      font-size: 11px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: #8aa09a;
-      min-width: 7rem;
+    @media (max-width: 640px) {
+      .sizes { grid-template-columns: 1fr; }
+      .stage-large { height: 300px; }
+      .stage-large svg { width: 220px; height: 220px; }
+    }
+    .size-card {
+      background: var(--bg-panel, #0a1220);
+      border: 1px solid var(--border-strong, rgba(94,234,212,.25));
+      border-radius: 16px;
+      padding: 18px;
+    }
+    .size-card h2 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 500;
+      margin: 0 0 4px;
+      color: #f5f7f8;
+    }
+    .size-card p {
+      color: #c5d0cc;
+      font-size: 0.92rem;
+      line-height: 1.5;
+      margin: 0 0 16px;
     }
     .header-chip {
       display: flex;
@@ -102,6 +84,7 @@
       border: 1px solid rgba(94,234,212,.25);
       border-radius: 12px;
       padding: 6px 12px 6px 6px;
+      width: max-content;
     }
     .header-chip .brand-mark { flex: 0 0 34px; }
     .header-chip .nm {
@@ -116,6 +99,12 @@
       font-size: 10px;
       color: #8aa09a;
     }
+    .fav-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+      align-items: center;
+    }
     .fav-dark {
       width: 56px;
       height: 56px;
@@ -126,34 +115,6 @@
       place-items: center;
     }
     .fav-dark svg, .fav-dark img { width: 32px; height: 32px; display: block; }
-    .static-row {
-      margin-top: 36px;
-      background: var(--bg-panel, #0a1220);
-      border: 1px solid var(--border-strong, rgba(94,234,212,.25));
-      border-radius: 16px;
-      padding: 20px;
-    }
-    .static-row h2 {
-      font-family: var(--font-display);
-      font-size: 1.4rem;
-      font-weight: 500;
-      margin: 0 0 8px;
-      color: #f5f7f8;
-    }
-    .static-assets {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 28px;
-      align-items: center;
-      margin-top: 12px;
-    }
-    .static-assets figure { margin: 0; text-align: center; }
-    .static-assets figcaption {
-      font-family: var(--font-mono, ui-monospace, monospace);
-      font-size: 11px;
-      color: #8aa09a;
-      margin-top: 8px;
-    }
     .apple-frame {
       width: 180px;
       height: 180px;
@@ -162,10 +123,18 @@
       border: 1px solid rgba(255,255,255,.08);
     }
     .apple-frame img { width: 180px; height: 180px; display: block; }
+    .fav-row figure { margin: 0; text-align: center; }
+    .fav-row figcaption {
+      font-family: var(--font-mono, ui-monospace, monospace);
+      font-size: 11px;
+      color: #8aa09a;
+      margin-top: 8px;
+    }
     .note {
-      margin-top: 22px;
+      margin-top: 28px;
       font-size: 0.92rem;
       color: #c5d0cc;
+      line-height: 1.55;
     }
     .note a { color: #5eead4; }
   </style>
@@ -174,494 +143,136 @@
   <div class="field-veil" aria-hidden="true"></div>
 
   <header class="site-header" id="site-header">
-    <div class="header-inner">
+    <div class="header-inner" style="grid-template-columns:auto;justify-content:flex-start">
       <a href="/" class="brand">
         <span class="brand-mark" aria-hidden="true">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Humanitas DNA mark">
-  <title>Humanitas — DNA helix forming an H</title>
-  <style>
-    .dna-spin { transform-origin: 32px 32px; animation: dna-spin 7.5s ease-in-out infinite; }
-    .dna-rung { animation: dna-twinkle 3.2s ease-in-out infinite; }
-    .dna-rung:nth-child(2) { animation-delay: -.8s; }
-    .dna-rung:nth-child(3) { animation-delay: -1.6s; }
-    .dna-rung:nth-child(4) { animation-delay: -2.4s; }
-    @keyframes dna-spin {
-      0%   { transform: scaleX(1); }
-      25%  { transform: scaleX(0.18); }
-      50%  { transform: scaleX(-1); }
-      75%  { transform: scaleX(-0.18); }
-      100% { transform: scaleX(1); }
-    }
-    @keyframes dna-twinkle {
-      0%, 100% { opacity: .75; }
-      50% { opacity: 1; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .dna-spin, .dna-rung { animation: none !important; opacity: 1 !important; transform: none !important; }
-    }
-  </style>
-  <!-- Double helix that rotates around the vertical axis (scaleX flip). The H stays upright. -->
-  <g class="dna-spin">
-    <path d="M20 8C20 8 20 12 32 16S44 20 44 24 44 28 32 32 20 36 20 40 20 44 32 48 44 52 44 56"
-          stroke="#5eead4" stroke-width="2" stroke-linecap="round"/>
-    <path d="M44 8C44 8 44 12 32 16S20 20 20 24 20 28 32 32 44 36 44 40 44 44 32 48 20 52 20 56"
-          stroke="#a78bfa" stroke-width="2" stroke-linecap="round"/>
-    <g stroke="#ffb84d" stroke-width="1.45" stroke-linecap="round">
-      <line class="dna-rung" x1="20" y1="8"  x2="44" y2="8"/>
-      <line class="dna-rung" x1="20" y1="24" x2="44" y2="24"/>
-      <line class="dna-rung" x1="20" y1="40" x2="44" y2="40"/>
-      <line class="dna-rung" x1="20" y1="56" x2="44" y2="56"/>
-    </g>
-  </g>
-  <g stroke-linecap="round" stroke-linejoin="round">
-    <path d="M23.5 19.5v25" stroke="#5eead4" stroke-width="3.5"/>
-    <path d="M40.5 19.5v25" stroke="#a78bfa" stroke-width="3.5"/>
-    <path d="M23.5 32h17" stroke="#f5c16c" stroke-width="3.3"/>
-  </g>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Humanitas" class="humanitas-dna" data-dna-prefix="lphdna">
+  <title>Humanitas — original DNA strand</title>
+  <style>#lphdna-glow-layer{animation:lphdna-breathe 4.2s ease-in-out infinite}@keyframes lphdna-breathe{0%,100%{opacity:.32}50%{opacity:.62}}@media (prefers-reduced-motion:reduce){#lphdna-glow-layer{animation:none!important;opacity:.32}}</style>
+  
+  <defs>
+    <linearGradient id="lphdna-grad" x1="18" y1="6" x2="48" y2="58" gradientUnits="userSpaceOnUse" color-interpolation="sRGB">
+      <stop offset="0%" stop-color="#5eead4"/>
+      <stop offset="46%" stop-color="#f5c16c"/>
+      <stop offset="100%" stop-color="#a78bfa"/>
+    </linearGradient>
+    <linearGradient id="lphdna-rung" x1="20" y1="14" x2="44" y2="50" gradientUnits="userSpaceOnUse" color-interpolation="sRGB">
+      <stop offset="0%" stop-color="#5eead4"/>
+      <stop offset="50%" stop-color="#f5c16c"/>
+      <stop offset="100%" stop-color="#a78bfa"/>
+    </linearGradient>
+    <filter id="lphdna-glow" x="-35%" y="-35%" width="170%" height="170%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="0.9"/>
+    </filter>
+  </defs>
+  <g id="lphdna-glow-layer" filter="url(#lphdna-glow)" opacity=".4"><path d="M15.14 26.12L14.93 27.60L15.93 29.50L17.36 30.46L18.97 31.04L20.85 31.48L23.02 31.84L25.45 32.14L28.07 32.40L30.79 32.64L33.54 32.86L36.20 33.10L38.69 33.35L40.90 33.62L42.74 33.93L44.09 34.26L44.81 34.53L44.72 34.39L44.53 34.24L49.06 32.92L48.53 31.56L47.10 30.35L45.52 29.70L43.71 29.24L41.60 28.88L39.22 28.58L36.64 28.32L33.93 28.09L31.18 27.87L28.49 27.66L25.95 27.42L23.66 27.16L21.71 26.87L20.21 26.56L19.28 26.26L19.09 26.19L19.41 26.93L19.51 27.10L15.14 26.12Z" fill="url(#lphdna-grad)"/><path d="M15.93 37.24L16.14 38.77L17.46 40.31L18.96 41.06L20.65 41.54L22.61 41.92L24.81 42.23L27.22 42.49L29.76 42.72L32.34 42.94L34.88 43.15L37.29 43.38L39.47 43.64L41.35 43.92L42.84 44.23L43.84 44.54L44.26 44.72L44.16 44.44L44.10 44.45L47.74 44.46L47.68 43.20L46.73 41.79L45.45 40.96L43.94 40.38L42.15 39.92L40.09 39.52L37.79 39.18L35.33 38.88L32.77 38.59L30.20 38.32L27.71 38.03L25.41 37.74L23.39 37.41L21.75 37.06L20.61 36.70L20.16 36.48L20.48 36.91L20.67 37.17L15.93 37.24Z" fill="url(#lphdna-grad)"/><path d="M17.73 15.05L17.31 16.08L17.53 17.62L18.44 18.77L19.65 19.52L21.10 20.09L22.83 20.56L24.81 20.97L27.00 21.34L29.34 21.67L31.75 21.99L34.15 22.30L36.46 22.61L38.57 22.95L40.39 23.31L41.82 23.68L42.72 24.04L42.90 24.16L42.83 24.26L46.76 22.01L46.02 20.95L44.61 20.04L43.06 19.50L41.27 19.10L39.23 18.77L37.00 18.49L34.63 18.24L32.20 18.01L29.80 17.78L27.51 17.54L25.41 17.28L23.58 17.00L22.09 16.69L21.03 16.37L20.47 16.12L20.39 16.15L20.39 16.46L20.50 16.15L17.73 15.05Z" fill="url(#lphdna-grad)"/><path d="M24.44 8.35L25.32 8.98L26.57 9.56L28.00 10.07L29.58 10.56L31.23 11.02L32.89 11.47L34.49 11.92L35.94 12.38L37.17 12.85L38.07 13.30L38.55 13.68L38.76 14.08L41.19 12.15L40.50 11.42L39.39 10.77L38.12 10.29L36.67 9.89L35.09 9.54L33.42 9.21L31.72 8.90L30.05 8.60L28.49 8.28L27.10 7.96L25.94 7.63L25.05 7.27L24.29 7.55L24.44 8.35Z" fill="url(#lphdna-grad)"/><path d="M20.36 47.92L20.82 49.00L21.94 50.00L23.23 50.60L24.71 51.05L26.38 51.42L28.21 51.74L30.14 52.03L32.11 52.31L34.04 52.59L35.87 52.88L37.53 53.18L38.96 53.50L40.11 53.84L40.93 54.18L41.41 54.47L41.62 54.66L41.71 54.87L41.49 55.47L42.56 56.09L43.13 55.31L43.25 54.25L42.83 53.27L42.04 52.49L40.98 51.84L39.66 51.29L38.13 50.79L36.40 50.33L34.54 49.90L32.60 49.50L30.67 49.10L28.80 48.69L27.10 48.28L25.65 47.85L24.54 47.42L23.90 47.05L23.84 46.96L23.93 46.83L20.36 47.92Z" fill="url(#lphdna-grad)"/><path d="M41.78 54.71L41.49 55.47L41.76 56.24L42.56 56.09L43.07 55.46L41.78 54.71Z" fill="url(#lphdna-grad)"/><path d="M40.27 24.53L21.91 27.27" fill="none" stroke="url(#lphdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M25.04 33.04L38.96 30.96" fill="none" stroke="url(#lphdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M23.57 14.55L34.96 12.85" fill="none" stroke="url(#lphdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M25.79 39.16L40.03 37.03" fill="none" stroke="url(#lphdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M36.63 50.01L32.84 50.58" fill="none" stroke="url(#lphdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M42.46 42.91L25.19 45.49" fill="none" stroke="url(#lphdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M28.28 57.67L28.95 58.12L29.75 58.03L29.79 57.22L29.29 56.58L28.28 57.67Z" fill="url(#lphdna-grad)"/><path d="M44.05 43.82L44.18 43.92L44.15 44.02L43.64 44.57L42.71 45.30L41.44 46.14L39.94 47.03L38.27 47.96L36.54 48.91L34.81 49.86L33.15 50.82L31.63 51.76L30.31 52.69L29.22 53.60L28.39 54.53L27.86 55.51L27.75 56.57L28.17 57.55L28.95 58.12L29.79 57.22L29.40 56.71L29.43 56.48L29.57 56.24L29.94 55.82L30.63 55.26L31.62 54.60L32.90 53.87L34.40 53.10L36.07 52.29L37.83 51.46L39.64 50.61L41.40 49.77L43.05 48.93L44.54 48.08L45.82 47.23L46.88 46.27L47.66 44.99L47.79 43.82L44.05 43.82Z" fill="url(#lphdna-grad)"/><path d="M31.41 6.32L30.67 6.92L29.66 7.58L28.42 8.30L27.02 9.05L25.52 9.83L23.98 10.62L22.48 11.42L21.07 12.22L19.80 13.02L18.72 13.86L17.85 14.81L17.41 15.70L20.29 16.84L20.38 16.39L20.73 15.90L21.46 15.19L22.50 14.39L23.75 13.53L25.15 12.63L26.60 11.71L28.05 10.79L29.41 9.86L30.63 8.95L31.66 8.04L32.31 7.17L32.23 6.36L31.41 6.32Z" fill="url(#lphdna-grad)"/><path d="M38.36 13.48L38.56 13.75L38.47 13.45L38.39 13.44L37.92 13.85L37.00 14.46L35.67 15.19L34.00 16.00L32.07 16.86L29.95 17.76L27.72 18.68L25.46 19.61L23.27 20.54L21.21 21.46L19.37 22.37L17.77 23.28L16.44 24.25L15.36 25.53L14.96 26.77L19.38 27.76L19.28 27.69L19.42 27.52L20.18 26.92L21.43 26.14L23.07 25.26L24.99 24.33L27.10 23.35L29.31 22.35L31.53 21.34L33.67 20.34L35.66 19.35L37.43 18.38L38.94 17.42L40.16 16.45L41.10 15.38L41.64 14.02L41.39 12.48L40.69 11.62L38.36 13.48Z" fill="url(#lphdna-grad)"/><path d="M44.35 33.64L44.45 33.32L44.63 32.82L44.26 33.17L43.28 33.84L41.82 34.66L39.98 35.56L37.86 36.52L35.57 37.51L33.20 38.53L30.83 39.55L28.56 40.56L26.46 41.56L24.61 42.54L23.03 43.51L21.76 44.50L20.77 45.67L20.28 47.30L20.59 48.51L24.07 47.45L24.01 47.45L23.99 47.75L24.34 47.45L25.21 46.86L26.55 46.13L28.26 45.31L30.27 44.43L32.50 43.51L34.87 42.56L37.28 41.60L39.63 40.63L41.86 39.68L43.88 38.74L45.64 37.81L47.12 36.85L48.34 35.70L49.14 33.84L48.90 32.31L44.35 33.64Z" fill="url(#lphdna-grad)"/><path d="M42.52 23.66L42.55 23.47L42.65 22.67L42.49 22.79L41.68 23.35L40.34 24.09L38.56 24.94L36.45 25.85L34.09 26.82L31.57 27.82L29.01 28.83L26.48 29.84L24.09 30.84L21.91 31.82L20.00 32.78L18.40 33.76L17.08 34.84L16.07 36.41L15.95 37.87L20.67 37.80L20.54 38.00L20.49 38.17L21.10 37.70L22.29 36.99L23.96 36.15L26.00 35.24L28.30 34.28L30.78 33.28L33.34 32.26L35.88 31.23L38.31 30.22L40.54 29.22L42.51 28.25L44.18 27.27L45.55 26.24L46.64 24.91L47.03 22.80L46.41 21.44L42.52 23.66Z" fill="url(#lphdna-grad)"/></g>
+  <g id="lphdna-static"><path d="M15.14 26.12L14.93 27.60L15.93 29.50L17.36 30.46L18.97 31.04L20.85 31.48L23.02 31.84L25.45 32.14L28.07 32.40L30.79 32.64L33.54 32.86L36.20 33.10L38.69 33.35L40.90 33.62L42.74 33.93L44.09 34.26L44.81 34.53L44.72 34.39L44.53 34.24L49.06 32.92L48.53 31.56L47.10 30.35L45.52 29.70L43.71 29.24L41.60 28.88L39.22 28.58L36.64 28.32L33.93 28.09L31.18 27.87L28.49 27.66L25.95 27.42L23.66 27.16L21.71 26.87L20.21 26.56L19.28 26.26L19.09 26.19L19.41 26.93L19.51 27.10L15.14 26.12Z" fill="url(#lphdna-grad)"/><path d="M15.93 37.24L16.14 38.77L17.46 40.31L18.96 41.06L20.65 41.54L22.61 41.92L24.81 42.23L27.22 42.49L29.76 42.72L32.34 42.94L34.88 43.15L37.29 43.38L39.47 43.64L41.35 43.92L42.84 44.23L43.84 44.54L44.26 44.72L44.16 44.44L44.10 44.45L47.74 44.46L47.68 43.20L46.73 41.79L45.45 40.96L43.94 40.38L42.15 39.92L40.09 39.52L37.79 39.18L35.33 38.88L32.77 38.59L30.20 38.32L27.71 38.03L25.41 37.74L23.39 37.41L21.75 37.06L20.61 36.70L20.16 36.48L20.48 36.91L20.67 37.17L15.93 37.24Z" fill="url(#lphdna-grad)"/><path d="M17.73 15.05L17.31 16.08L17.53 17.62L18.44 18.77L19.65 19.52L21.10 20.09L22.83 20.56L24.81 20.97L27.00 21.34L29.34 21.67L31.75 21.99L34.15 22.30L36.46 22.61L38.57 22.95L40.39 23.31L41.82 23.68L42.72 24.04L42.90 24.16L42.83 24.26L46.76 22.01L46.02 20.95L44.61 20.04L43.06 19.50L41.27 19.10L39.23 18.77L37.00 18.49L34.63 18.24L32.20 18.01L29.80 17.78L27.51 17.54L25.41 17.28L23.58 17.00L22.09 16.69L21.03 16.37L20.47 16.12L20.39 16.15L20.39 16.46L20.50 16.15L17.73 15.05Z" fill="url(#lphdna-grad)"/><path d="M24.44 8.35L25.32 8.98L26.57 9.56L28.00 10.07L29.58 10.56L31.23 11.02L32.89 11.47L34.49 11.92L35.94 12.38L37.17 12.85L38.07 13.30L38.55 13.68L38.76 14.08L41.19 12.15L40.50 11.42L39.39 10.77L38.12 10.29L36.67 9.89L35.09 9.54L33.42 9.21L31.72 8.90L30.05 8.60L28.49 8.28L27.10 7.96L25.94 7.63L25.05 7.27L24.29 7.55L24.44 8.35Z" fill="url(#lphdna-grad)"/><path d="M20.36 47.92L20.82 49.00L21.94 50.00L23.23 50.60L24.71 51.05L26.38 51.42L28.21 51.74L30.14 52.03L32.11 52.31L34.04 52.59L35.87 52.88L37.53 53.18L38.96 53.50L40.11 53.84L40.93 54.18L41.41 54.47L41.62 54.66L41.71 54.87L41.49 55.47L42.56 56.09L43.13 55.31L43.25 54.25L42.83 53.27L42.04 52.49L40.98 51.84L39.66 51.29L38.13 50.79L36.40 50.33L34.54 49.90L32.60 49.50L30.67 49.10L28.80 48.69L27.10 48.28L25.65 47.85L24.54 47.42L23.90 47.05L23.84 46.96L23.93 46.83L20.36 47.92Z" fill="url(#lphdna-grad)"/><path d="M41.78 54.71L41.49 55.47L41.76 56.24L42.56 56.09L43.07 55.46L41.78 54.71Z" fill="url(#lphdna-grad)"/><path d="M40.27 24.53L21.91 27.27" fill="none" stroke="url(#lphdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M25.04 33.04L38.96 30.96" fill="none" stroke="url(#lphdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M23.57 14.55L34.96 12.85" fill="none" stroke="url(#lphdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M25.79 39.16L40.03 37.03" fill="none" stroke="url(#lphdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M36.63 50.01L32.84 50.58" fill="none" stroke="url(#lphdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M42.46 42.91L25.19 45.49" fill="none" stroke="url(#lphdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M28.28 57.67L28.95 58.12L29.75 58.03L29.79 57.22L29.29 56.58L28.28 57.67Z" fill="url(#lphdna-grad)"/><path d="M44.05 43.82L44.18 43.92L44.15 44.02L43.64 44.57L42.71 45.30L41.44 46.14L39.94 47.03L38.27 47.96L36.54 48.91L34.81 49.86L33.15 50.82L31.63 51.76L30.31 52.69L29.22 53.60L28.39 54.53L27.86 55.51L27.75 56.57L28.17 57.55L28.95 58.12L29.79 57.22L29.40 56.71L29.43 56.48L29.57 56.24L29.94 55.82L30.63 55.26L31.62 54.60L32.90 53.87L34.40 53.10L36.07 52.29L37.83 51.46L39.64 50.61L41.40 49.77L43.05 48.93L44.54 48.08L45.82 47.23L46.88 46.27L47.66 44.99L47.79 43.82L44.05 43.82Z" fill="url(#lphdna-grad)"/><path d="M31.41 6.32L30.67 6.92L29.66 7.58L28.42 8.30L27.02 9.05L25.52 9.83L23.98 10.62L22.48 11.42L21.07 12.22L19.80 13.02L18.72 13.86L17.85 14.81L17.41 15.70L20.29 16.84L20.38 16.39L20.73 15.90L21.46 15.19L22.50 14.39L23.75 13.53L25.15 12.63L26.60 11.71L28.05 10.79L29.41 9.86L30.63 8.95L31.66 8.04L32.31 7.17L32.23 6.36L31.41 6.32Z" fill="url(#lphdna-grad)"/><path d="M38.36 13.48L38.56 13.75L38.47 13.45L38.39 13.44L37.92 13.85L37.00 14.46L35.67 15.19L34.00 16.00L32.07 16.86L29.95 17.76L27.72 18.68L25.46 19.61L23.27 20.54L21.21 21.46L19.37 22.37L17.77 23.28L16.44 24.25L15.36 25.53L14.96 26.77L19.38 27.76L19.28 27.69L19.42 27.52L20.18 26.92L21.43 26.14L23.07 25.26L24.99 24.33L27.10 23.35L29.31 22.35L31.53 21.34L33.67 20.34L35.66 19.35L37.43 18.38L38.94 17.42L40.16 16.45L41.10 15.38L41.64 14.02L41.39 12.48L40.69 11.62L38.36 13.48Z" fill="url(#lphdna-grad)"/><path d="M44.35 33.64L44.45 33.32L44.63 32.82L44.26 33.17L43.28 33.84L41.82 34.66L39.98 35.56L37.86 36.52L35.57 37.51L33.20 38.53L30.83 39.55L28.56 40.56L26.46 41.56L24.61 42.54L23.03 43.51L21.76 44.50L20.77 45.67L20.28 47.30L20.59 48.51L24.07 47.45L24.01 47.45L23.99 47.75L24.34 47.45L25.21 46.86L26.55 46.13L28.26 45.31L30.27 44.43L32.50 43.51L34.87 42.56L37.28 41.60L39.63 40.63L41.86 39.68L43.88 38.74L45.64 37.81L47.12 36.85L48.34 35.70L49.14 33.84L48.90 32.31L44.35 33.64Z" fill="url(#lphdna-grad)"/><path d="M42.52 23.66L42.55 23.47L42.65 22.67L42.49 22.79L41.68 23.35L40.34 24.09L38.56 24.94L36.45 25.85L34.09 26.82L31.57 27.82L29.01 28.83L26.48 29.84L24.09 30.84L21.91 31.82L20.00 32.78L18.40 33.76L17.08 34.84L16.07 36.41L15.95 37.87L20.67 37.80L20.54 38.00L20.49 38.17L21.10 37.70L22.29 36.99L23.96 36.15L26.00 35.24L28.30 34.28L30.78 33.28L33.34 32.26L35.88 31.23L38.31 30.22L40.54 29.22L42.51 28.25L44.18 27.27L45.55 26.24L46.64 24.91L47.03 22.80L46.41 21.44L42.52 23.66Z" fill="url(#lphdna-grad)"/></g>
+  <g id="lphdna-live" opacity="0"></g>
 </svg>
         </span>
         <span class="brand-text">
           <span class="brand-name">Humanitas</span>
-          <span class="brand-sub">Logo concepts</span>
+          <span class="brand-sub">DNA strand</span>
         </span>
       </a>
     </div>
   </header>
 
   <main class="logo-preview">
-    <p class="num" style="font-family:var(--font-mono,ui-monospace,monospace);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#a78bfa;margin:0 0 4px">Preview only</p>
-    <h1>Three animated marks</h1>
-    <p class="lede">Drawn in the existing Humanitas palette — mint teal <strong>#5eead4</strong>, gold <strong>#ffb84d / #f5c16c</strong>, and pink-violet <strong>#a78bfa</strong>. Concept 1 is already wired into the site header on this preview. Animations pause when the system asks for reduced motion.</p>
+    <p class="num" style="font-family:var(--font-mono,ui-monospace,monospace);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#a78bfa;margin:0">Original mark</p>
+    <h1>The Humanitas strand</h1>
+    <p class="lede">One clean, animated double helix — generated mathematically, not traced from stock art. Tapered points, a lantern swell, an 8.5° lean, and seven rungs in a short–long rhythm with a slightly longer key rung just above center. The strands wash mint teal to gold to pink-violet. The helix turns continuously; a soft glow breathes behind it.</p>
 
-    <div class="concept-grid">
-      <article class="concept">
-        <div class="num">Concept 1</div>
-        <h2>DNA helix</h2>
-        <p>A fine-line double helix slowly turns around a vertical axis. The central rungs form a clear H — teal and violet stems, a gold crossbar.</p>
-        <div class="stage-large"><svg width="220" height="220" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Humanitas DNA mark">
-  <title>Humanitas — DNA helix forming an H</title>
-  <style>
-    .dna-spin { transform-origin: 32px 32px; animation: dna-spin 7.5s ease-in-out infinite; }
-    .dna-rung { animation: dna-twinkle 3.2s ease-in-out infinite; }
-    .dna-rung:nth-child(2) { animation-delay: -.8s; }
-    .dna-rung:nth-child(3) { animation-delay: -1.6s; }
-    .dna-rung:nth-child(4) { animation-delay: -2.4s; }
-    @keyframes dna-spin {
-      0%   { transform: scaleX(1); }
-      25%  { transform: scaleX(0.18); }
-      50%  { transform: scaleX(-1); }
-      75%  { transform: scaleX(-0.18); }
-      100% { transform: scaleX(1); }
-    }
-    @keyframes dna-twinkle {
-      0%, 100% { opacity: .75; }
-      50% { opacity: 1; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .dna-spin, .dna-rung { animation: none !important; opacity: 1 !important; transform: none !important; }
-    }
-  </style>
-  <!-- Double helix that rotates around the vertical axis (scaleX flip). The H stays upright. -->
-  <g class="dna-spin">
-    <path d="M20 8C20 8 20 12 32 16S44 20 44 24 44 28 32 32 20 36 20 40 20 44 32 48 44 52 44 56"
-          stroke="#5eead4" stroke-width="2" stroke-linecap="round"/>
-    <path d="M44 8C44 8 44 12 32 16S20 20 20 24 20 28 32 32 44 36 44 40 44 44 32 48 20 52 20 56"
-          stroke="#a78bfa" stroke-width="2" stroke-linecap="round"/>
-    <g stroke="#ffb84d" stroke-width="1.45" stroke-linecap="round">
-      <line class="dna-rung" x1="20" y1="8"  x2="44" y2="8"/>
-      <line class="dna-rung" x1="20" y1="24" x2="44" y2="24"/>
-      <line class="dna-rung" x1="20" y1="40" x2="44" y2="40"/>
-      <line class="dna-rung" x1="20" y1="56" x2="44" y2="56"/>
-    </g>
-  </g>
-  <g stroke-linecap="round" stroke-linejoin="round">
-    <path d="M23.5 19.5v25" stroke="#5eead4" stroke-width="3.5"/>
-    <path d="M40.5 19.5v25" stroke="#a78bfa" stroke-width="3.5"/>
-    <path d="M23.5 32h17" stroke="#f5c16c" stroke-width="3.3"/>
-  </g>
-</svg></div>
-        <div class="row">
-          <span class="row-label">Header 34px</span>
-          <div class="header-chip">
-            <span class="brand-mark" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Humanitas DNA mark">
-  <title>Humanitas — DNA helix forming an H</title>
-  <style>
-    .dna-spin { transform-origin: 32px 32px; animation: dna-spin 7.5s ease-in-out infinite; }
-    .dna-rung { animation: dna-twinkle 3.2s ease-in-out infinite; }
-    .dna-rung:nth-child(2) { animation-delay: -.8s; }
-    .dna-rung:nth-child(3) { animation-delay: -1.6s; }
-    .dna-rung:nth-child(4) { animation-delay: -2.4s; }
-    @keyframes dna-spin {
-      0%   { transform: scaleX(1); }
-      25%  { transform: scaleX(0.18); }
-      50%  { transform: scaleX(-1); }
-      75%  { transform: scaleX(-0.18); }
-      100% { transform: scaleX(1); }
-    }
-    @keyframes dna-twinkle {
-      0%, 100% { opacity: .75; }
-      50% { opacity: 1; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .dna-spin, .dna-rung { animation: none !important; opacity: 1 !important; transform: none !important; }
-    }
-  </style>
-  <!-- Double helix that rotates around the vertical axis (scaleX flip). The H stays upright. -->
-  <g class="dna-spin">
-    <path d="M20 8C20 8 20 12 32 16S44 20 44 24 44 28 32 32 20 36 20 40 20 44 32 48 44 52 44 56"
-          stroke="#5eead4" stroke-width="2" stroke-linecap="round"/>
-    <path d="M44 8C44 8 44 12 32 16S20 20 20 24 20 28 32 32 44 36 44 40 44 44 32 48 20 52 20 56"
-          stroke="#a78bfa" stroke-width="2" stroke-linecap="round"/>
-    <g stroke="#ffb84d" stroke-width="1.45" stroke-linecap="round">
-      <line class="dna-rung" x1="20" y1="8"  x2="44" y2="8"/>
-      <line class="dna-rung" x1="20" y1="24" x2="44" y2="24"/>
-      <line class="dna-rung" x1="20" y1="40" x2="44" y2="40"/>
-      <line class="dna-rung" x1="20" y1="56" x2="44" y2="56"/>
-    </g>
-  </g>
-  <g stroke-linecap="round" stroke-linejoin="round">
-    <path d="M23.5 19.5v25" stroke="#5eead4" stroke-width="3.5"/>
-    <path d="M40.5 19.5v25" stroke="#a78bfa" stroke-width="3.5"/>
-    <path d="M23.5 32h17" stroke="#f5c16c" stroke-width="3.3"/>
-  </g>
-</svg></span>
-            <span class="nm">Humanitas<span class="sub">Phylogeny of greatness</span></span>
-          </div>
-        </div>
-        <div class="row">
-          <span class="row-label">Favicon 32px</span>
-          <div class="fav-dark"><svg width="32" height="32" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Humanitas DNA mark">
-  <title>Humanitas — DNA helix forming an H</title>
-  <style>
-    .dna-spin { transform-origin: 32px 32px; animation: dna-spin 7.5s ease-in-out infinite; }
-    .dna-rung { animation: dna-twinkle 3.2s ease-in-out infinite; }
-    .dna-rung:nth-child(2) { animation-delay: -.8s; }
-    .dna-rung:nth-child(3) { animation-delay: -1.6s; }
-    .dna-rung:nth-child(4) { animation-delay: -2.4s; }
-    @keyframes dna-spin {
-      0%   { transform: scaleX(1); }
-      25%  { transform: scaleX(0.18); }
-      50%  { transform: scaleX(-1); }
-      75%  { transform: scaleX(-0.18); }
-      100% { transform: scaleX(1); }
-    }
-    @keyframes dna-twinkle {
-      0%, 100% { opacity: .75; }
-      50% { opacity: 1; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .dna-spin, .dna-rung { animation: none !important; opacity: 1 !important; transform: none !important; }
-    }
-  </style>
-  <!-- Double helix that rotates around the vertical axis (scaleX flip). The H stays upright. -->
-  <g class="dna-spin">
-    <path d="M20 8C20 8 20 12 32 16S44 20 44 24 44 28 32 32 20 36 20 40 20 44 32 48 44 52 44 56"
-          stroke="#5eead4" stroke-width="2" stroke-linecap="round"/>
-    <path d="M44 8C44 8 44 12 32 16S20 20 20 24 20 28 32 32 44 36 44 40 44 44 32 48 20 52 20 56"
-          stroke="#a78bfa" stroke-width="2" stroke-linecap="round"/>
-    <g stroke="#ffb84d" stroke-width="1.45" stroke-linecap="round">
-      <line class="dna-rung" x1="20" y1="8"  x2="44" y2="8"/>
-      <line class="dna-rung" x1="20" y1="24" x2="44" y2="24"/>
-      <line class="dna-rung" x1="20" y1="40" x2="44" y2="40"/>
-      <line class="dna-rung" x1="20" y1="56" x2="44" y2="56"/>
-    </g>
-  </g>
-  <g stroke-linecap="round" stroke-linejoin="round">
-    <path d="M23.5 19.5v25" stroke="#5eead4" stroke-width="3.5"/>
-    <path d="M40.5 19.5v25" stroke="#a78bfa" stroke-width="3.5"/>
-    <path d="M23.5 32h17" stroke="#f5c16c" stroke-width="3.3"/>
-  </g>
-</svg></div>
-        </div>
-      </article>
-
-      <article class="concept">
-        <div class="num">Concept 2</div>
-        <h2>Constellation wreath</h2>
-        <p>A laurel of star-nodes draws itself in, then twinkles. Gold points and a small H sit in the wreath, with a star at the crown.</p>
-        <div class="stage-large"><svg width="220" height="220" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Humanitas constellation wreath">
-  <title>Humanitas — constellation laurel wreath</title>
-  <style>
-    .wr-branch { fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 200; stroke-dashoffset: 200; animation: wr-draw 2.2s ease-out forwards; }
-    .wr-right { animation-delay: .12s; }
-    .wr-node { opacity: 0; animation: wr-pop .35s ease-out forwards, wr-twinkle 2.8s ease-in-out infinite; }
-    .wr-node:nth-child(1) { animation-delay: .25s, 1.1s; }
-    .wr-node:nth-child(2) { animation-delay: .4s, 1.4s; }
-    .wr-node:nth-child(3) { animation-delay: .55s, 1.7s; }
-    .wr-node:nth-child(4) { animation-delay: .7s, 2.0s; }
-    .wr-node:nth-child(5) { animation-delay: .85s, 2.3s; }
-    .wr-node:nth-child(6) { animation-delay: .4s, 1.55s; }
-    .wr-node:nth-child(7) { animation-delay: .55s, 1.85s; }
-    .wr-node:nth-child(8) { animation-delay: .7s, 2.15s; }
-    .wr-node:nth-child(9) { animation-delay: .85s, 2.45s; }
-    .wr-h { opacity: 0; animation: wr-pop .45s ease-out .8s forwards; }
-    .wr-star { transform-origin: 32px 7.2px; opacity: 0; animation: wr-pop .4s ease-out 1s forwards, wr-pulse 2.4s ease-in-out 1.3s infinite; }
-    @keyframes wr-draw { to { stroke-dashoffset: 0; } }
-    @keyframes wr-pop { to { opacity: 1; } }
-    @keyframes wr-twinkle { 0%, 100% { opacity: .6; } 50% { opacity: 1; } }
-    @keyframes wr-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.18); } }
-    @media (prefers-reduced-motion: reduce) {
-      .wr-branch { stroke-dasharray: none; stroke-dashoffset: 0; animation: none; }
-      .wr-node, .wr-h, .wr-star { animation: none !important; opacity: 1 !important; transform: none !important; }
-    }
-  </style>
-  <!-- two laurel branches, leaflets along the outside, tied at the bottom -->
-  <path class="wr-branch" d="M32 55C19 50 13 41 13.5 31.5 14 21 22 13 32 11" stroke="#5eead4" stroke-width="1.75"/>
-  <path class="wr-branch" d="M22 50c-3-1.2-4.2-4-2.2-6.2M18 43c-3.2-1-4.2-4.2-2-6.4M15.5 35c-3.2-.6-4-4-1.8-6.2M15 27c-2.8-1.2-3.2-4.4-.8-6.4M19 20c-2.2-2-1.8-5.2 1-6.6M25 14.5c-1.4-2.4.2-5.2 2.8-5.8" stroke="#5eead4" stroke-width="1.3"/>
-  <path class="wr-branch wr-right" d="M32 55C45 50 51 41 50.5 31.5 50 21 42 13 32 11" stroke="#a78bfa" stroke-width="1.75"/>
-  <path class="wr-branch wr-right" d="M42 50c3-1.2 4.2-4 2.2-6.2M46 43c3.2-1 4.2-4.2 2-6.4M48.5 35c3.2-.6 4-4 1.8-6.2M49 27c2.8-1.2 3.2-4.4.8-6.4M45 20c2.2-2 1.8-5.2-1-6.6M39 14.5c1.4-2.4-.2-5.2-2.8-5.8" stroke="#a78bfa" stroke-width="1.3"/>
-  <g fill="#f5c16c">
-    <circle class="wr-node" cx="32" cy="55" r="1.55"/>
-    <circle class="wr-node" cx="21" cy="50" r="1.35"/>
-    <circle class="wr-node" cx="14.8" cy="39" r="1.4"/>
-    <circle class="wr-node" cx="15.2" cy="26.5" r="1.3"/>
-    <circle class="wr-node" cx="24.5" cy="14.2" r="1.35"/>
-    <circle class="wr-node" cx="43" cy="50" r="1.35"/>
-    <circle class="wr-node" cx="49.2" cy="39" r="1.4"/>
-    <circle class="wr-node" cx="48.8" cy="26.5" r="1.3"/>
-    <circle class="wr-node" cx="39.5" cy="14.2" r="1.35"/>
-  </g>
-  <g class="wr-h" stroke-linecap="round">
-    <path d="M25.5 23.5v17" stroke="#5eead4" stroke-width="2.8"/>
-    <path d="M38.5 23.5v17" stroke="#a78bfa" stroke-width="2.8"/>
-    <path d="M25.5 32h13" stroke="#f5c16c" stroke-width="2.7"/>
-  </g>
-  <path class="wr-star" d="M32 4.4l.85 2.45h2.55l-2.05 1.5.8 2.45L32 9.3l-2.15 1.5.8-2.45-2.05-1.5h2.55z" fill="#ffb84d"/>
-</svg></div>
-        <div class="row">
-          <span class="row-label">Header 34px</span>
-          <div class="header-chip">
-            <span class="brand-mark" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Humanitas constellation wreath">
-  <title>Humanitas — constellation laurel wreath</title>
-  <style>
-    .wr-branch { fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 200; stroke-dashoffset: 200; animation: wr-draw 2.2s ease-out forwards; }
-    .wr-right { animation-delay: .12s; }
-    .wr-node { opacity: 0; animation: wr-pop .35s ease-out forwards, wr-twinkle 2.8s ease-in-out infinite; }
-    .wr-node:nth-child(1) { animation-delay: .25s, 1.1s; }
-    .wr-node:nth-child(2) { animation-delay: .4s, 1.4s; }
-    .wr-node:nth-child(3) { animation-delay: .55s, 1.7s; }
-    .wr-node:nth-child(4) { animation-delay: .7s, 2.0s; }
-    .wr-node:nth-child(5) { animation-delay: .85s, 2.3s; }
-    .wr-node:nth-child(6) { animation-delay: .4s, 1.55s; }
-    .wr-node:nth-child(7) { animation-delay: .55s, 1.85s; }
-    .wr-node:nth-child(8) { animation-delay: .7s, 2.15s; }
-    .wr-node:nth-child(9) { animation-delay: .85s, 2.45s; }
-    .wr-h { opacity: 0; animation: wr-pop .45s ease-out .8s forwards; }
-    .wr-star { transform-origin: 32px 7.2px; opacity: 0; animation: wr-pop .4s ease-out 1s forwards, wr-pulse 2.4s ease-in-out 1.3s infinite; }
-    @keyframes wr-draw { to { stroke-dashoffset: 0; } }
-    @keyframes wr-pop { to { opacity: 1; } }
-    @keyframes wr-twinkle { 0%, 100% { opacity: .6; } 50% { opacity: 1; } }
-    @keyframes wr-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.18); } }
-    @media (prefers-reduced-motion: reduce) {
-      .wr-branch { stroke-dasharray: none; stroke-dashoffset: 0; animation: none; }
-      .wr-node, .wr-h, .wr-star { animation: none !important; opacity: 1 !important; transform: none !important; }
-    }
-  </style>
-  <!-- two laurel branches, leaflets along the outside, tied at the bottom -->
-  <path class="wr-branch" d="M32 55C19 50 13 41 13.5 31.5 14 21 22 13 32 11" stroke="#5eead4" stroke-width="1.75"/>
-  <path class="wr-branch" d="M22 50c-3-1.2-4.2-4-2.2-6.2M18 43c-3.2-1-4.2-4.2-2-6.4M15.5 35c-3.2-.6-4-4-1.8-6.2M15 27c-2.8-1.2-3.2-4.4-.8-6.4M19 20c-2.2-2-1.8-5.2 1-6.6M25 14.5c-1.4-2.4.2-5.2 2.8-5.8" stroke="#5eead4" stroke-width="1.3"/>
-  <path class="wr-branch wr-right" d="M32 55C45 50 51 41 50.5 31.5 50 21 42 13 32 11" stroke="#a78bfa" stroke-width="1.75"/>
-  <path class="wr-branch wr-right" d="M42 50c3-1.2 4.2-4 2.2-6.2M46 43c3.2-1 4.2-4.2 2-6.4M48.5 35c3.2-.6 4-4 1.8-6.2M49 27c2.8-1.2 3.2-4.4.8-6.4M45 20c2.2-2 1.8-5.2-1-6.6M39 14.5c1.4-2.4-.2-5.2-2.8-5.8" stroke="#a78bfa" stroke-width="1.3"/>
-  <g fill="#f5c16c">
-    <circle class="wr-node" cx="32" cy="55" r="1.55"/>
-    <circle class="wr-node" cx="21" cy="50" r="1.35"/>
-    <circle class="wr-node" cx="14.8" cy="39" r="1.4"/>
-    <circle class="wr-node" cx="15.2" cy="26.5" r="1.3"/>
-    <circle class="wr-node" cx="24.5" cy="14.2" r="1.35"/>
-    <circle class="wr-node" cx="43" cy="50" r="1.35"/>
-    <circle class="wr-node" cx="49.2" cy="39" r="1.4"/>
-    <circle class="wr-node" cx="48.8" cy="26.5" r="1.3"/>
-    <circle class="wr-node" cx="39.5" cy="14.2" r="1.35"/>
-  </g>
-  <g class="wr-h" stroke-linecap="round">
-    <path d="M25.5 23.5v17" stroke="#5eead4" stroke-width="2.8"/>
-    <path d="M38.5 23.5v17" stroke="#a78bfa" stroke-width="2.8"/>
-    <path d="M25.5 32h13" stroke="#f5c16c" stroke-width="2.7"/>
-  </g>
-  <path class="wr-star" d="M32 4.4l.85 2.45h2.55l-2.05 1.5.8 2.45L32 9.3l-2.15 1.5.8-2.45-2.05-1.5h2.55z" fill="#ffb84d"/>
-</svg></span>
-            <span class="nm">Humanitas<span class="sub">Phylogeny of greatness</span></span>
-          </div>
-        </div>
-        <div class="row">
-          <span class="row-label">Favicon 32px</span>
-          <div class="fav-dark"><svg width="32" height="32" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Humanitas constellation wreath">
-  <title>Humanitas — constellation laurel wreath</title>
-  <style>
-    .wr-branch { fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 200; stroke-dashoffset: 200; animation: wr-draw 2.2s ease-out forwards; }
-    .wr-right { animation-delay: .12s; }
-    .wr-node { opacity: 0; animation: wr-pop .35s ease-out forwards, wr-twinkle 2.8s ease-in-out infinite; }
-    .wr-node:nth-child(1) { animation-delay: .25s, 1.1s; }
-    .wr-node:nth-child(2) { animation-delay: .4s, 1.4s; }
-    .wr-node:nth-child(3) { animation-delay: .55s, 1.7s; }
-    .wr-node:nth-child(4) { animation-delay: .7s, 2.0s; }
-    .wr-node:nth-child(5) { animation-delay: .85s, 2.3s; }
-    .wr-node:nth-child(6) { animation-delay: .4s, 1.55s; }
-    .wr-node:nth-child(7) { animation-delay: .55s, 1.85s; }
-    .wr-node:nth-child(8) { animation-delay: .7s, 2.15s; }
-    .wr-node:nth-child(9) { animation-delay: .85s, 2.45s; }
-    .wr-h { opacity: 0; animation: wr-pop .45s ease-out .8s forwards; }
-    .wr-star { transform-origin: 32px 7.2px; opacity: 0; animation: wr-pop .4s ease-out 1s forwards, wr-pulse 2.4s ease-in-out 1.3s infinite; }
-    @keyframes wr-draw { to { stroke-dashoffset: 0; } }
-    @keyframes wr-pop { to { opacity: 1; } }
-    @keyframes wr-twinkle { 0%, 100% { opacity: .6; } 50% { opacity: 1; } }
-    @keyframes wr-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.18); } }
-    @media (prefers-reduced-motion: reduce) {
-      .wr-branch { stroke-dasharray: none; stroke-dashoffset: 0; animation: none; }
-      .wr-node, .wr-h, .wr-star { animation: none !important; opacity: 1 !important; transform: none !important; }
-    }
-  </style>
-  <!-- two laurel branches, leaflets along the outside, tied at the bottom -->
-  <path class="wr-branch" d="M32 55C19 50 13 41 13.5 31.5 14 21 22 13 32 11" stroke="#5eead4" stroke-width="1.75"/>
-  <path class="wr-branch" d="M22 50c-3-1.2-4.2-4-2.2-6.2M18 43c-3.2-1-4.2-4.2-2-6.4M15.5 35c-3.2-.6-4-4-1.8-6.2M15 27c-2.8-1.2-3.2-4.4-.8-6.4M19 20c-2.2-2-1.8-5.2 1-6.6M25 14.5c-1.4-2.4.2-5.2 2.8-5.8" stroke="#5eead4" stroke-width="1.3"/>
-  <path class="wr-branch wr-right" d="M32 55C45 50 51 41 50.5 31.5 50 21 42 13 32 11" stroke="#a78bfa" stroke-width="1.75"/>
-  <path class="wr-branch wr-right" d="M42 50c3-1.2 4.2-4 2.2-6.2M46 43c3.2-1 4.2-4.2 2-6.4M48.5 35c3.2-.6 4-4 1.8-6.2M49 27c2.8-1.2 3.2-4.4.8-6.4M45 20c2.2-2 1.8-5.2-1-6.6M39 14.5c1.4-2.4-.2-5.2-2.8-5.8" stroke="#a78bfa" stroke-width="1.3"/>
-  <g fill="#f5c16c">
-    <circle class="wr-node" cx="32" cy="55" r="1.55"/>
-    <circle class="wr-node" cx="21" cy="50" r="1.35"/>
-    <circle class="wr-node" cx="14.8" cy="39" r="1.4"/>
-    <circle class="wr-node" cx="15.2" cy="26.5" r="1.3"/>
-    <circle class="wr-node" cx="24.5" cy="14.2" r="1.35"/>
-    <circle class="wr-node" cx="43" cy="50" r="1.35"/>
-    <circle class="wr-node" cx="49.2" cy="39" r="1.4"/>
-    <circle class="wr-node" cx="48.8" cy="26.5" r="1.3"/>
-    <circle class="wr-node" cx="39.5" cy="14.2" r="1.35"/>
-  </g>
-  <g class="wr-h" stroke-linecap="round">
-    <path d="M25.5 23.5v17" stroke="#5eead4" stroke-width="2.8"/>
-    <path d="M38.5 23.5v17" stroke="#a78bfa" stroke-width="2.8"/>
-    <path d="M25.5 32h13" stroke="#f5c16c" stroke-width="2.7"/>
-  </g>
-  <path class="wr-star" d="M32 4.4l.85 2.45h2.55l-2.05 1.5.8 2.45L32 9.3l-2.15 1.5.8-2.45-2.05-1.5h2.55z" fill="#ffb84d"/>
-</svg></div>
-        </div>
-      </article>
-
-      <article class="concept">
-        <div class="num">Concept 3</div>
-        <h2>Linked figures</h2>
-        <p>Two human figures stand as the stems of an H, arms linked as the crossbar, with a gold star pulsing above.</p>
-        <div class="stage-large"><svg width="220" height="220" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Humanitas joined figures monogram">
-  <title>Humanitas — two figures forming an H</title>
-  <style>
-    .fg-left, .fg-right { stroke-linecap: round; stroke-linejoin: round; }
-    .fg-left { animation: fg-in-l 1s ease-out both; }
-    .fg-right { animation: fg-in-r 1s ease-out both; }
-    .fg-bar { stroke-dasharray: 22; stroke-dashoffset: 22; animation: fg-bar .9s ease-out .65s forwards; }
-    .fg-star { transform-origin: 32px 8px; animation: fg-pulse 2.4s ease-in-out 1.1s infinite; }
-    @keyframes fg-in-l { from { transform: translateX(-3px); opacity: 0; } to { transform: none; opacity: 1; } }
-    @keyframes fg-in-r { from { transform: translateX(3px); opacity: 0; } to { transform: none; opacity: 1; } }
-    @keyframes fg-bar { to { stroke-dashoffset: 0; } }
-    @keyframes fg-pulse { 0%, 100% { transform: scale(1); opacity: .85; } 50% { transform: scale(1.2); opacity: 1; } }
-    @media (prefers-reduced-motion: reduce) {
-      .fg-left, .fg-right, .fg-bar, .fg-star { animation: none !important; opacity: 1 !important; transform: none !important; stroke-dashoffset: 0 !important; }
-    }
-  </style>
-  <g class="fg-left">
-    <circle cx="23" cy="15.5" r="4.1" stroke="#5eead4" stroke-width="2.05"/>
-    <path d="M23 20.2V44" stroke="#5eead4" stroke-width="3.15"/>
-    <path d="M23 44l-3.6 13" stroke="#5eead4" stroke-width="2.25"/>
-    <path d="M23 44l2.6 8.5" stroke="#5eead4" stroke-width="2.25"/>
-  </g>
-  <g class="fg-right">
-    <circle cx="41" cy="15.5" r="4.1" stroke="#a78bfa" stroke-width="2.05"/>
-    <path d="M41 20.2V44" stroke="#a78bfa" stroke-width="3.15"/>
-    <path d="M41 44l3.6 13" stroke="#a78bfa" stroke-width="2.25"/>
-    <path d="M41 44l-2.6 8.5" stroke="#a78bfa" stroke-width="2.25"/>
-  </g>
-  <path class="fg-bar" d="M23 29.5h18" stroke="#f5c16c" stroke-width="3.2" stroke-linecap="round"/>
-  <path class="fg-star" d="M32 3.6l.85 2.45h2.55l-2.05 1.5.8 2.45L32 8.5l-2.15 1.5.8-2.45-2.05-1.5h2.55z" fill="#ffb84d"/>
-</svg></div>
-        <div class="row">
-          <span class="row-label">Header 34px</span>
-          <div class="header-chip">
-            <span class="brand-mark" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Humanitas joined figures monogram">
-  <title>Humanitas — two figures forming an H</title>
-  <style>
-    .fg-left, .fg-right { stroke-linecap: round; stroke-linejoin: round; }
-    .fg-left { animation: fg-in-l 1s ease-out both; }
-    .fg-right { animation: fg-in-r 1s ease-out both; }
-    .fg-bar { stroke-dasharray: 22; stroke-dashoffset: 22; animation: fg-bar .9s ease-out .65s forwards; }
-    .fg-star { transform-origin: 32px 8px; animation: fg-pulse 2.4s ease-in-out 1.1s infinite; }
-    @keyframes fg-in-l { from { transform: translateX(-3px); opacity: 0; } to { transform: none; opacity: 1; } }
-    @keyframes fg-in-r { from { transform: translateX(3px); opacity: 0; } to { transform: none; opacity: 1; } }
-    @keyframes fg-bar { to { stroke-dashoffset: 0; } }
-    @keyframes fg-pulse { 0%, 100% { transform: scale(1); opacity: .85; } 50% { transform: scale(1.2); opacity: 1; } }
-    @media (prefers-reduced-motion: reduce) {
-      .fg-left, .fg-right, .fg-bar, .fg-star { animation: none !important; opacity: 1 !important; transform: none !important; stroke-dashoffset: 0 !important; }
-    }
-  </style>
-  <g class="fg-left">
-    <circle cx="23" cy="15.5" r="4.1" stroke="#5eead4" stroke-width="2.05"/>
-    <path d="M23 20.2V44" stroke="#5eead4" stroke-width="3.15"/>
-    <path d="M23 44l-3.6 13" stroke="#5eead4" stroke-width="2.25"/>
-    <path d="M23 44l2.6 8.5" stroke="#5eead4" stroke-width="2.25"/>
-  </g>
-  <g class="fg-right">
-    <circle cx="41" cy="15.5" r="4.1" stroke="#a78bfa" stroke-width="2.05"/>
-    <path d="M41 20.2V44" stroke="#a78bfa" stroke-width="3.15"/>
-    <path d="M41 44l3.6 13" stroke="#a78bfa" stroke-width="2.25"/>
-    <path d="M41 44l-2.6 8.5" stroke="#a78bfa" stroke-width="2.25"/>
-  </g>
-  <path class="fg-bar" d="M23 29.5h18" stroke="#f5c16c" stroke-width="3.2" stroke-linecap="round"/>
-  <path class="fg-star" d="M32 3.6l.85 2.45h2.55l-2.05 1.5.8 2.45L32 8.5l-2.15 1.5.8-2.45-2.05-1.5h2.55z" fill="#ffb84d"/>
-</svg></span>
-            <span class="nm">Humanitas<span class="sub">Phylogeny of greatness</span></span>
-          </div>
-        </div>
-        <div class="row">
-          <span class="row-label">Favicon 32px</span>
-          <div class="fav-dark"><svg width="32" height="32" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Humanitas joined figures monogram">
-  <title>Humanitas — two figures forming an H</title>
-  <style>
-    .fg-left, .fg-right { stroke-linecap: round; stroke-linejoin: round; }
-    .fg-left { animation: fg-in-l 1s ease-out both; }
-    .fg-right { animation: fg-in-r 1s ease-out both; }
-    .fg-bar { stroke-dasharray: 22; stroke-dashoffset: 22; animation: fg-bar .9s ease-out .65s forwards; }
-    .fg-star { transform-origin: 32px 8px; animation: fg-pulse 2.4s ease-in-out 1.1s infinite; }
-    @keyframes fg-in-l { from { transform: translateX(-3px); opacity: 0; } to { transform: none; opacity: 1; } }
-    @keyframes fg-in-r { from { transform: translateX(3px); opacity: 0; } to { transform: none; opacity: 1; } }
-    @keyframes fg-bar { to { stroke-dashoffset: 0; } }
-    @keyframes fg-pulse { 0%, 100% { transform: scale(1); opacity: .85; } 50% { transform: scale(1.2); opacity: 1; } }
-    @media (prefers-reduced-motion: reduce) {
-      .fg-left, .fg-right, .fg-bar, .fg-star { animation: none !important; opacity: 1 !important; transform: none !important; stroke-dashoffset: 0 !important; }
-    }
-  </style>
-  <g class="fg-left">
-    <circle cx="23" cy="15.5" r="4.1" stroke="#5eead4" stroke-width="2.05"/>
-    <path d="M23 20.2V44" stroke="#5eead4" stroke-width="3.15"/>
-    <path d="M23 44l-3.6 13" stroke="#5eead4" stroke-width="2.25"/>
-    <path d="M23 44l2.6 8.5" stroke="#5eead4" stroke-width="2.25"/>
-  </g>
-  <g class="fg-right">
-    <circle cx="41" cy="15.5" r="4.1" stroke="#a78bfa" stroke-width="2.05"/>
-    <path d="M41 20.2V44" stroke="#a78bfa" stroke-width="3.15"/>
-    <path d="M41 44l3.6 13" stroke="#a78bfa" stroke-width="2.25"/>
-    <path d="M41 44l-2.6 8.5" stroke="#a78bfa" stroke-width="2.25"/>
-  </g>
-  <path class="fg-bar" d="M23 29.5h18" stroke="#f5c16c" stroke-width="3.2" stroke-linecap="round"/>
-  <path class="fg-star" d="M32 3.6l.85 2.45h2.55l-2.05 1.5.8 2.45L32 8.5l-2.15 1.5.8-2.45-2.05-1.5h2.55z" fill="#ffb84d"/>
-</svg></div>
-        </div>
-      </article>
+    <div class="stage-large" id="stage-large">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Humanitas" class="humanitas-dna" data-dna-prefix="lgdna">
+  <title>Humanitas — original DNA strand</title>
+  <style>#lgdna-glow-layer{animation:lgdna-breathe 4.2s ease-in-out infinite}@keyframes lgdna-breathe{0%,100%{opacity:.32}50%{opacity:.62}}@media (prefers-reduced-motion:reduce){#lgdna-glow-layer{animation:none!important;opacity:.32}}</style>
+  
+  <defs>
+    <linearGradient id="lgdna-grad" x1="18" y1="6" x2="48" y2="58" gradientUnits="userSpaceOnUse" color-interpolation="sRGB">
+      <stop offset="0%" stop-color="#5eead4"/>
+      <stop offset="46%" stop-color="#f5c16c"/>
+      <stop offset="100%" stop-color="#a78bfa"/>
+    </linearGradient>
+    <linearGradient id="lgdna-rung" x1="20" y1="14" x2="44" y2="50" gradientUnits="userSpaceOnUse" color-interpolation="sRGB">
+      <stop offset="0%" stop-color="#5eead4"/>
+      <stop offset="50%" stop-color="#f5c16c"/>
+      <stop offset="100%" stop-color="#a78bfa"/>
+    </linearGradient>
+    <filter id="lgdna-glow" x="-35%" y="-35%" width="170%" height="170%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="0.9"/>
+    </filter>
+  </defs>
+  <g id="lgdna-glow-layer" filter="url(#lgdna-glow)" opacity=".4"><path d="M15.14 26.12L14.93 27.60L15.93 29.50L17.36 30.46L18.97 31.04L20.85 31.48L23.02 31.84L25.45 32.14L28.07 32.40L30.79 32.64L33.54 32.86L36.20 33.10L38.69 33.35L40.90 33.62L42.74 33.93L44.09 34.26L44.81 34.53L44.72 34.39L44.53 34.24L49.06 32.92L48.53 31.56L47.10 30.35L45.52 29.70L43.71 29.24L41.60 28.88L39.22 28.58L36.64 28.32L33.93 28.09L31.18 27.87L28.49 27.66L25.95 27.42L23.66 27.16L21.71 26.87L20.21 26.56L19.28 26.26L19.09 26.19L19.41 26.93L19.51 27.10L15.14 26.12Z" fill="url(#lgdna-grad)"/><path d="M15.93 37.24L16.14 38.77L17.46 40.31L18.96 41.06L20.65 41.54L22.61 41.92L24.81 42.23L27.22 42.49L29.76 42.72L32.34 42.94L34.88 43.15L37.29 43.38L39.47 43.64L41.35 43.92L42.84 44.23L43.84 44.54L44.26 44.72L44.16 44.44L44.10 44.45L47.74 44.46L47.68 43.20L46.73 41.79L45.45 40.96L43.94 40.38L42.15 39.92L40.09 39.52L37.79 39.18L35.33 38.88L32.77 38.59L30.20 38.32L27.71 38.03L25.41 37.74L23.39 37.41L21.75 37.06L20.61 36.70L20.16 36.48L20.48 36.91L20.67 37.17L15.93 37.24Z" fill="url(#lgdna-grad)"/><path d="M17.73 15.05L17.31 16.08L17.53 17.62L18.44 18.77L19.65 19.52L21.10 20.09L22.83 20.56L24.81 20.97L27.00 21.34L29.34 21.67L31.75 21.99L34.15 22.30L36.46 22.61L38.57 22.95L40.39 23.31L41.82 23.68L42.72 24.04L42.90 24.16L42.83 24.26L46.76 22.01L46.02 20.95L44.61 20.04L43.06 19.50L41.27 19.10L39.23 18.77L37.00 18.49L34.63 18.24L32.20 18.01L29.80 17.78L27.51 17.54L25.41 17.28L23.58 17.00L22.09 16.69L21.03 16.37L20.47 16.12L20.39 16.15L20.39 16.46L20.50 16.15L17.73 15.05Z" fill="url(#lgdna-grad)"/><path d="M24.44 8.35L25.32 8.98L26.57 9.56L28.00 10.07L29.58 10.56L31.23 11.02L32.89 11.47L34.49 11.92L35.94 12.38L37.17 12.85L38.07 13.30L38.55 13.68L38.76 14.08L41.19 12.15L40.50 11.42L39.39 10.77L38.12 10.29L36.67 9.89L35.09 9.54L33.42 9.21L31.72 8.90L30.05 8.60L28.49 8.28L27.10 7.96L25.94 7.63L25.05 7.27L24.29 7.55L24.44 8.35Z" fill="url(#lgdna-grad)"/><path d="M20.36 47.92L20.82 49.00L21.94 50.00L23.23 50.60L24.71 51.05L26.38 51.42L28.21 51.74L30.14 52.03L32.11 52.31L34.04 52.59L35.87 52.88L37.53 53.18L38.96 53.50L40.11 53.84L40.93 54.18L41.41 54.47L41.62 54.66L41.71 54.87L41.49 55.47L42.56 56.09L43.13 55.31L43.25 54.25L42.83 53.27L42.04 52.49L40.98 51.84L39.66 51.29L38.13 50.79L36.40 50.33L34.54 49.90L32.60 49.50L30.67 49.10L28.80 48.69L27.10 48.28L25.65 47.85L24.54 47.42L23.90 47.05L23.84 46.96L23.93 46.83L20.36 47.92Z" fill="url(#lgdna-grad)"/><path d="M41.78 54.71L41.49 55.47L41.76 56.24L42.56 56.09L43.07 55.46L41.78 54.71Z" fill="url(#lgdna-grad)"/><path d="M40.27 24.53L21.91 27.27" fill="none" stroke="url(#lgdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M25.04 33.04L38.96 30.96" fill="none" stroke="url(#lgdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M23.57 14.55L34.96 12.85" fill="none" stroke="url(#lgdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M25.79 39.16L40.03 37.03" fill="none" stroke="url(#lgdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M36.63 50.01L32.84 50.58" fill="none" stroke="url(#lgdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M42.46 42.91L25.19 45.49" fill="none" stroke="url(#lgdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M28.28 57.67L28.95 58.12L29.75 58.03L29.79 57.22L29.29 56.58L28.28 57.67Z" fill="url(#lgdna-grad)"/><path d="M44.05 43.82L44.18 43.92L44.15 44.02L43.64 44.57L42.71 45.30L41.44 46.14L39.94 47.03L38.27 47.96L36.54 48.91L34.81 49.86L33.15 50.82L31.63 51.76L30.31 52.69L29.22 53.60L28.39 54.53L27.86 55.51L27.75 56.57L28.17 57.55L28.95 58.12L29.79 57.22L29.40 56.71L29.43 56.48L29.57 56.24L29.94 55.82L30.63 55.26L31.62 54.60L32.90 53.87L34.40 53.10L36.07 52.29L37.83 51.46L39.64 50.61L41.40 49.77L43.05 48.93L44.54 48.08L45.82 47.23L46.88 46.27L47.66 44.99L47.79 43.82L44.05 43.82Z" fill="url(#lgdna-grad)"/><path d="M31.41 6.32L30.67 6.92L29.66 7.58L28.42 8.30L27.02 9.05L25.52 9.83L23.98 10.62L22.48 11.42L21.07 12.22L19.80 13.02L18.72 13.86L17.85 14.81L17.41 15.70L20.29 16.84L20.38 16.39L20.73 15.90L21.46 15.19L22.50 14.39L23.75 13.53L25.15 12.63L26.60 11.71L28.05 10.79L29.41 9.86L30.63 8.95L31.66 8.04L32.31 7.17L32.23 6.36L31.41 6.32Z" fill="url(#lgdna-grad)"/><path d="M38.36 13.48L38.56 13.75L38.47 13.45L38.39 13.44L37.92 13.85L37.00 14.46L35.67 15.19L34.00 16.00L32.07 16.86L29.95 17.76L27.72 18.68L25.46 19.61L23.27 20.54L21.21 21.46L19.37 22.37L17.77 23.28L16.44 24.25L15.36 25.53L14.96 26.77L19.38 27.76L19.28 27.69L19.42 27.52L20.18 26.92L21.43 26.14L23.07 25.26L24.99 24.33L27.10 23.35L29.31 22.35L31.53 21.34L33.67 20.34L35.66 19.35L37.43 18.38L38.94 17.42L40.16 16.45L41.10 15.38L41.64 14.02L41.39 12.48L40.69 11.62L38.36 13.48Z" fill="url(#lgdna-grad)"/><path d="M44.35 33.64L44.45 33.32L44.63 32.82L44.26 33.17L43.28 33.84L41.82 34.66L39.98 35.56L37.86 36.52L35.57 37.51L33.20 38.53L30.83 39.55L28.56 40.56L26.46 41.56L24.61 42.54L23.03 43.51L21.76 44.50L20.77 45.67L20.28 47.30L20.59 48.51L24.07 47.45L24.01 47.45L23.99 47.75L24.34 47.45L25.21 46.86L26.55 46.13L28.26 45.31L30.27 44.43L32.50 43.51L34.87 42.56L37.28 41.60L39.63 40.63L41.86 39.68L43.88 38.74L45.64 37.81L47.12 36.85L48.34 35.70L49.14 33.84L48.90 32.31L44.35 33.64Z" fill="url(#lgdna-grad)"/><path d="M42.52 23.66L42.55 23.47L42.65 22.67L42.49 22.79L41.68 23.35L40.34 24.09L38.56 24.94L36.45 25.85L34.09 26.82L31.57 27.82L29.01 28.83L26.48 29.84L24.09 30.84L21.91 31.82L20.00 32.78L18.40 33.76L17.08 34.84L16.07 36.41L15.95 37.87L20.67 37.80L20.54 38.00L20.49 38.17L21.10 37.70L22.29 36.99L23.96 36.15L26.00 35.24L28.30 34.28L30.78 33.28L33.34 32.26L35.88 31.23L38.31 30.22L40.54 29.22L42.51 28.25L44.18 27.27L45.55 26.24L46.64 24.91L47.03 22.80L46.41 21.44L42.52 23.66Z" fill="url(#lgdna-grad)"/></g>
+  <g id="lgdna-static"><path d="M15.14 26.12L14.93 27.60L15.93 29.50L17.36 30.46L18.97 31.04L20.85 31.48L23.02 31.84L25.45 32.14L28.07 32.40L30.79 32.64L33.54 32.86L36.20 33.10L38.69 33.35L40.90 33.62L42.74 33.93L44.09 34.26L44.81 34.53L44.72 34.39L44.53 34.24L49.06 32.92L48.53 31.56L47.10 30.35L45.52 29.70L43.71 29.24L41.60 28.88L39.22 28.58L36.64 28.32L33.93 28.09L31.18 27.87L28.49 27.66L25.95 27.42L23.66 27.16L21.71 26.87L20.21 26.56L19.28 26.26L19.09 26.19L19.41 26.93L19.51 27.10L15.14 26.12Z" fill="url(#lgdna-grad)"/><path d="M15.93 37.24L16.14 38.77L17.46 40.31L18.96 41.06L20.65 41.54L22.61 41.92L24.81 42.23L27.22 42.49L29.76 42.72L32.34 42.94L34.88 43.15L37.29 43.38L39.47 43.64L41.35 43.92L42.84 44.23L43.84 44.54L44.26 44.72L44.16 44.44L44.10 44.45L47.74 44.46L47.68 43.20L46.73 41.79L45.45 40.96L43.94 40.38L42.15 39.92L40.09 39.52L37.79 39.18L35.33 38.88L32.77 38.59L30.20 38.32L27.71 38.03L25.41 37.74L23.39 37.41L21.75 37.06L20.61 36.70L20.16 36.48L20.48 36.91L20.67 37.17L15.93 37.24Z" fill="url(#lgdna-grad)"/><path d="M17.73 15.05L17.31 16.08L17.53 17.62L18.44 18.77L19.65 19.52L21.10 20.09L22.83 20.56L24.81 20.97L27.00 21.34L29.34 21.67L31.75 21.99L34.15 22.30L36.46 22.61L38.57 22.95L40.39 23.31L41.82 23.68L42.72 24.04L42.90 24.16L42.83 24.26L46.76 22.01L46.02 20.95L44.61 20.04L43.06 19.50L41.27 19.10L39.23 18.77L37.00 18.49L34.63 18.24L32.20 18.01L29.80 17.78L27.51 17.54L25.41 17.28L23.58 17.00L22.09 16.69L21.03 16.37L20.47 16.12L20.39 16.15L20.39 16.46L20.50 16.15L17.73 15.05Z" fill="url(#lgdna-grad)"/><path d="M24.44 8.35L25.32 8.98L26.57 9.56L28.00 10.07L29.58 10.56L31.23 11.02L32.89 11.47L34.49 11.92L35.94 12.38L37.17 12.85L38.07 13.30L38.55 13.68L38.76 14.08L41.19 12.15L40.50 11.42L39.39 10.77L38.12 10.29L36.67 9.89L35.09 9.54L33.42 9.21L31.72 8.90L30.05 8.60L28.49 8.28L27.10 7.96L25.94 7.63L25.05 7.27L24.29 7.55L24.44 8.35Z" fill="url(#lgdna-grad)"/><path d="M20.36 47.92L20.82 49.00L21.94 50.00L23.23 50.60L24.71 51.05L26.38 51.42L28.21 51.74L30.14 52.03L32.11 52.31L34.04 52.59L35.87 52.88L37.53 53.18L38.96 53.50L40.11 53.84L40.93 54.18L41.41 54.47L41.62 54.66L41.71 54.87L41.49 55.47L42.56 56.09L43.13 55.31L43.25 54.25L42.83 53.27L42.04 52.49L40.98 51.84L39.66 51.29L38.13 50.79L36.40 50.33L34.54 49.90L32.60 49.50L30.67 49.10L28.80 48.69L27.10 48.28L25.65 47.85L24.54 47.42L23.90 47.05L23.84 46.96L23.93 46.83L20.36 47.92Z" fill="url(#lgdna-grad)"/><path d="M41.78 54.71L41.49 55.47L41.76 56.24L42.56 56.09L43.07 55.46L41.78 54.71Z" fill="url(#lgdna-grad)"/><path d="M40.27 24.53L21.91 27.27" fill="none" stroke="url(#lgdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M25.04 33.04L38.96 30.96" fill="none" stroke="url(#lgdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M23.57 14.55L34.96 12.85" fill="none" stroke="url(#lgdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M25.79 39.16L40.03 37.03" fill="none" stroke="url(#lgdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M36.63 50.01L32.84 50.58" fill="none" stroke="url(#lgdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M42.46 42.91L25.19 45.49" fill="none" stroke="url(#lgdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M28.28 57.67L28.95 58.12L29.75 58.03L29.79 57.22L29.29 56.58L28.28 57.67Z" fill="url(#lgdna-grad)"/><path d="M44.05 43.82L44.18 43.92L44.15 44.02L43.64 44.57L42.71 45.30L41.44 46.14L39.94 47.03L38.27 47.96L36.54 48.91L34.81 49.86L33.15 50.82L31.63 51.76L30.31 52.69L29.22 53.60L28.39 54.53L27.86 55.51L27.75 56.57L28.17 57.55L28.95 58.12L29.79 57.22L29.40 56.71L29.43 56.48L29.57 56.24L29.94 55.82L30.63 55.26L31.62 54.60L32.90 53.87L34.40 53.10L36.07 52.29L37.83 51.46L39.64 50.61L41.40 49.77L43.05 48.93L44.54 48.08L45.82 47.23L46.88 46.27L47.66 44.99L47.79 43.82L44.05 43.82Z" fill="url(#lgdna-grad)"/><path d="M31.41 6.32L30.67 6.92L29.66 7.58L28.42 8.30L27.02 9.05L25.52 9.83L23.98 10.62L22.48 11.42L21.07 12.22L19.80 13.02L18.72 13.86L17.85 14.81L17.41 15.70L20.29 16.84L20.38 16.39L20.73 15.90L21.46 15.19L22.50 14.39L23.75 13.53L25.15 12.63L26.60 11.71L28.05 10.79L29.41 9.86L30.63 8.95L31.66 8.04L32.31 7.17L32.23 6.36L31.41 6.32Z" fill="url(#lgdna-grad)"/><path d="M38.36 13.48L38.56 13.75L38.47 13.45L38.39 13.44L37.92 13.85L37.00 14.46L35.67 15.19L34.00 16.00L32.07 16.86L29.95 17.76L27.72 18.68L25.46 19.61L23.27 20.54L21.21 21.46L19.37 22.37L17.77 23.28L16.44 24.25L15.36 25.53L14.96 26.77L19.38 27.76L19.28 27.69L19.42 27.52L20.18 26.92L21.43 26.14L23.07 25.26L24.99 24.33L27.10 23.35L29.31 22.35L31.53 21.34L33.67 20.34L35.66 19.35L37.43 18.38L38.94 17.42L40.16 16.45L41.10 15.38L41.64 14.02L41.39 12.48L40.69 11.62L38.36 13.48Z" fill="url(#lgdna-grad)"/><path d="M44.35 33.64L44.45 33.32L44.63 32.82L44.26 33.17L43.28 33.84L41.82 34.66L39.98 35.56L37.86 36.52L35.57 37.51L33.20 38.53L30.83 39.55L28.56 40.56L26.46 41.56L24.61 42.54L23.03 43.51L21.76 44.50L20.77 45.67L20.28 47.30L20.59 48.51L24.07 47.45L24.01 47.45L23.99 47.75L24.34 47.45L25.21 46.86L26.55 46.13L28.26 45.31L30.27 44.43L32.50 43.51L34.87 42.56L37.28 41.60L39.63 40.63L41.86 39.68L43.88 38.74L45.64 37.81L47.12 36.85L48.34 35.70L49.14 33.84L48.90 32.31L44.35 33.64Z" fill="url(#lgdna-grad)"/><path d="M42.52 23.66L42.55 23.47L42.65 22.67L42.49 22.79L41.68 23.35L40.34 24.09L38.56 24.94L36.45 25.85L34.09 26.82L31.57 27.82L29.01 28.83L26.48 29.84L24.09 30.84L21.91 31.82L20.00 32.78L18.40 33.76L17.08 34.84L16.07 36.41L15.95 37.87L20.67 37.80L20.54 38.00L20.49 38.17L21.10 37.70L22.29 36.99L23.96 36.15L26.00 35.24L28.30 34.28L30.78 33.28L33.34 32.26L35.88 31.23L38.31 30.22L40.54 29.22L42.51 28.25L44.18 27.27L45.55 26.24L46.64 24.91L47.03 22.80L46.41 21.44L42.52 23.66Z" fill="url(#lgdna-grad)"/></g>
+  <g id="lgdna-live" opacity="0"></g>
+</svg>
     </div>
 
-    <section class="static-row">
-      <h2>Static favicon and apple-touch icon</h2>
-      <p class="lede" style="margin:0">A simplified, unanimated version of concept 1 for browsers and home screens. The same file is served as <code>/favicon.svg</code>.</p>
-      <div class="static-assets">
-        <figure>
-          <div class="fav-dark"><img src="/favicon.svg" width="32" height="32" alt="Static 32px favicon" /></div>
-          <figcaption>favicon.svg · 32px</figcaption>
-        </figure>
+    <div class="sizes">
+      <div class="size-card">
+        <h2>Header · 34px</h2>
+        <p>The same mark beside the wordmark, as it appears in the site header.</p>
+        <div class="header-chip">
+          <span class="brand-mark" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Humanitas" class="humanitas-dna" data-dna-prefix="lchdna">
+  <title>Humanitas — original DNA strand</title>
+  <style>#lchdna-glow-layer{animation:lchdna-breathe 4.2s ease-in-out infinite}@keyframes lchdna-breathe{0%,100%{opacity:.32}50%{opacity:.62}}@media (prefers-reduced-motion:reduce){#lchdna-glow-layer{animation:none!important;opacity:.32}}</style>
+  
+  <defs>
+    <linearGradient id="lchdna-grad" x1="18" y1="6" x2="48" y2="58" gradientUnits="userSpaceOnUse" color-interpolation="sRGB">
+      <stop offset="0%" stop-color="#5eead4"/>
+      <stop offset="46%" stop-color="#f5c16c"/>
+      <stop offset="100%" stop-color="#a78bfa"/>
+    </linearGradient>
+    <linearGradient id="lchdna-rung" x1="20" y1="14" x2="44" y2="50" gradientUnits="userSpaceOnUse" color-interpolation="sRGB">
+      <stop offset="0%" stop-color="#5eead4"/>
+      <stop offset="50%" stop-color="#f5c16c"/>
+      <stop offset="100%" stop-color="#a78bfa"/>
+    </linearGradient>
+    <filter id="lchdna-glow" x="-35%" y="-35%" width="170%" height="170%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="0.9"/>
+    </filter>
+  </defs>
+  <g id="lchdna-glow-layer" filter="url(#lchdna-glow)" opacity=".4"><path d="M15.14 26.12L14.93 27.60L15.93 29.50L17.36 30.46L18.97 31.04L20.85 31.48L23.02 31.84L25.45 32.14L28.07 32.40L30.79 32.64L33.54 32.86L36.20 33.10L38.69 33.35L40.90 33.62L42.74 33.93L44.09 34.26L44.81 34.53L44.72 34.39L44.53 34.24L49.06 32.92L48.53 31.56L47.10 30.35L45.52 29.70L43.71 29.24L41.60 28.88L39.22 28.58L36.64 28.32L33.93 28.09L31.18 27.87L28.49 27.66L25.95 27.42L23.66 27.16L21.71 26.87L20.21 26.56L19.28 26.26L19.09 26.19L19.41 26.93L19.51 27.10L15.14 26.12Z" fill="url(#lchdna-grad)"/><path d="M15.93 37.24L16.14 38.77L17.46 40.31L18.96 41.06L20.65 41.54L22.61 41.92L24.81 42.23L27.22 42.49L29.76 42.72L32.34 42.94L34.88 43.15L37.29 43.38L39.47 43.64L41.35 43.92L42.84 44.23L43.84 44.54L44.26 44.72L44.16 44.44L44.10 44.45L47.74 44.46L47.68 43.20L46.73 41.79L45.45 40.96L43.94 40.38L42.15 39.92L40.09 39.52L37.79 39.18L35.33 38.88L32.77 38.59L30.20 38.32L27.71 38.03L25.41 37.74L23.39 37.41L21.75 37.06L20.61 36.70L20.16 36.48L20.48 36.91L20.67 37.17L15.93 37.24Z" fill="url(#lchdna-grad)"/><path d="M17.73 15.05L17.31 16.08L17.53 17.62L18.44 18.77L19.65 19.52L21.10 20.09L22.83 20.56L24.81 20.97L27.00 21.34L29.34 21.67L31.75 21.99L34.15 22.30L36.46 22.61L38.57 22.95L40.39 23.31L41.82 23.68L42.72 24.04L42.90 24.16L42.83 24.26L46.76 22.01L46.02 20.95L44.61 20.04L43.06 19.50L41.27 19.10L39.23 18.77L37.00 18.49L34.63 18.24L32.20 18.01L29.80 17.78L27.51 17.54L25.41 17.28L23.58 17.00L22.09 16.69L21.03 16.37L20.47 16.12L20.39 16.15L20.39 16.46L20.50 16.15L17.73 15.05Z" fill="url(#lchdna-grad)"/><path d="M24.44 8.35L25.32 8.98L26.57 9.56L28.00 10.07L29.58 10.56L31.23 11.02L32.89 11.47L34.49 11.92L35.94 12.38L37.17 12.85L38.07 13.30L38.55 13.68L38.76 14.08L41.19 12.15L40.50 11.42L39.39 10.77L38.12 10.29L36.67 9.89L35.09 9.54L33.42 9.21L31.72 8.90L30.05 8.60L28.49 8.28L27.10 7.96L25.94 7.63L25.05 7.27L24.29 7.55L24.44 8.35Z" fill="url(#lchdna-grad)"/><path d="M20.36 47.92L20.82 49.00L21.94 50.00L23.23 50.60L24.71 51.05L26.38 51.42L28.21 51.74L30.14 52.03L32.11 52.31L34.04 52.59L35.87 52.88L37.53 53.18L38.96 53.50L40.11 53.84L40.93 54.18L41.41 54.47L41.62 54.66L41.71 54.87L41.49 55.47L42.56 56.09L43.13 55.31L43.25 54.25L42.83 53.27L42.04 52.49L40.98 51.84L39.66 51.29L38.13 50.79L36.40 50.33L34.54 49.90L32.60 49.50L30.67 49.10L28.80 48.69L27.10 48.28L25.65 47.85L24.54 47.42L23.90 47.05L23.84 46.96L23.93 46.83L20.36 47.92Z" fill="url(#lchdna-grad)"/><path d="M41.78 54.71L41.49 55.47L41.76 56.24L42.56 56.09L43.07 55.46L41.78 54.71Z" fill="url(#lchdna-grad)"/><path d="M40.27 24.53L21.91 27.27" fill="none" stroke="url(#lchdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M25.04 33.04L38.96 30.96" fill="none" stroke="url(#lchdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M23.57 14.55L34.96 12.85" fill="none" stroke="url(#lchdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M25.79 39.16L40.03 37.03" fill="none" stroke="url(#lchdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M36.63 50.01L32.84 50.58" fill="none" stroke="url(#lchdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M42.46 42.91L25.19 45.49" fill="none" stroke="url(#lchdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M28.28 57.67L28.95 58.12L29.75 58.03L29.79 57.22L29.29 56.58L28.28 57.67Z" fill="url(#lchdna-grad)"/><path d="M44.05 43.82L44.18 43.92L44.15 44.02L43.64 44.57L42.71 45.30L41.44 46.14L39.94 47.03L38.27 47.96L36.54 48.91L34.81 49.86L33.15 50.82L31.63 51.76L30.31 52.69L29.22 53.60L28.39 54.53L27.86 55.51L27.75 56.57L28.17 57.55L28.95 58.12L29.79 57.22L29.40 56.71L29.43 56.48L29.57 56.24L29.94 55.82L30.63 55.26L31.62 54.60L32.90 53.87L34.40 53.10L36.07 52.29L37.83 51.46L39.64 50.61L41.40 49.77L43.05 48.93L44.54 48.08L45.82 47.23L46.88 46.27L47.66 44.99L47.79 43.82L44.05 43.82Z" fill="url(#lchdna-grad)"/><path d="M31.41 6.32L30.67 6.92L29.66 7.58L28.42 8.30L27.02 9.05L25.52 9.83L23.98 10.62L22.48 11.42L21.07 12.22L19.80 13.02L18.72 13.86L17.85 14.81L17.41 15.70L20.29 16.84L20.38 16.39L20.73 15.90L21.46 15.19L22.50 14.39L23.75 13.53L25.15 12.63L26.60 11.71L28.05 10.79L29.41 9.86L30.63 8.95L31.66 8.04L32.31 7.17L32.23 6.36L31.41 6.32Z" fill="url(#lchdna-grad)"/><path d="M38.36 13.48L38.56 13.75L38.47 13.45L38.39 13.44L37.92 13.85L37.00 14.46L35.67 15.19L34.00 16.00L32.07 16.86L29.95 17.76L27.72 18.68L25.46 19.61L23.27 20.54L21.21 21.46L19.37 22.37L17.77 23.28L16.44 24.25L15.36 25.53L14.96 26.77L19.38 27.76L19.28 27.69L19.42 27.52L20.18 26.92L21.43 26.14L23.07 25.26L24.99 24.33L27.10 23.35L29.31 22.35L31.53 21.34L33.67 20.34L35.66 19.35L37.43 18.38L38.94 17.42L40.16 16.45L41.10 15.38L41.64 14.02L41.39 12.48L40.69 11.62L38.36 13.48Z" fill="url(#lchdna-grad)"/><path d="M44.35 33.64L44.45 33.32L44.63 32.82L44.26 33.17L43.28 33.84L41.82 34.66L39.98 35.56L37.86 36.52L35.57 37.51L33.20 38.53L30.83 39.55L28.56 40.56L26.46 41.56L24.61 42.54L23.03 43.51L21.76 44.50L20.77 45.67L20.28 47.30L20.59 48.51L24.07 47.45L24.01 47.45L23.99 47.75L24.34 47.45L25.21 46.86L26.55 46.13L28.26 45.31L30.27 44.43L32.50 43.51L34.87 42.56L37.28 41.60L39.63 40.63L41.86 39.68L43.88 38.74L45.64 37.81L47.12 36.85L48.34 35.70L49.14 33.84L48.90 32.31L44.35 33.64Z" fill="url(#lchdna-grad)"/><path d="M42.52 23.66L42.55 23.47L42.65 22.67L42.49 22.79L41.68 23.35L40.34 24.09L38.56 24.94L36.45 25.85L34.09 26.82L31.57 27.82L29.01 28.83L26.48 29.84L24.09 30.84L21.91 31.82L20.00 32.78L18.40 33.76L17.08 34.84L16.07 36.41L15.95 37.87L20.67 37.80L20.54 38.00L20.49 38.17L21.10 37.70L22.29 36.99L23.96 36.15L26.00 35.24L28.30 34.28L30.78 33.28L33.34 32.26L35.88 31.23L38.31 30.22L40.54 29.22L42.51 28.25L44.18 27.27L45.55 26.24L46.64 24.91L47.03 22.80L46.41 21.44L42.52 23.66Z" fill="url(#lchdna-grad)"/></g>
+  <g id="lchdna-static"><path d="M15.14 26.12L14.93 27.60L15.93 29.50L17.36 30.46L18.97 31.04L20.85 31.48L23.02 31.84L25.45 32.14L28.07 32.40L30.79 32.64L33.54 32.86L36.20 33.10L38.69 33.35L40.90 33.62L42.74 33.93L44.09 34.26L44.81 34.53L44.72 34.39L44.53 34.24L49.06 32.92L48.53 31.56L47.10 30.35L45.52 29.70L43.71 29.24L41.60 28.88L39.22 28.58L36.64 28.32L33.93 28.09L31.18 27.87L28.49 27.66L25.95 27.42L23.66 27.16L21.71 26.87L20.21 26.56L19.28 26.26L19.09 26.19L19.41 26.93L19.51 27.10L15.14 26.12Z" fill="url(#lchdna-grad)"/><path d="M15.93 37.24L16.14 38.77L17.46 40.31L18.96 41.06L20.65 41.54L22.61 41.92L24.81 42.23L27.22 42.49L29.76 42.72L32.34 42.94L34.88 43.15L37.29 43.38L39.47 43.64L41.35 43.92L42.84 44.23L43.84 44.54L44.26 44.72L44.16 44.44L44.10 44.45L47.74 44.46L47.68 43.20L46.73 41.79L45.45 40.96L43.94 40.38L42.15 39.92L40.09 39.52L37.79 39.18L35.33 38.88L32.77 38.59L30.20 38.32L27.71 38.03L25.41 37.74L23.39 37.41L21.75 37.06L20.61 36.70L20.16 36.48L20.48 36.91L20.67 37.17L15.93 37.24Z" fill="url(#lchdna-grad)"/><path d="M17.73 15.05L17.31 16.08L17.53 17.62L18.44 18.77L19.65 19.52L21.10 20.09L22.83 20.56L24.81 20.97L27.00 21.34L29.34 21.67L31.75 21.99L34.15 22.30L36.46 22.61L38.57 22.95L40.39 23.31L41.82 23.68L42.72 24.04L42.90 24.16L42.83 24.26L46.76 22.01L46.02 20.95L44.61 20.04L43.06 19.50L41.27 19.10L39.23 18.77L37.00 18.49L34.63 18.24L32.20 18.01L29.80 17.78L27.51 17.54L25.41 17.28L23.58 17.00L22.09 16.69L21.03 16.37L20.47 16.12L20.39 16.15L20.39 16.46L20.50 16.15L17.73 15.05Z" fill="url(#lchdna-grad)"/><path d="M24.44 8.35L25.32 8.98L26.57 9.56L28.00 10.07L29.58 10.56L31.23 11.02L32.89 11.47L34.49 11.92L35.94 12.38L37.17 12.85L38.07 13.30L38.55 13.68L38.76 14.08L41.19 12.15L40.50 11.42L39.39 10.77L38.12 10.29L36.67 9.89L35.09 9.54L33.42 9.21L31.72 8.90L30.05 8.60L28.49 8.28L27.10 7.96L25.94 7.63L25.05 7.27L24.29 7.55L24.44 8.35Z" fill="url(#lchdna-grad)"/><path d="M20.36 47.92L20.82 49.00L21.94 50.00L23.23 50.60L24.71 51.05L26.38 51.42L28.21 51.74L30.14 52.03L32.11 52.31L34.04 52.59L35.87 52.88L37.53 53.18L38.96 53.50L40.11 53.84L40.93 54.18L41.41 54.47L41.62 54.66L41.71 54.87L41.49 55.47L42.56 56.09L43.13 55.31L43.25 54.25L42.83 53.27L42.04 52.49L40.98 51.84L39.66 51.29L38.13 50.79L36.40 50.33L34.54 49.90L32.60 49.50L30.67 49.10L28.80 48.69L27.10 48.28L25.65 47.85L24.54 47.42L23.90 47.05L23.84 46.96L23.93 46.83L20.36 47.92Z" fill="url(#lchdna-grad)"/><path d="M41.78 54.71L41.49 55.47L41.76 56.24L42.56 56.09L43.07 55.46L41.78 54.71Z" fill="url(#lchdna-grad)"/><path d="M40.27 24.53L21.91 27.27" fill="none" stroke="url(#lchdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M25.04 33.04L38.96 30.96" fill="none" stroke="url(#lchdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M23.57 14.55L34.96 12.85" fill="none" stroke="url(#lchdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M25.79 39.16L40.03 37.03" fill="none" stroke="url(#lchdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M36.63 50.01L32.84 50.58" fill="none" stroke="url(#lchdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M42.46 42.91L25.19 45.49" fill="none" stroke="url(#lchdna-rung)" stroke-width="1.7" stroke-linecap="round" opacity="0.49"/><path d="M28.28 57.67L28.95 58.12L29.75 58.03L29.79 57.22L29.29 56.58L28.28 57.67Z" fill="url(#lchdna-grad)"/><path d="M44.05 43.82L44.18 43.92L44.15 44.02L43.64 44.57L42.71 45.30L41.44 46.14L39.94 47.03L38.27 47.96L36.54 48.91L34.81 49.86L33.15 50.82L31.63 51.76L30.31 52.69L29.22 53.60L28.39 54.53L27.86 55.51L27.75 56.57L28.17 57.55L28.95 58.12L29.79 57.22L29.40 56.71L29.43 56.48L29.57 56.24L29.94 55.82L30.63 55.26L31.62 54.60L32.90 53.87L34.40 53.10L36.07 52.29L37.83 51.46L39.64 50.61L41.40 49.77L43.05 48.93L44.54 48.08L45.82 47.23L46.88 46.27L47.66 44.99L47.79 43.82L44.05 43.82Z" fill="url(#lchdna-grad)"/><path d="M31.41 6.32L30.67 6.92L29.66 7.58L28.42 8.30L27.02 9.05L25.52 9.83L23.98 10.62L22.48 11.42L21.07 12.22L19.80 13.02L18.72 13.86L17.85 14.81L17.41 15.70L20.29 16.84L20.38 16.39L20.73 15.90L21.46 15.19L22.50 14.39L23.75 13.53L25.15 12.63L26.60 11.71L28.05 10.79L29.41 9.86L30.63 8.95L31.66 8.04L32.31 7.17L32.23 6.36L31.41 6.32Z" fill="url(#lchdna-grad)"/><path d="M38.36 13.48L38.56 13.75L38.47 13.45L38.39 13.44L37.92 13.85L37.00 14.46L35.67 15.19L34.00 16.00L32.07 16.86L29.95 17.76L27.72 18.68L25.46 19.61L23.27 20.54L21.21 21.46L19.37 22.37L17.77 23.28L16.44 24.25L15.36 25.53L14.96 26.77L19.38 27.76L19.28 27.69L19.42 27.52L20.18 26.92L21.43 26.14L23.07 25.26L24.99 24.33L27.10 23.35L29.31 22.35L31.53 21.34L33.67 20.34L35.66 19.35L37.43 18.38L38.94 17.42L40.16 16.45L41.10 15.38L41.64 14.02L41.39 12.48L40.69 11.62L38.36 13.48Z" fill="url(#lchdna-grad)"/><path d="M44.35 33.64L44.45 33.32L44.63 32.82L44.26 33.17L43.28 33.84L41.82 34.66L39.98 35.56L37.86 36.52L35.57 37.51L33.20 38.53L30.83 39.55L28.56 40.56L26.46 41.56L24.61 42.54L23.03 43.51L21.76 44.50L20.77 45.67L20.28 47.30L20.59 48.51L24.07 47.45L24.01 47.45L23.99 47.75L24.34 47.45L25.21 46.86L26.55 46.13L28.26 45.31L30.27 44.43L32.50 43.51L34.87 42.56L37.28 41.60L39.63 40.63L41.86 39.68L43.88 38.74L45.64 37.81L47.12 36.85L48.34 35.70L49.14 33.84L48.90 32.31L44.35 33.64Z" fill="url(#lchdna-grad)"/><path d="M42.52 23.66L42.55 23.47L42.65 22.67L42.49 22.79L41.68 23.35L40.34 24.09L38.56 24.94L36.45 25.85L34.09 26.82L31.57 27.82L29.01 28.83L26.48 29.84L24.09 30.84L21.91 31.82L20.00 32.78L18.40 33.76L17.08 34.84L16.07 36.41L15.95 37.87L20.67 37.80L20.54 38.00L20.49 38.17L21.10 37.70L22.29 36.99L23.96 36.15L26.00 35.24L28.30 34.28L30.78 33.28L33.34 32.26L35.88 31.23L38.31 30.22L40.54 29.22L42.51 28.25L44.18 27.27L45.55 26.24L46.64 24.91L47.03 22.80L46.41 21.44L42.52 23.66Z" fill="url(#lchdna-grad)"/></g>
+  <g id="lchdna-live" opacity="0"></g>
+</svg></span>
+          <span>
+            <span class="nm">Humanitas</span>
+            <span class="sub">Phylogeny of greatness</span>
+          </span>
+        </div>
+      </div>
+      <div class="size-card">
+        <h2>Favicon on dark</h2>
+        <p>A static, slightly heavier cut of the same geometry for browser chrome and home screens.</p>
+        <div class="fav-row">
+          <figure>
+            <div class="fav-dark"><img src="/favicon.svg" width="32" height="32" alt="Static 32px favicon" /></div>
+            <figcaption>favicon.svg · 32px</figcaption>
+          </figure>
+          <figure>
+            <div class="fav-dark"><img src="/favicon.ico" width="32" height="32" alt="Favicon ICO" /></div>
+            <figcaption>favicon.ico · 32px</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+
+    <div class="size-card" style="margin-top:16px">
+      <h2>Apple touch icon</h2>
+      <p>180×180 PNG on the site’s dark field, for home-screen bookmarks.</p>
+      <div class="fav-row">
         <figure>
           <div class="apple-frame"><img src="/apple-touch-icon.png" width="180" height="180" alt="Apple touch icon" /></div>
           <figcaption>apple-touch-icon.png · 180px</figcaption>
         </figure>
       </div>
-    </section>
+    </div>
 
-    <p class="note">This page is only on the preview deploy. Concept 1 is wired into the site header here so you can see it in context. Production is unchanged until you pick a mark. <a href="/">Back to Humanitas</a></p>
+    <p class="note">Authorship lives in <code>scripts/logo-dna.mjs</code>: every coordinate is computed from a parametric double helix (two phase-offset sine strands, depth-sorted so they cross over and under, rungs that fade with depth). This page is a preview only. The mark was designed to stay clearly distinct from 23andMe’s crossing-chromosome X, Illumina’s beaded rotating helix, AncestryDNA’s leaf wordmark, and generic even-rung cyan stock helices — but this is not a legal opinion or a clearance. A trademark search is recommended before registration.</p>
+    <p class="note"><a href="/">← Back to the timeline</a></p>
   </main>
+  <script src="/logos/dna-runtime.js" defer></script>
 </body>
 </html>

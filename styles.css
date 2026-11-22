@@ -96,37 +96,21 @@ a { color: inherit; text-decoration: none; }
 .brand-mark {
   width: 34px;
   height: 34px;
-  border-radius: 11px;
-  border: 1px solid var(--border-strong);
-  background:
-    radial-gradient(circle at 30% 30%, rgba(94, 234, 212, 0.35), transparent 55%),
-    var(--bg-panel);
+  flex: 0 0 34px;
   display: grid;
   place-items: center;
-  font-family: var(--font-display);
-  font-size: 17px;
-  color: var(--accent-soft);
-  box-shadow: 0 0 20px var(--accent-glow);
   position: relative;
-  overflow: hidden;
-}
-.brand-mark::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, transparent 40%, rgba(255, 184, 77, 0.15));
-  animation: brandPulse 4s ease-in-out infinite;
+  overflow: visible;
+  background: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
 }
 .brand-mark svg {
-  width: 26px;
-  height: 26px;
+  width: 34px;
+  height: 34px;
   display: block;
-  position: relative;
-  z-index: 1;
-}
-.brand-mark::after {
-  z-index: 0;
-  pointer-events: none;
+  overflow: visible;
 }
 @keyframes brandPulse {
   0%, 100% { opacity: 0.4; }
@@ -1712,7 +1696,7 @@ a { color: inherit; text-decoration: none; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .org-membrane, .org-orbit, .org-nucleus, .brand-mark::after,
+  .org-membrane, .org-orbit, .org-nucleus,
   .tl-dot, .tl-dot::after, .status-line.active .status-dot,
   .tl-item { animation: none !important; opacity: 1; transform: none; }
   .tl-person:hover { transform: none; }
