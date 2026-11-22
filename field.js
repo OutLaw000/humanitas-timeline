@@ -54,7 +54,7 @@
     meteors.length = 0;
     chromosomes.length = 0;
 
-    const starN = mobile() ? 90 : reduced ? 70 : 180;
+    const starN = mobile() ? 120 : reduced ? 70 : 180;
     for (let i = 0; i < starN; i++) {
       const layer = Math.random(); // 0 near, 1 far
       stars.push({
@@ -88,8 +88,8 @@
       });
     }
 
-    // Occasional meteors / shooting stars
-    const mCount = mobile() ? 2 : 4;
+    // Occasional meteors / shooting stars — keep these on the phone
+    const mCount = mobile() ? 3 : 4;
     for (let i = 0; i < mCount; i++) {
       meteors.push(makeMeteor(true));
     }
@@ -150,7 +150,9 @@
       len: 40 + Math.random() * 70,
       life: 0,
       maxLife: 90 + Math.random() * 100,
-      delay: initial ? Math.random() * 200 : 40 + Math.random() * 180,
+      delay: initial
+        ? Math.random() * (mobile() ? 70 : 200)
+        : (mobile() ? 18 : 40) + Math.random() * (mobile() ? 90 : 180),
       active: false,
     };
   }
