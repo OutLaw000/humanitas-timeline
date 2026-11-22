@@ -131,23 +131,38 @@
       });
     }
 
-    helix = mobile()
-      ? {
-          cx: innerWidth * 0.82,
-          cy: innerHeight * 0.36,
-          amp: 22,
-          turns: 2.7,
-          h: 210,
-          a: 0.42,
+    helix = (function placeHelix() {
+      const org = document.querySelector(".hero-organism");
+      if (mobile()) {
+        if (org) {
+          const r = org.getBoundingClientRect();
+          return {
+            cx: r.left + r.width * 0.52,
+            cy: r.top + r.height * 0.44,
+            amp: Math.max(30, Math.min(56, r.width * 0.18)),
+            turns: 2.6,
+            h: Math.max(170, r.height * 0.92),
+            a: 0.64,
+          };
         }
-      : {
-          cx: innerWidth * 0.78,
-          cy: Math.min(innerHeight * 0.42, 340),
-          amp: 42,
-          turns: 3.2,
-          h: 260,
-          a: 0.55,
+        return {
+          cx: innerWidth * 0.72,
+          cy: innerHeight * 0.7,
+          amp: 32,
+          turns: 2.6,
+          h: 190,
+          a: 0.6,
         };
+      }
+      return {
+        cx: innerWidth * 0.78,
+        cy: Math.min(innerHeight * 0.42, 340),
+        amp: 42,
+        turns: 3.2,
+        h: 260,
+        a: 0.55,
+      };
+    })();
   }
 
   function makeMeteor(initial) {
