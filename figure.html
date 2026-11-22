@@ -7,11 +7,12 @@
   <meta name="description" content="Historical figure profile from Humanitas — living phylogeny of greatness and truth." />
   <meta name="theme-color" content="#03050a" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <meta property="og:type" content="profile" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.css?v=7" />
+  <link rel="stylesheet" href="/styles.css?v=9" />
   <style>
     .fig-page { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; padding: 40px 20px 80px; }
     .fig-back { display: inline-flex; margin-bottom: 24px; color: var(--fg-muted); font-size: 14px; }
@@ -27,7 +28,10 @@
     .fig-meta dd { margin: 4px 0 0; font-size: 14px; }
     .fig-page section { margin: 28px 0; }
     .fig-page h2 { font-family: var(--font-display); font-weight: 500; font-size: 1.45rem; margin: 0 0 12px; }
-    .fig-page p { color: var(--fg-muted); line-height: 1.65; }
+    .fig-page p { color: #f5f7f8; line-height: 1.65; }
+    .fig-page li { color: #f5f7f8; }
+    .fig-hero-photo picture { display: block; width: 100%; }
+    .fig-hero-photo picture img { width: 100%; height: auto; max-height: min(52vh, 480px); object-fit: contain; object-position: center; display: block; background: linear-gradient(160deg, #0a1520, #0c0a18); }
     .fig-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0; }
     .fig-missing { text-align: center; padding: 80px 20px; }
   </style>
@@ -39,7 +43,50 @@
   <header class="site-header" id="site-header">
     <div class="header-inner">
       <a href="/" class="brand">
-        <span class="brand-mark" aria-hidden="true">H</span>
+        <span class="brand-mark" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Humanitas DNA mark">
+  <title>Humanitas — DNA helix forming an H</title>
+  <style>
+    .dna-spin { transform-origin: 32px 32px; animation: dna-spin 7.5s ease-in-out infinite; }
+    .dna-rung { animation: dna-twinkle 3.2s ease-in-out infinite; }
+    .dna-rung:nth-child(2) { animation-delay: -.8s; }
+    .dna-rung:nth-child(3) { animation-delay: -1.6s; }
+    .dna-rung:nth-child(4) { animation-delay: -2.4s; }
+    @keyframes dna-spin {
+      0%   { transform: scaleX(1); }
+      25%  { transform: scaleX(0.18); }
+      50%  { transform: scaleX(-1); }
+      75%  { transform: scaleX(-0.18); }
+      100% { transform: scaleX(1); }
+    }
+    @keyframes dna-twinkle {
+      0%, 100% { opacity: .75; }
+      50% { opacity: 1; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .dna-spin, .dna-rung { animation: none !important; opacity: 1 !important; transform: none !important; }
+    }
+  </style>
+  <!-- Double helix that rotates around the vertical axis (scaleX flip). The H stays upright. -->
+  <g class="dna-spin">
+    <path d="M20 8C20 8 20 12 32 16S44 20 44 24 44 28 32 32 20 36 20 40 20 44 32 48 44 52 44 56"
+          stroke="#5eead4" stroke-width="2" stroke-linecap="round"/>
+    <path d="M44 8C44 8 44 12 32 16S20 20 20 24 20 28 32 32 44 36 44 40 44 44 32 48 20 52 20 56"
+          stroke="#a78bfa" stroke-width="2" stroke-linecap="round"/>
+    <g stroke="#ffb84d" stroke-width="1.45" stroke-linecap="round">
+      <line class="dna-rung" x1="20" y1="8"  x2="44" y2="8"/>
+      <line class="dna-rung" x1="20" y1="24" x2="44" y2="24"/>
+      <line class="dna-rung" x1="20" y1="40" x2="44" y2="40"/>
+      <line class="dna-rung" x1="20" y1="56" x2="44" y2="56"/>
+    </g>
+  </g>
+  <g stroke-linecap="round" stroke-linejoin="round">
+    <path d="M23.5 19.5v25" stroke="#5eead4" stroke-width="3.5"/>
+    <path d="M40.5 19.5v25" stroke="#a78bfa" stroke-width="3.5"/>
+    <path d="M23.5 32h17" stroke="#f5c16c" stroke-width="3.3"/>
+  </g>
+</svg>
+        </span>
         <span class="brand-text">
           <span class="brand-name">Humanitas</span>
           <span class="brand-sub">Phylogeny of greatness</span>
@@ -79,6 +126,7 @@
   <script src="/data6.js"></script>
   <script src="/data-enrichment.js"></script>
   <script src="/data-images.js"></script>
+  <script src="/data-images-opt.js"></script>
   <script src="/who-search.js"></script>
   <script>
     (() => {
@@ -134,7 +182,7 @@
 
       const badges = (f.categories || []).map((c) => `<span class="badge">${CAT[c] || c}</span>`).join(" ");
       const photo = f.image?.url
-        ? `<figure class="fig-hero-photo"><img src="${f.image.url}" alt="${f.name}" /><figcaption>${f.image.caption || f.name}${f.image.credit ? " · " + f.image.credit : ""}</figcaption></figure>`
+        ? `<figure class="fig-hero-photo">${(window.HUMANITAS && HUMANITAS.figurePicture) ? HUMANITAS.figurePicture(f, "", { alt: f.name, loading: "eager" }) : `<img src="${f.image.url}" alt="${f.name}" />`}<figcaption>${f.image.caption || f.name}${f.image.credit ? " · " + f.image.credit : ""}</figcaption></figure>`
         : "";
       const principles = (f.philosophy?.corePrinciples || []).map((p) => `<li>${p}</li>`).join("");
       const quotes = (f.philosophy?.keyQuotes || []).map((q) =>

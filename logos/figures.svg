@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Humanitas joined figures monogram">
+  <title>Humanitas — two figures forming an H</title>
+  <style>
+    .fg-left, .fg-right { stroke-linecap: round; stroke-linejoin: round; }
+    .fg-left { animation: fg-in-l 1s ease-out both; }
+    .fg-right { animation: fg-in-r 1s ease-out both; }
+    .fg-bar { stroke-dasharray: 22; stroke-dashoffset: 22; animation: fg-bar .9s ease-out .65s forwards; }
+    .fg-star { transform-origin: 32px 8px; animation: fg-pulse 2.4s ease-in-out 1.1s infinite; }
+    @keyframes fg-in-l { from { transform: translateX(-3px); opacity: 0; } to { transform: none; opacity: 1; } }
+    @keyframes fg-in-r { from { transform: translateX(3px); opacity: 0; } to { transform: none; opacity: 1; } }
+    @keyframes fg-bar { to { stroke-dashoffset: 0; } }
+    @keyframes fg-pulse { 0%, 100% { transform: scale(1); opacity: .85; } 50% { transform: scale(1.2); opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) {
+      .fg-left, .fg-right, .fg-bar, .fg-star { animation: none !important; opacity: 1 !important; transform: none !important; stroke-dashoffset: 0 !important; }
+    }
+  </style>
+  <g class="fg-left">
+    <circle cx="23" cy="15.5" r="4.1" stroke="#5eead4" stroke-width="2.05"/>
+    <path d="M23 20.2V44" stroke="#5eead4" stroke-width="3.15"/>
+    <path d="M23 44l-3.6 13" stroke="#5eead4" stroke-width="2.25"/>
+    <path d="M23 44l2.6 8.5" stroke="#5eead4" stroke-width="2.25"/>
+  </g>
+  <g class="fg-right">
+    <circle cx="41" cy="15.5" r="4.1" stroke="#a78bfa" stroke-width="2.05"/>
+    <path d="M41 20.2V44" stroke="#a78bfa" stroke-width="3.15"/>
+    <path d="M41 44l3.6 13" stroke="#a78bfa" stroke-width="2.25"/>
+    <path d="M41 44l-2.6 8.5" stroke="#a78bfa" stroke-width="2.25"/>
+  </g>
+  <path class="fg-bar" d="M23 29.5h18" stroke="#f5c16c" stroke-width="3.2" stroke-linecap="round"/>
+  <path class="fg-star" d="M32 3.6l.85 2.45h2.55l-2.05 1.5.8 2.45L32 8.5l-2.15 1.5.8-2.45-2.05-1.5h2.55z" fill="#ffb84d"/>
+</svg>

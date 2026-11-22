@@ -3,15 +3,1014 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/figure/:path*", "destination": "/figure" },
-    { "source": "/embed/:path*", "destination": "/embed" },
-    { "source": "/who/:path*", "destination": "/who" }
+    {
+      "source": "/figure/hammurabi",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/hammurabi",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/david",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/david",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/solomon",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/solomon",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/laozi",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/laozi",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/confucius",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/confucius",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/buddha",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/buddha",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/socrates",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/socrates",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/ashoka",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/ashoka",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/jesus",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/jesus",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/marcus-aurelius",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/marcus-aurelius",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/hypatia",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/hypatia",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/muhammad",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/muhammad",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/rumi",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/rumi",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/joan-of-arc",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/joan-of-arc",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/leonardo-da-vinci",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/leonardo-da-vinci",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/frederick-douglass",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/frederick-douglass",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/harriet-tubman",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/harriet-tubman",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/abraham-lincoln",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/abraham-lincoln",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/florence-nightingale",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/florence-nightingale",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/marie-curie",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/marie-curie",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/mahatma-gandhi",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/mahatma-gandhi",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/eleanor-roosevelt",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/eleanor-roosevelt",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/martin-luther-king-jr",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/martin-luther-king-jr",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/nelson-mandela",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/nelson-mandela",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/mother-teresa",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/mother-teresa",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/wangari-maathai",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/wangari-maathai",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/desmond-tutu",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/desmond-tutu",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/malala-yousafzai",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/malala-yousafzai",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/cyrus-the-great",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/cyrus-the-great",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/moses",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/moses",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/plato",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/plato",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/aristotle",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/aristotle",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/alexander-the-great",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/alexander-the-great",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/augustus",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/augustus",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/qin-shi-huang",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/qin-shi-huang",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/ibn-sina",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/ibn-sina",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/al-khwarizmi",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/al-khwarizmi",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/johannes-gutenberg",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/johannes-gutenberg",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/martin-luther",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/martin-luther",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/nicolaus-copernicus",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/nicolaus-copernicus",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/galileo",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/galileo",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/william-shakespeare",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/william-shakespeare",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/isaac-newton",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/isaac-newton",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/john-locke",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/john-locke",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/adam-smith",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/adam-smith",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/george-washington",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/george-washington",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/simon-bolivar",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/simon-bolivar",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/charles-darwin",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/charles-darwin",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/louis-pasteur",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/louis-pasteur",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/karl-marx",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/karl-marx",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/susan-b-anthony",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/susan-b-anthony",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/thomas-edison",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/thomas-edison",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/albert-einstein",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/albert-einstein",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/winston-churchill",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/winston-churchill",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/franklin-d-roosevelt",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/franklin-d-roosevelt",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/alan-turing",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/alan-turing",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/rosa-parks",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/rosa-parks",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/jonas-salk",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/jonas-salk",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/rachel-carson",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/rachel-carson",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/tim-berners-lee",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/tim-berners-lee",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/imhotep",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/imhotep",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/hippocrates",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/hippocrates",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/cicero",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/cicero",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/augustine",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/augustine",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/justinian",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/justinian",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/charlemagne",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/charlemagne",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/maimonides",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/maimonides",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/thomas-aquinas",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/thomas-aquinas",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/francis-of-assisi",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/francis-of-assisi",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/immanuel-kant",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/immanuel-kant",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/benjamin-franklin",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/benjamin-franklin",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/edward-jenner",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/edward-jenner",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/henry-dunant",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/henry-dunant",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/george-washington-carver",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/george-washington-carver",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/w-e-b-du-bois",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/w-e-b-du-bois",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/alexander-fleming",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/alexander-fleming",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/norman-borlaug",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/norman-borlaug",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/mary",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/mary",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/abraham",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/abraham",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/noah",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/noah",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/isaiah",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/isaiah",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/elijah",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/elijah",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/jeremiah",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/jeremiah",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/john-the-baptist",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/john-the-baptist",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/deborah",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/deborah",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/joshua",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/joshua",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/daniel",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/daniel",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/zoroaster",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/zoroaster",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/guru-nanak",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/guru-nanak",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/gideon",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/gideon",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/judah-maccabee",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/judah-maccabee",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/constantine",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/constantine",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/charles-martel",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/charles-martel",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/saladin",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/saladin",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/jan-sobieski",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/jan-sobieski",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/hiawatha",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/hiawatha",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/sequoyah",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/sequoyah",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/tecumseh",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/tecumseh",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/sitting-bull",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/sitting-bull",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/crazy-horse",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/crazy-horse",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/chief-joseph",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/chief-joseph",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/sacagawea",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/sacagawea",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/black-elk",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/black-elk",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/thomas-jefferson",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/thomas-jefferson",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/james-madison",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/james-madison",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/john-adams",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/john-adams",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/harriet-beecher-stowe",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/harriet-beecher-stowe",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/clara-barton",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/clara-barton",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/epictetus",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/epictetus",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/al-ghazali",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/al-ghazali",
+      "destination": "/embed"
+    },
+    {
+      "source": "/who/:path*",
+      "destination": "/who"
+    }
   ],
   "headers": [
     {
-      "source": "/(.*)",
+      "source": "/images/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), browsing-topics=()"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; frame-src 'none'; script-src 'self' 'unsafe-inline' https://ameriking.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://upload.wikimedia.org https://commons.wikimedia.org https://en.wikipedia.org https://*.wikimedia.org https://ameriking.io; connect-src 'self' https://en.wikipedia.org https://www.wikidata.org https://query.wikidata.org https://en.wikiquote.org https://ameriking.io; frame-ancestors 'self'; upgrade-insecure-requests"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        }
+      ]
+    },
+    {
+      "source": "/embed",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), browsing-topics=()"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; frame-src 'none'; script-src 'self' 'unsafe-inline' https://ameriking.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://upload.wikimedia.org https://commons.wikimedia.org https://en.wikipedia.org https://*.wikimedia.org https://ameriking.io; connect-src 'self' https://en.wikipedia.org https://www.wikidata.org https://query.wikidata.org https://en.wikiquote.org https://ameriking.io; frame-ancestors *; upgrade-insecure-requests"
+        }
+      ]
+    },
+    {
+      "source": "/embed/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), browsing-topics=()"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; frame-src 'none'; script-src 'self' 'unsafe-inline' https://ameriking.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://upload.wikimedia.org https://commons.wikimedia.org https://en.wikipedia.org https://*.wikimedia.org https://ameriking.io; connect-src 'self' https://en.wikipedia.org https://www.wikidata.org https://query.wikidata.org https://en.wikiquote.org https://ameriking.io; frame-ancestors *; upgrade-insecure-requests"
+        }
+      ]
+    },
+    {
+      "source": "/((?!embed|images).*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), browsing-topics=()"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; frame-src 'none'; script-src 'self' 'unsafe-inline' https://ameriking.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://upload.wikimedia.org https://commons.wikimedia.org https://en.wikipedia.org https://*.wikimedia.org https://ameriking.io; connect-src 'self' https://en.wikipedia.org https://www.wikidata.org https://query.wikidata.org https://en.wikiquote.org https://ameriking.io; frame-ancestors 'self'; upgrade-insecure-requests"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        }
       ]
     }
   ]

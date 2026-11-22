@@ -225,9 +225,14 @@ function renderTimeline() {
     const band = eraBand(f.birthYear);
     if (band !== prevBand) { html += `<li class="era-band" aria-hidden="true">${band}</li>`; prevBand = band; }
     const badges = (f.categories||[]).map((c) => `<span class="badge">${CATEGORY_LABELS[c]||c}</span>`).join("");
-    const portrait = f.image && f.image.url
-      ? `<img src="${f.image.url}" alt="${f.name}" loading="lazy" decoding="async" onerror="this.onerror=null;this.style.display='none';this.parentNode.innerHTML='<div class=\\'tl-portrait-fallback\\' aria-hidden=\\'true\\'><span>${(f.name || "?").charAt(0)}</span></div>';" />`
-      : `<div class="tl-portrait-fallback" aria-hidden="true"><span>${(f.name || "?").charAt(0)}</span></div>`;
+    const initial = (f.name || "?").charAt(0);
+    const fallback = `<div class="tl-portrait-fallback" aria-hidden="true"><span>${initial}</span></div>`;
+    const onerr = "this.onerror=null;this.style.display='none';var box=this.closest('.tl-portrait')||this.parentNode;box.innerHTML='<div class=\'tl-portrait-fallback\' aria-hidden=\'true\'><span>" + initial + "</span></div>';";
+    const portrait = (f.image && f.image.url)
+      ? (window.HUMANITAS && HUMANITAS.figurePicture
+          ? HUMANITAS.figurePicture(f, "", { alt: f.name, loading: "lazy", onerror: onerr })
+          : `<img src="${f.image.url}" alt="${f.name}" loading="lazy" decoding="async" onerror="${onerr}" />`)
+      : fallback;
     html += `<li class="tl-item" id="fig-${f.slug}" data-slug="${f.slug}">
       <span class="tl-dot" aria-hidden="true"></span>
       <button type="button" class="tl-person" data-open="${f.slug}">
@@ -253,7 +258,11 @@ function figureImage(f, cls) {
   const cap = f.image.caption || f.name;
   const credit = f.image.credit ? `<span class="img-credit">${f.image.credit}</span>` : "";
   const initial = (f.name || "?").charAt(0);
-  return `<figure class="${cls||"figure-photo"}"><img src="${f.image.url}" alt="${cap}" loading="lazy" decoding="async" onerror="this.onerror=null;this.style.display='none';var f=this.closest('figure');if(f){f.classList.add('img-failed');var d=document.createElement('div');d.className='tl-portrait-fallback';d.innerHTML='<span>${initial}</span>';f.insertBefore(d,f.firstChild);}" /><figcaption>${cap}${credit ? " · " + credit : ""}</figcaption></figure>`;
+  const onerr = "this.onerror=null;this.style.display='none';var fig=this.closest('figure');if(fig){fig.classList.add('img-failed');var d=document.createElement('div');d.className='tl-portrait-fallback';d.innerHTML='<span>" + initial + "</span>';fig.insertBefore(d,fig.firstChild);}";
+  const pic = (window.HUMANITAS && HUMANITAS.figurePicture)
+    ? HUMANITAS.figurePicture(f, "", { alt: cap, loading: "lazy", onerror: onerr })
+    : `<img src="${f.image.url}" alt="${cap}" loading="lazy" decoding="async" onerror="${onerr}" />`;
+  return `<figure class="${cls||"figure-photo"}">${pic}<figcaption>${cap}${credit ? " · " + credit : ""}</figcaption></figure>`;
 }
 function openFigure(slug) {
   const f = findFigure(slug);
@@ -266,7 +275,7 @@ function openFigure(slug) {
   if (!body) return;
   const badges = (f.categories||[]).map((c) => `<span class="badge">${CATEGORY_LABELS[c]||c}</span>`).join(" ");
   const quotes = (f.philosophy.keyQuotes||[]).map((q) => `<blockquote class="quote-block"><p>“${q.text}”</p>${q.source ? `<footer>— ${q.source}</footer>` : ""}</blockquote>`).join("");
-  const principles = (f.philosophy.corePrinciples||[]).map((p) => `<li style="margin:4px 0;color:var(--fg)">· ${p}</li>`).join("");
+  const principles = (f.philosophy.corePrinciples||[]).map((p) => `<li style="margin:4px 0;color:#f5f7f8">· ${p}</li>`).join("");
   const creations = (f.creations||[]).map((c) => {
     const st = (STATUS_LABELS&&STATUS_LABELS[c.status]) || c.status;
     return `<div class="creation-card"><div style="display:flex;justify-content:space-between;gap:8px"><div><h3>${c.name}</h3><div class="type">${c.type||""}</div></div><span class="badge badge-status ${c.status}">${st}</span></div><p>${c.description||""}</p>${c.modernPresence?`<p><span style="color:var(--fg-subtle)">Today: </span>${c.modernPresence}</p>`:""}</div>`;
@@ -277,7 +286,7 @@ function openFigure(slug) {
   const accomplishments = (f.accomplishments || []).map((a) => `<li>${a}</li>`).join("");
   body.innerHTML = `${photo}<div class="tl-badges">${badges}</div><h1 id="drawer-title">${f.name}</h1><p class="epithet">${f.epithet||""}</p>
     <dl class="drawer-dl"><div><dt>Lived</dt><dd>${formatLifespan(f.birthYear, f.deathYear)}</dd></div><div><dt>Era</dt><dd>${f.eraLabel||""}</dd></div><div><dt>Region</dt><dd>${f.region||""}</dd></div><div><dt>Civilization</dt><dd>${f.civilization||""}</dd></div></dl>
-    <div class="drawer-section"><p style="color:var(--fg);font-size:1.05rem">${f.summary||""}</p></div>
+    <div class="drawer-section"><p style="color:#f5f7f8;font-size:1.05rem">${f.summary||""}</p></div>
     ${accomplishments ? `<div class="drawer-section"><h2>Greatest accomplishments</h2><ol class="accomplishments-list">${accomplishments}</ol></div>` : ""}
     <div class="drawer-section"><h2>Historical life</h2>${(f.biography||[]).map((p)=>`<p>${p}</p>`).join("")}</div>
     <div class="drawer-section"><h2>Philosophy of the human person</h2>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Humanitas DNA mark">
+  <title>Humanitas — DNA helix forming an H</title>
+  <style>
+    .dna-spin { transform-origin: 32px 32px; animation: dna-spin 7.5s ease-in-out infinite; }
+    .dna-rung { animation: dna-twinkle 3.2s ease-in-out infinite; }
+    .dna-rung:nth-child(2) { animation-delay: -.8s; }
+    .dna-rung:nth-child(3) { animation-delay: -1.6s; }
+    .dna-rung:nth-child(4) { animation-delay: -2.4s; }
+    @keyframes dna-spin {
+      0%   { transform: scaleX(1); }
+      25%  { transform: scaleX(0.18); }
+      50%  { transform: scaleX(-1); }
+      75%  { transform: scaleX(-0.18); }
+      100% { transform: scaleX(1); }
+    }
+    @keyframes dna-twinkle {
+      0%, 100% { opacity: .75; }
+      50% { opacity: 1; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .dna-spin, .dna-rung { animation: none !important; opacity: 1 !important; transform: none !important; }
+    }
+  </style>
+  <!-- Double helix that rotates around the vertical axis (scaleX flip). The H stays upright. -->
+  <g class="dna-spin">
+    <path d="M20 8C20 8 20 12 32 16S44 20 44 24 44 28 32 32 20 36 20 40 20 44 32 48 44 52 44 56"
+          stroke="#5eead4" stroke-width="2" stroke-linecap="round"/>
+    <path d="M44 8C44 8 44 12 32 16S20 20 20 24 20 28 32 32 44 36 44 40 44 44 32 48 20 52 20 56"
+          stroke="#a78bfa" stroke-width="2" stroke-linecap="round"/>
+    <g stroke="#ffb84d" stroke-width="1.45" stroke-linecap="round">
+      <line class="dna-rung" x1="20" y1="8"  x2="44" y2="8"/>
+      <line class="dna-rung" x1="20" y1="24" x2="44" y2="24"/>
+      <line class="dna-rung" x1="20" y1="40" x2="44" y2="40"/>
+      <line class="dna-rung" x1="20" y1="56" x2="44" y2="56"/>
+    </g>
+  </g>
+  <g stroke-linecap="round" stroke-linejoin="round">
+    <path d="M23.5 19.5v25" stroke="#5eead4" stroke-width="3.5"/>
+    <path d="M40.5 19.5v25" stroke="#a78bfa" stroke-width="3.5"/>
+    <path d="M23.5 32h17" stroke="#f5c16c" stroke-width="3.3"/>
+  </g>
+</svg>
