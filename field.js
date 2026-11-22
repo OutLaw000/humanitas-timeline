@@ -117,8 +117,8 @@
       });
     }
 
-    // Chromosomes read as X-shapes on a wide canvas. Skip them on a phone.
-    const cCount = mobile() ? 0 : 4;
+    // Chromosomes read as floating blobs. Skip them everywhere.
+    const cCount = 0;
     for (let i = 0; i < cCount; i++) {
       chromosomes.push({
         x: (i + 0.5) * (innerWidth / (cCount + 0.5)) + (Math.random() - 0.5) * 40,
