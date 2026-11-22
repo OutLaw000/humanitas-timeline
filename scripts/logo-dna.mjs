@@ -11,7 +11,7 @@
  *   - axis leans 6° in the plane
  *   - slight mid-swell and tapered, pointed strand ends
  *   - two thin, separate backbones (stroke about one-third the first draft)
- *   - strand A: mint teal → gold; strand B: gold → pink-violet
+ *   - strand A: icy cyan → gold; strand B: gold → pink-violet
  *   - five rungs in a short–long rhythm with a slightly longer "key" rung
  *     just above center; rungs fade and thin with depth
  *   - back segments are dimmer and slightly thinner; front segments are brighter
@@ -48,7 +48,7 @@ export const PARAMS = {
   staticPhase: Math.PI * 0.42,
   periodMs: 9000,
   colors: {
-    teal: "#5eead4",
+    teal: "#7dd3fc",
     gold: "#f5c16c",
     violet: "#a78bfa",
   },
