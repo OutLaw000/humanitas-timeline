@@ -124,6 +124,8 @@
   <script src="/data4.js"></script>
   <script src="/data5.js"></script>
   <script src="/data6.js"></script>
+  <script src="/data7.js"></script>
+  <script src="/data-dates.js"></script>
   <script src="/data-enrichment.js"></script>
   <script src="/data-images.js"></script>
   <script src="/data-images-opt.js"></script>
@@ -152,12 +154,26 @@
         return null;
       }
 
-      function formatYear(y) {
-        if (y < 0) return Math.abs(y) + " BCE";
-        return y + " CE";
+      function formatYear(y, opts) {
+        if (y == null || Number.isNaN(Number(y))) return "";
+        opts = opts || {};
+        var n = y < 0 ? String(Math.abs(y)) : String(y);
+        if (opts.alt != null && !Number.isNaN(Number(opts.alt))) {
+          n = n + "/" + (y < 0 ? Math.abs(opts.alt) : opts.alt);
+        }
+        var body = n + (y < 0 ? " BCE" : " CE");
+        return opts.circa ? "c. " + body : body;
       }
-      function formatLifespan(b, d) {
-        return d == null ? formatYear(b) + " – present" : formatYear(b) + " – " + formatYear(d);
+      function formatLifespan(b, d, meta) {
+        if (b && typeof b === "object") { meta = b; d = b.deathYear; b = b.birthYear; }
+        meta = meta || {};
+        var circa = meta.datePrecision === "circa";
+        var trad = meta.datePrecision === "traditional";
+        if (b == null && d == null) return "";
+        var bStr = formatYear(b, { circa: circa, alt: meta.birthYearAlt });
+        if (d == null) return (trad ? "traditional " : "") + bStr + " – present";
+        var span = bStr + " – " + formatYear(d, { circa: circa, alt: meta.deathYearAlt });
+        return trad ? "traditional " + formatYear(b, { alt: meta.birthYearAlt }) + " – " + formatYear(d, { alt: meta.deathYearAlt }) : span;
       }
 
       const slug = getSlug();
@@ -200,7 +216,7 @@
         <h1>${f.name}</h1>
         <p class="epithet">${f.epithet || ""}</p>
         <dl class="fig-meta">
-          <div><dt>Lived</dt><dd>${formatLifespan(f.birthYear, f.deathYear)}</dd></div>
+          <div><dt>Lived</dt><dd>${formatLifespan(f)}</dd></div>
           <div><dt>Era</dt><dd>${f.eraLabel || ""}</dd></div>
           <div><dt>Region</dt><dd>${f.region || ""}</dd></div>
           <div><dt>Civilization</dt><dd>${f.civilization || ""}</dd></div>

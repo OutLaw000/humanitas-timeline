@@ -1,6 +1,6 @@
 # Humanitas
 
-Living phylogeny of greatness and truth. Interactive timeline of **110 lives** across about **4,600 years**, with a thesis composed from their principles.
+Living phylogeny of greatness and truth. Interactive timeline of **115 lives** across about **4,600 years**, with a thesis composed from their principles.
 
 Public site: [https://humanitas.ameriking.io](https://humanitas.ameriking.io)
 
@@ -10,7 +10,7 @@ Prophets, mothers of faith, Native nations, Americans, philosophers, and captain
 ## Pages
 - `/` timeline, search, constellation, thesis
 - `/figure/{slug}` single life
-- `/who?q=Name` lookup: the 110, a public encyclopedia record, or a roast if the archive is empty
+- `/who?q=Name` lookup: the 115, a public encyclopedia record, or a roast if the archive is empty
 - `/classroom` printable discussion pack
 - `/embed/{slug}` embeddable card
 

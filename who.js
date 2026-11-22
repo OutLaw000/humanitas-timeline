@@ -1,7 +1,7 @@
 /**
  * /who — generated page for any searched name.
  * Catalog hit → figure page. Public encyclopedia + Wikidata + Wikiquote →
- * a Humanitas-shaped life in the same depth as the 110. Zero record → roast.
+ * a Humanitas-shaped life in the same depth as the 115. Zero record → roast.
  */
 (() => {
   const esc =
@@ -96,17 +96,28 @@
     return m ? parseInt(m[1], 10) : null;
   }
 
-  function formatYear(y) {
-    if (y == null || Number.isNaN(y)) return "";
-    if (y < 0) return Math.abs(y) + " BCE";
-    return y + " CE";
+  function formatYear(y, opts) {
+    if (y == null || Number.isNaN(Number(y))) return "";
+    opts = opts || {};
+    var n = y < 0 ? String(Math.abs(y)) : String(y);
+    if (opts.alt != null && !Number.isNaN(Number(opts.alt))) {
+      n = n + "/" + (y < 0 ? Math.abs(opts.alt) : opts.alt);
+    }
+    var body = n + (y < 0 ? " BCE" : " CE");
+    return opts.circa ? "c. " + body : body;
   }
 
-  function formatLifespan(b, d) {
+  function formatLifespan(b, d, meta) {
+    if (b && typeof b === "object") { meta = b; d = b.deathYear; b = b.birthYear; }
+    meta = meta || {};
+    var circa = meta.datePrecision === "circa";
+    var trad = meta.datePrecision === "traditional";
     if (b == null && d == null) return "";
-    if (d == null) return formatYear(b) + " – present";
-    if (b == null) return "d. " + formatYear(d);
-    return formatYear(b) + " – " + formatYear(d);
+    var bStr = formatYear(b, { circa: circa, alt: meta.birthYearAlt });
+    if (d == null) return (trad ? "traditional " : "") + (bStr ? bStr + " – present" : "");
+    if (b == null) return (trad ? "traditional " : "") + "d. " + formatYear(d, { circa: circa, alt: meta.deathYearAlt });
+    var span = bStr + " – " + formatYear(d, { circa: circa, alt: meta.deathYearAlt });
+    return trad ? "traditional " + formatYear(b, { alt: meta.birthYearAlt }) + " – " + formatYear(d, { alt: meta.deathYearAlt }) : span;
   }
 
   function ordinalCentury(y) {
@@ -175,7 +186,7 @@
     const seed = hashName(name);
     const n = esc(name);
     const openers = [
-      `The phylogeny keeps 110 chairs. <em>${n}</em> was offered a pamphlet and the door.`,
+      `The phylogeny keeps 115 chairs. <em>${n}</em> was offered a pamphlet and the door.`,
       `We ran <em>${n}</em> through 4,600 years of law, faith, science, and liberation. The archive answered in eleven milliseconds. That is not a compliment.`,
       `Hammurabi left a code. Nightingale left a profession. <em>${n}</em> left the search bar slightly warmer.`,
       `Greatness leaves residue: vaccines, republics, poems, trees. <em>${n}</em> left a query string.`,
@@ -189,13 +200,13 @@
       `Some names move armies. Some names move theorems. <em>${n}</em> moved the cursor and pressed Enter. Bold. Insufficient.`,
     ];
     const closers = [
-      `Come back when you have a law, a hospital, a theorem, a crossing, or a tree. Until then the 110 will keep the lights on.`,
+      `Come back when you have a law, a hospital, a theorem, a crossing, or a tree. Until then the 115 will keep the lights on.`,
       `The timeline is not a yearbook. It is a short list of people who altered the weather of the species. Weather report for <em>${n}</em>: indoor.`,
       `There is still time. Malala was a child with a book. The door is not locked. It is simply not automatic.`,
       `If this stings, good. Sting is the first evidence you might yet do something. The archive is patient. It is not sentimental.`,
     ];
     const stamps = [
-      "Finding: not in the 110. Not in the public encyclopedia. Filed under silence.",
+      "Finding: not in the 115. Not in the public encyclopedia. Filed under silence.",
       "Finding: no law, no lab, no liberation, no lyric that the species kept.",
       "Finding: the record did not sit up. The record did not blink.",
     ];
@@ -219,13 +230,13 @@
         <p>${pick(closers, seed, 13)}</p>
       </div>
       <ol class="who-log" aria-label="Search log">
-        <li>Humanitas 110 — no match</li>
+        <li>Humanitas 115 — no match</li>
         <li>Public encyclopedia — ${reason === "wiki-miss" ? "no biographical page" : "no usable record"}</li>
         <li>Consequence residue — none filed</li>
         <li>Recommendation — search a name that dented the species</li>
       </ol>
       <div class="who-actions">
-        <a class="btn btn-primary" href="/#timeline">See the 110</a>
+        <a class="btn btn-primary" href="/#timeline">See the 115</a>
         <a class="btn btn-ghost" href="/#thesis">Read the thesis</a>
       </div>
     `;
@@ -595,7 +606,7 @@
 
     const cat = cats[0] || "";
     let view = `The public record keeps ${n} as ${occ}. Humanitas does not invent a school they never wrote. It reads what they left in the world, and the cost the same record names.`;
-    let operate = `Study the residue: the acts, the works, the sentences they actually spoke. Measure them the way the 110 are measured — did the weather of the species change?`;
+    let operate = `Study the residue: the acts, the works, the sentences they actually spoke. Measure them the way the 115 are measured — did the weather of the species change?`;
     if (cat === "scientific") {
       view = `The record treats ${n} as someone who made nature more legible. That is a moral claim as much as a technical one: the world can be known, and knowing it can spare people.`;
       operate = `Fund the method, not the myth. Keep the notebook. Publish the result. Refuse to let power rewrite the measurement.`;
@@ -606,7 +617,7 @@
       view = `${n} moved armies. The record is not shy about victory or about the bodies it took. Humanitas reads both columns.`;
       operate = `Do not confuse tactics with civilization. A campaign is residue; a code, a hospital, a school is what still stands.`;
     } else if (cat === "spiritual") {
-      view = `The record places ${n} inside a claim about the soul and the neighbor. Humanitas does not baptize them into the 110 by force. It asks whether the teaching still binds.`;
+      view = `The record places ${n} inside a claim about the soul and the neighbor. Humanitas does not baptize them into the 115 by force. It asks whether the teaching still binds.`;
       operate = `Test the teaching by the fruit the encyclopedia actually kept: mercy, law, or spectacle.`;
     } else if (cat === "humanitarian") {
       view = `${n} is kept because suffering was not abstract to them. The record is a trail of institutions, refusals, and people they would not leave behind.`;
@@ -789,7 +800,7 @@
     setMeta(`${title} — Humanitas lookup`, (summaryText || epithet).slice(0, 160));
 
     root.innerHTML = `
-      <p class="who-kicker">Generated life · public record · not one of the 110</p>
+      <p class="who-kicker">Generated life · public record · not one of the 115</p>
       ${photo}
       <div class="tl-badges">${badges}</div>
       <h1>${esc(title)}</h1>
@@ -800,7 +811,7 @@
       <div class="fig-actions who-actions">
         ${wiki ? `<a class="btn btn-primary btn-sm" href="${esc(wiki)}" target="_blank" rel="noopener noreferrer">Encyclopedia article</a>` : ""}
         <button type="button" class="btn btn-ghost btn-sm" id="btn-share">Share</button>
-        <a class="btn btn-ghost btn-sm" href="/#timeline">See the 110</a>
+        <a class="btn btn-ghost btn-sm" href="/#timeline">See the 115</a>
       </div>
       <section><p class="who-summary">${esc(summaryText)}</p></section>
       ${
@@ -820,7 +831,7 @@
         <p><strong>How we should operate</strong><br/>${esc(phil.operate)}</p>
         <p><strong>Core principles</strong></p>
         <ul>${phil.principles.map((p) => `<li>${esc(p)}</li>`).join("")}</ul>
-        <p class="who-phil-note">A Humanitas reading of documented acts, offices, works, and quoted speech. Not a private diary we invented, and not a chair among the 110.</p>
+        <p class="who-phil-note">A Humanitas reading of documented acts, offices, works, and quoted speech. Not a private diary we invented, and not a chair among the 115.</p>
       </section>
       ${quoteHtml ? `<section><h2>Words that endure</h2>${quoteHtml}</section>` : ""}
       ${creationHtml ? `<section><h2>Creations</h2>${creationHtml}</section>` : ""}
@@ -837,7 +848,7 @@
           : ""
       }
       ${relatedHtml ? `<section><h2>Related figures</h2><div class="related-list">${relatedHtml}</div></section>` : ""}
-      <p class="who-source">Composed for Humanitas from the public encyclopedia (Wikipedia), structured facts (Wikidata), and quoted speech (Wikiquote) where those pages exist. This is not a seat among the 110. It does not invent a biography they never lived.</p>
+      <p class="who-source">Composed for Humanitas from the public encyclopedia (Wikipedia), structured facts (Wikidata), and quoted speech (Wikiquote) where those pages exist. This is not a seat among the 115. It does not invent a biography they never lived.</p>
     `;
 
     document.getElementById("btn-share")?.addEventListener("click", async () => {
@@ -897,11 +908,11 @@
     if (input && q) input.value = q;
 
     if (!q) {
-      setMeta("Search a name — Humanitas", "Look up any name. The 110, the public record, or a polite rejection.");
+      setMeta("Search a name — Humanitas", "Look up any name. The 115, the public record, or a polite rejection.");
       root.innerHTML = `
         <p class="who-kicker">Lookup</p>
         <h1>Name someone.</h1>
-        <p class="who-epithet">If they are in the 110, you get the Humanitas page. If the encyclopedia kept them, you get a generated life in the same shape. If neither did, you get the jokes.</p>
+        <p class="who-epithet">If they are in the 115, you get the Humanitas page. If the encyclopedia kept them, you get a generated life in the same shape. If neither did, you get the jokes.</p>
       `;
       return;
     }

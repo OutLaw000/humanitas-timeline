@@ -884,6 +884,46 @@
       "destination": "/embed"
     },
     {
+      "source": "/figure/paul-the-apostle",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/paul-the-apostle",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/archimedes",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/archimedes",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/genghis-khan",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/genghis-khan",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/napoleon-bonaparte",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/napoleon-bonaparte",
+      "destination": "/embed"
+    },
+    {
+      "source": "/figure/james-watt",
+      "destination": "/figure"
+    },
+    {
+      "source": "/embed/james-watt",
+      "destination": "/embed"
+    },
+    {
       "source": "/who/:path*",
       "destination": "/who"
     }

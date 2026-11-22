@@ -144,6 +144,10 @@
     "clara-barton": { lat: 38.9, lng: -77.0, place: "Washington / Civil War fields" },
     epictetus: { lat: 39.0, lng: 20.75, place: "Nicopolis" },
     "al-ghazali": { lat: 34.35, lng: 58.68, place: "Tus / Baghdad" },
+    "paul-the-apostle": { lat: 36.92, lng: 34.90, place: "Tarsus (later Rome)" },
+    "genghis-khan": { lat: 47.3, lng: 110.9, place: "Onon–Kherlen basin, Mongolia" },
+    "napoleon-bonaparte": { lat: 48.86, lng: 2.33, place: "Paris / Ajaccio" },
+    "james-watt": { lat: 52.48, lng: -1.91, place: "Soho, Birmingham" }
   };
 
   const TOURS = [

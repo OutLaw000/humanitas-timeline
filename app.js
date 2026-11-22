@@ -69,6 +69,20 @@ const SLUG_ALIASES = {
   hippocrates: "hippocrates",
   euclid: "euclid",
   archimedes: "archimedes",
+  paul: "paul-the-apostle",
+  "paul-the-apostle": "paul-the-apostle",
+  "apostle-paul": "paul-the-apostle",
+  "saul-of-tarsus": "paul-the-apostle",
+  genghis: "genghis-khan",
+  "genghis-khan": "genghis-khan",
+  chinggis: "genghis-khan",
+  "chinggis-khan": "genghis-khan",
+  temujin: "genghis-khan",
+  napoleon: "napoleon-bonaparte",
+  "napoleon-bonaparte": "napoleon-bonaparte",
+  "napoleon-i": "napoleon-bonaparte",
+  watt: "james-watt",
+  "james-watt": "james-watt",
   mencius: "mencius",
   cicero: "cicero",
   seneca: "seneca",
@@ -156,8 +170,31 @@ function findFigure(slug) {
   const s = resolveSlug(slug);
   return figures.find((x) => x.slug === s);
 }
-function formatYear(y) { if (y < 0) return Math.abs(y) + " BCE"; return y + " CE"; }
-function formatLifespan(b, d) { return d == null ? formatYear(b) + " – present" : formatYear(b) + " – " + formatYear(d); }
+function formatYear(y, opts) {
+  if (y == null || Number.isNaN(Number(y))) return "";
+  opts = opts || {};
+  var n = y < 0 ? String(Math.abs(y)) : String(y);
+  if (opts.alt != null && !Number.isNaN(Number(opts.alt))) {
+    n = n + "/" + (y < 0 ? Math.abs(opts.alt) : opts.alt);
+  }
+  var body = n + (y < 0 ? " BCE" : " CE");
+  return opts.circa ? "c. " + body : body;
+}
+function formatLifespan(b, d, meta) {
+  if (b && typeof b === "object") { meta = b; d = b.deathYear; b = b.birthYear; }
+  meta = meta || {};
+  var circa = meta.datePrecision === "circa";
+  var trad = meta.datePrecision === "traditional";
+  if (b == null && d == null) return "";
+  var bStr = formatYear(b, { circa: circa, alt: meta.birthYearAlt });
+  if (d == null) return (trad ? "traditional " : "") + bStr + " – present";
+  if (b == null) return (trad ? "traditional " : "") + "d. " + formatYear(d, { circa: circa, alt: meta.deathYearAlt });
+  var span = bStr + " – " + formatYear(d, { circa: circa, alt: meta.deathYearAlt });
+  return trad ? "traditional " + formatYear(b, { alt: meta.birthYearAlt }) + " – " + formatYear(d, { alt: meta.deathYearAlt }) : span;
+}
+function yearOpts(f, which) {
+  return { circa: f.datePrecision === "circa", alt: which === "death" ? f.deathYearAlt : f.birthYearAlt };
+}
 function eraBand(year) {
   if (year < -1000) return "Bronze & early Iron Age";
   if (year < 0) return "Classical antiquity";
@@ -238,12 +275,12 @@ function renderTimeline() {
       <button type="button" class="tl-person" data-open="${f.slug}">
         <div class="tl-portrait">${portrait}</div>
         <div class="tl-details">
-          <div class="tl-year">${formatYear(f.birthYear)}${f.deathYear != null ? " · " + formatYear(f.deathYear) : " · living"}</div>
+          <div class="tl-year">${(f.datePrecision === "traditional" ? "trad. " : "")}${formatYear(f.birthYear, yearOpts(f, "birth"))}${f.deathYear != null ? " · " + formatYear(f.deathYear, yearOpts(f, "death")) : " · living"}</div>
           <h2 class="tl-name">${f.name}</h2>
           <p class="tl-epithet">${f.epithet || ""}</p>
           <div class="tl-badges">${badges}</div>
           <p class="tl-summary">${f.summary || ""}</p>
-          <div class="tl-foot"><span>${f.region || ""}</span><span>${formatLifespan(f.birthYear, f.deathYear)}</span><span>${f.eraLabel || ""}</span></div>
+          <div class="tl-foot"><span>${f.region || ""}</span><span>${formatLifespan(f)}</span><span>${f.eraLabel || ""}</span></div>
           <div class="tl-cta">Open full history →</div>
         </div>
       </button>
@@ -285,7 +322,7 @@ function openFigure(slug) {
   const photo = figureImage(f, "drawer-photo");
   const accomplishments = (f.accomplishments || []).map((a) => `<li>${a}</li>`).join("");
   body.innerHTML = `${photo}<div class="tl-badges">${badges}</div><h1 id="drawer-title">${f.name}</h1><p class="epithet">${f.epithet||""}</p>
-    <dl class="drawer-dl"><div><dt>Lived</dt><dd>${formatLifespan(f.birthYear, f.deathYear)}</dd></div><div><dt>Era</dt><dd>${f.eraLabel||""}</dd></div><div><dt>Region</dt><dd>${f.region||""}</dd></div><div><dt>Civilization</dt><dd>${f.civilization||""}</dd></div></dl>
+    <dl class="drawer-dl"><div><dt>Lived</dt><dd>${formatLifespan(f)}</dd></div><div><dt>Era</dt><dd>${f.eraLabel||""}</dd></div><div><dt>Region</dt><dd>${f.region||""}</dd></div><div><dt>Civilization</dt><dd>${f.civilization||""}</dd></div></dl>
     <div class="drawer-section"><p style="color:#f5f7f8;font-size:1.05rem">${f.summary||""}</p></div>
     ${accomplishments ? `<div class="drawer-section"><h2>Greatest accomplishments</h2><ol class="accomplishments-list">${accomplishments}</ol></div>` : ""}
     <div class="drawer-section"><h2>Historical life</h2>${(f.biography||[]).map((p)=>`<p>${p}</p>`).join("")}</div>

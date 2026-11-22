@@ -658,5 +658,35 @@
     "avif": "/images/figures/plato.avif",
     "width": 1280,
     "height": 1920
+  },
+  "paul-the-apostle": {
+    "webp": "/images/figures/paul-the-apostle.webp",
+    "avif": "/images/figures/paul-the-apostle.avif",
+    "width": 1531,
+    "height": 1920
+  },
+  "archimedes": {
+    "webp": "/images/figures/archimedes.webp",
+    "avif": "/images/figures/archimedes.avif",
+    "width": 1364,
+    "height": 1818
+  },
+  "genghis-khan": {
+    "webp": "/images/figures/genghis-khan.webp",
+    "avif": "/images/figures/genghis-khan.avif",
+    "width": 1511,
+    "height": 1920
+  },
+  "napoleon-bonaparte": {
+    "webp": "/images/figures/napoleon-bonaparte.webp",
+    "avif": "/images/figures/napoleon-bonaparte.avif",
+    "width": 1428,
+    "height": 1920
+  },
+  "james-watt": {
+    "webp": "/images/figures/james-watt.webp",
+    "avif": "/images/figures/james-watt.avif",
+    "width": 1530,
+    "height": 1920
   }
 }

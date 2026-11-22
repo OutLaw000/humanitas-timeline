@@ -1,6 +1,6 @@
 /**
  * Humanitas expansion — 50 worldwide legends of service, knowledge, and growth.
- * Concatenates onto window.HUMANITAS.figures (data1+data2+data3 ≈ 60 → ≈ 110).
+ * Concatenates onto window.HUMANITAS.figures (data1+data2+data3 ≈ 60 → later 110, then 115).
  */
 (function () {
   function q(text, source) {
