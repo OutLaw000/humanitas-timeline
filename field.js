@@ -131,38 +131,24 @@
       });
     }
 
-    helix = (function placeHelix() {
-      const org = document.querySelector(".hero-organism");
-      if (mobile()) {
-        if (org) {
-          const r = org.getBoundingClientRect();
-          return {
-            cx: r.left + r.width * 0.52,
-            cy: r.top + r.height * 0.44,
-            amp: Math.max(30, Math.min(56, r.width * 0.18)),
-            turns: 2.6,
-            h: Math.max(170, r.height * 0.92),
-            a: 0.64,
-          };
+    // DNA lives in the fixed starfield, not on the living cell.
+    helix = mobile()
+      ? {
+          cx: innerWidth * 0.9,
+          cy: innerHeight * 0.28,
+          amp: 18,
+          turns: 2.5,
+          h: 170,
+          a: 0.34,
         }
-        return {
-          cx: innerWidth * 0.72,
-          cy: innerHeight * 0.7,
-          amp: 32,
-          turns: 2.6,
-          h: 190,
-          a: 0.6,
+      : {
+          cx: innerWidth * 0.13,
+          cy: innerHeight * 0.52,
+          amp: 26,
+          turns: 2.8,
+          h: 300,
+          a: 0.32,
         };
-      }
-      return {
-        cx: innerWidth * 0.78,
-        cy: Math.min(innerHeight * 0.42, 340),
-        amp: 42,
-        turns: 3.2,
-        h: 260,
-        a: 0.55,
-      };
-    })();
   }
 
   function makeMeteor(initial) {
@@ -487,9 +473,9 @@
 
     drawNebulae();
     drawStars();
+    drawDNAHelix();
     drawMeteors();
     drawGravityWell();
-    drawDNAHelix();
     chromosomes.forEach(drawChromosome);
     atoms.forEach(drawAtom);
 
