@@ -458,7 +458,7 @@ window.HumanitasCore = {
 };
 
 function bind() {
-  const search = $("#search");
+  const search = $("#who-q") || $("#search");
   if (search) search.addEventListener("input", (e) => { state.query = e.target.value; renderTimeline(); });
   const chips = $("#chips");
   if (chips) chips.addEventListener("click", (e) => {
