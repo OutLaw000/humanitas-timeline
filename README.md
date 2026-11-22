@@ -12,7 +12,7 @@ Prophets, mothers of faith, Native nations, Americans, philosophers, and captain
 Every person — the 115, a Community entry, or a searched name — uses the same greatness-first bio (`bio.js` / `editorial.js`). Public Wikipedia, Wikidata, and Wikiquote only. Nothing is invented.
 
 ## Pages
-- `/` timeline, search, constellation, thesis
+- `/` timeline, search, thesis
 - `/figure/{slug}` single life
 - `/who?q=Name` lookup: the 115, a public encyclopedia record in the same bio format, or a clean not-found page if there is no biographical record
 - `/community` people who pass the public auto-grade when searched

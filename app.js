@@ -425,146 +425,6 @@ async function runGenerate() {
   btn.disabled = false;
   if (label) label.textContent = "Regenerate thesis";
 }
-let explore = null;
-function openExplore() { $("#explore-overlay").hidden = false; document.body.style.overflow = "hidden"; initExplore(); }
-function closeExplore() { $("#explore-overlay").hidden = true; document.body.style.overflow = ""; explore = null; }
-function initExplore() {
-  const canvas = $("#explore-canvas");
-  if (!canvas) return;
-  const ctx = canvas.getContext("2d");
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  let tick = 0;
-  function resize() {
-    const rect = canvas.parentElement.getBoundingClientRect();
-    canvas.width = rect.width * dpr;
-    canvas.height = rect.height * dpr;
-    canvas.style.width = rect.width + "px";
-    canvas.style.height = rect.height + "px";
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-  resize();
-  const nodes = sortedFigures().map((f, i) => {
-    const t = i / Math.max(figures.length - 1, 1);
-    const angle = t * Math.PI * 2 * 1.7 + 0.4;
-    const radius = 80 + t * 160 + (i % 3) * 28;
-    return {
-      f, x: Math.cos(angle) * radius, y: Math.sin(angle) * radius * 0.72,
-      r: 4 + ((f.categories || []).includes("spiritual") ? 2 : 0),
-      phase: Math.random() * Math.PI * 2,
-      hue: t,
-    };
-  });
-  explore = { nodes, camX: 0, camY: 0, scale: 1.1, dragging: false, lastX: 0, lastY: 0, hover: null, downX: 0, downY: 0 };
-  function worldToScreen(x, y) {
-    const w = canvas.clientWidth, h = canvas.clientHeight;
-    return { x: w / 2 + (x - explore.camX) * explore.scale, y: h / 2 + (y - explore.camY) * explore.scale };
-  }
-  function draw() {
-    if (!explore) return;
-    tick += 1;
-    const w = canvas.clientWidth, h = canvas.clientHeight;
-    ctx.clearRect(0, 0, w, h);
-    const g = ctx.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, Math.max(w, h) * 0.7);
-    g.addColorStop(0, "rgba(10, 22, 36, 0.9)");
-    g.addColorStop(1, "rgba(3, 5, 10, 1)");
-    ctx.fillStyle = g;
-    ctx.fillRect(0, 0, w, h);
-    ctx.strokeStyle = "rgba(56, 189, 248,0.05)";
-    ctx.lineWidth = 1;
-    for (let r = 40; r < 420; r += 40) {
-      const c = worldToScreen(0, 0);
-      ctx.beginPath();
-      ctx.ellipse(c.x, c.y, r * explore.scale, r * explore.scale * 0.72, tick * 0.001, 0, Math.PI * 2);
-      ctx.stroke();
-    }
-    explore.nodes.forEach((n) => {
-      (n.f.relatedSlugs || []).forEach((slug) => {
-        const m = explore.nodes.find((x) => x.f.slug === slug);
-        if (!m) return;
-        const a = worldToScreen(n.x, n.y), b = worldToScreen(m.x, m.y);
-        const grad = ctx.createLinearGradient(a.x, a.y, b.x, b.y);
-        grad.addColorStop(0, "rgba(56, 189, 248,0.2)");
-        grad.addColorStop(1, "rgba(167,139,250,0.18)");
-        ctx.strokeStyle = grad;
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(a.x, a.y);
-        ctx.lineTo(b.x, b.y);
-        ctx.stroke();
-      });
-    });
-    explore.nodes.forEach((n) => {
-      const p = worldToScreen(n.x, n.y);
-      const active = explore.hover === n;
-      const r = (active ? n.r + 3 : n.r) * Math.min(explore.scale, 1.6);
-      const pulse = 0.7 + Math.sin(tick * 0.04 + n.phase) * 0.3;
-      ctx.strokeStyle = active ? "rgba(255,184,77,0.45)" : "rgba(56, 189, 248,0.2)";
-      ctx.lineWidth = 0.8;
-      ctx.beginPath();
-      ctx.ellipse(p.x, p.y, r + 8, r + 4, n.phase + tick * 0.01, 0, Math.PI * 2);
-      ctx.stroke();
-      const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * 4);
-      glow.addColorStop(0, active ? "rgba(125, 211, 252,0.45)" : "rgba(56, 189, 248,0.2)");
-      glow.addColorStop(1, "transparent");
-      ctx.fillStyle = glow;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, r * 4, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, r * pulse, 0, Math.PI * 2);
-      ctx.fillStyle = active ? "#e8f0f4" : n.hue > 0.6 ? "#a78bfa" : n.hue > 0.3 ? "#7dd3fc" : "#ffb84d";
-      ctx.fill();
-      if (active || explore.scale > 0.9) {
-        ctx.font = (active ? 13 : 11) + "px Outfit, sans-serif";
-        ctx.fillStyle = active ? "#e8f0f4" : "rgba(232,244,242,0.65)";
-        ctx.textAlign = "center";
-        ctx.fillText(n.f.name.split("(")[0].trim(), p.x, p.y + r + 16);
-      }
-    });
-    requestAnimationFrame(draw);
-  }
-  draw();
-  function pick(clientX, clientY) {
-    const rect = canvas.getBoundingClientRect();
-    const x = clientX - rect.left, y = clientY - rect.top;
-    let best = null, bestD = 20;
-    explore.nodes.forEach((n) => {
-      const p = worldToScreen(n.x, n.y);
-      const d = Math.hypot(p.x - x, p.y - y);
-      if (d < bestD) { bestD = d; best = n; }
-    });
-    return best;
-  }
-  canvas.onpointerdown = (e) => {
-    explore.dragging = true;
-    explore.lastX = e.clientX; explore.lastY = e.clientY;
-    explore.downX = e.clientX; explore.downY = e.clientY;
-    canvas.setPointerCapture(e.pointerId);
-  };
-  canvas.onpointermove = (e) => {
-    if (explore.dragging) {
-      explore.camX -= (e.clientX - explore.lastX) / explore.scale;
-      explore.camY -= (e.clientY - explore.lastY) / explore.scale;
-      explore.lastX = e.clientX; explore.lastY = e.clientY;
-    } else explore.hover = pick(e.clientX, e.clientY);
-  };
-  canvas.onpointerup = (e) => {
-    if (!explore.dragging) return;
-    const moved = Math.hypot(e.clientX - explore.downX, e.clientY - explore.downY);
-    explore.dragging = false;
-    if (moved < 6) {
-      const hit = pick(e.clientX, e.clientY);
-      if (hit) { closeExplore(); openFigure(hit.f.slug); }
-    }
-  };
-  canvas.onpointerleave = () => { explore.hover = null; };
-  canvas.onwheel = (e) => {
-    e.preventDefault();
-    const factor = e.deltaY > 0 ? 0.92 : 1.08;
-    explore.scale = Math.min(2.4, Math.max(0.45, explore.scale * factor));
-  };
-  window.addEventListener("resize", resize, { passive: true });
-}
 function updateProgress() {
   const scrolled = window.scrollY;
   const max = document.documentElement.scrollHeight - window.innerHeight;
@@ -589,8 +449,6 @@ window.HumanitasCore = {
   formatLifespan,
   openFigure,
   closeDrawer,
-  closeExplore,
-  openExplore,
   setStandingOnly,
   getActiveFigure,
   generateThesis,
@@ -627,15 +485,13 @@ function bind() {
       if (t === "timeline") $("#timeline")?.scrollIntoView({ behavior: "smooth", block: "start" });
       else if (t === "thesis") $("#thesis")?.scrollIntoView({ behavior: "smooth", block: "start" });
       else if (t === "home") window.scrollTo({ top: 0, behavior: "smooth" });
-      else if (t === "explore") openExplore();
     }
   });
   $("#drawer-close")?.addEventListener("click", closeDrawer);
   $("#drawer-backdrop")?.addEventListener("click", closeDrawer);
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
-      if ($("#explore-overlay") && !$("#explore-overlay").hidden) closeExplore();
-      else if ($("#drawer") && !$("#drawer").hidden) closeDrawer();
+      if ($("#drawer") && !$("#drawer").hidden) closeDrawer();
     }
   });
   $("#btn-generate")?.addEventListener("click", runGenerate);
@@ -647,7 +503,6 @@ function bind() {
       setTimeout(() => { $("#btn-copy").textContent = "Copy full text"; }, 1600);
     } catch (_) {}
   });
-  $("#explore-close")?.addEventListener("click", closeExplore);
   window.addEventListener("scroll", updateProgress, { passive: true });
   updateProgress();
 }

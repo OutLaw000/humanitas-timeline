@@ -27,7 +27,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=14" />
+  <link rel="stylesheet" href="styles.css?v=16" />
   <style>
     .ha-splash-overlay{display:none;position:fixed;inset:0;z-index:9999;align-items:center;justify-content:center;background:#03050a;color:#f5f7f8}
     html.ha-splash .ha-splash-overlay,html.ha-splash-out .ha-splash-overlay{display:flex}
@@ -156,8 +156,7 @@
       <nav class="nav">
         <button type="button" class="nav-btn" data-nav="timeline">Timeline</button>
         <button type="button" class="nav-btn" data-nav="thesis">Thesis</button>
-        <a class="nav-btn" href="/community">Community</a>
-        <button type="button" class="nav-btn nav-btn-accent" data-nav="explore">Explore</button>
+        <a class="nav-btn nav-btn-accent" href="/community">Community</a>
       </nav>
     </div>
     <div class="progress-bar" id="progress-bar"></div>
@@ -249,17 +248,6 @@
     <div class="drawer-body" id="drawer-body"></div>
   </aside>
 
-  <div class="explore-overlay" id="explore-overlay" hidden>
-    <div class="explore-header">
-      <h2>Constellation</h2>
-      <button type="button" class="btn btn-ghost btn-sm" id="explore-close">Close</button>
-    </div>
-    <div class="explore-canvas-wrap">
-      <canvas id="explore-canvas"></canvas>
-      <p class="explore-hint">Tap a life · drag to pan · scroll to zoom</p>
-    </div>
-  </div>
-
   <script src="data1.js"></script>
   <script src="data2.js"></script>
   <script src="data3.js"></script>
@@ -276,7 +264,7 @@
   <script src="bio.js?v=1"></script>
   <script src="field.js"></script>
   <script src="who-search.js"></script>
-  <script src="app.js"></script>
+  <script src="app.js?v=2"></script>
   <script src="https://ameriking.io/made.js?v=6" defer></script>
   <script src="features.js"></script>
 <script src="/logos/dna-runtime.js" defer></script>

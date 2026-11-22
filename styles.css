@@ -1088,57 +1088,6 @@ a { color: inherit; text-decoration: none; }
 .related-btn strong { display: block; font-size: 14px; }
 .related-btn span { font-size: 12px; color: var(--fg-subtle); }
 
-/* —— Explore: gravitational constellation —— */
-.explore-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  background: var(--bg);
-  display: flex;
-  flex-direction: column;
-}
-.explore-header {
-  height: 56px;
-  padding: 0 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--border);
-  background: color-mix(in oklab, var(--bg) 90%, transparent);
-  backdrop-filter: blur(12px);
-}
-.explore-header h2 {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: 1.4rem;
-}
-.explore-canvas-wrap { flex: 1; position: relative; overflow: hidden; }
-#explore-canvas {
-  width: 100%;
-  height: 100%;
-  display: block;
-  touch-action: none;
-  cursor: grab;
-}
-#explore-canvas:active { cursor: grabbing; }
-.explore-hint {
-  position: absolute;
-  bottom: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  margin: 0;
-  padding: 8px 14px;
-  border-radius: 999px;
-  background: color-mix(in oklab, var(--bg) 80%, transparent);
-  border: 1px solid var(--border);
-  font-size: 12px;
-  color: var(--fg-muted);
-  pointer-events: none;
-  white-space: nowrap;
-  backdrop-filter: blur(8px);
-}
-
 [hidden] { display: none !important; }
 
 /* —— Feature suite —— */
@@ -1668,7 +1617,7 @@ a { color: inherit; text-decoration: none; }
 @media print {
   #phylo-field, .field-veil, .site-header, .tour-bar, .feature-toast,
   .hero, .controls, .timeline-section, .feature-section,
-  .drawer, .drawer-backdrop, .explore-overlay, .site-footer,
+  .drawer, .drawer-backdrop, .site-footer,
   .thesis-actions, .weight-details, .hero-organism {
     display: none !important;
   }
