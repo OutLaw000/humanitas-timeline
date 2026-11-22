@@ -40,6 +40,22 @@
         var p = location.pathname || "/";
         if (p.length > 1 && p.charAt(p.length - 1) === "/") p = p.slice(0, -1);
         if (p !== "/" && p !== "/index.html" && p !== "") return;
+        if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+        function pinTop(force) {
+          var hash = (location.hash || "").replace(/^#/, "");
+          if (!force && hash && hash !== "top") return;
+          var root = document.documentElement;
+          var prev = root.style.scrollBehavior;
+          root.style.scrollBehavior = "auto";
+          window.scrollTo(0, 0);
+          root.scrollTop = 0;
+          if (document.body) document.body.scrollTop = 0;
+          root.style.scrollBehavior = prev;
+        }
+        pinTop();
+        window.addEventListener("pageshow", function () { pinTop(); });
+        if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { pinTop(); });
+        window.HumanitasPinHome = pinTop;
         if (sessionStorage.getItem("humanitysatlas:splash")) return;
         sessionStorage.setItem("humanitysatlas:splash", "1");
         var h = document.documentElement;
@@ -55,6 +71,7 @@
           h.classList.add("ha-splash-out");
           setTimeout(function () {
             h.classList.remove("ha-splash", "ha-splash-out");
+            pinTop(true);
           }, fade + 20);
         }
         setTimeout(dismiss, vis);
@@ -265,7 +282,7 @@
   <script src="bio.js?v=1"></script>
   <script src="field.js"></script>
   <script src="who-search.js"></script>
-  <script src="app.js?v=3"></script>
+  <script src="app.js?v=4"></script>
   <script src="https://ameriking.io/made.js?v=6" defer></script>
   <script src="features.js"></script>
 <script src="/logos/dna-runtime.js" defer></script>

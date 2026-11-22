@@ -510,4 +510,5 @@ renderHeroStats();
 renderChips();
 renderTimeline();
 bind();
+if (typeof window.HumanitasPinHome === "function") window.HumanitasPinHome();
 })();
