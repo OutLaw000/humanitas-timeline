@@ -12,7 +12,7 @@ const footerEnd = who.indexOf("</footer>") + "</footer>".length;
 const pages = [
   { file: "community.html", path: "/community", kind: "community", h1: "Community timeline", tab: "community",
     title: "Community timeline — Humanity’s Atlas",
-    lead: "People who qualify under the same public, objective rubric, added automatically when a search finds them. Same neutral, contribution-first profile as everyone else." },
+    lead: "Search any name. If the public record is strong enough, they appear here — same biography as the 115." },
   { file: "recent.html", path: "/recent", kind: "recent", h1: "Recently explored", tab: "recent",
     title: "Recently explored — Humanity’s Atlas",
     lead: "The latest people opened on Humanity’s Atlas. Anonymous: only who was opened is kept, never by whom." },

@@ -255,6 +255,22 @@ a { color: inherit; text-decoration: none; }
   font-size: 1.05rem;
   line-height: 1.65;
 }
+.hero-whisper {
+  margin: 12px 0 0;
+  max-width: 32rem;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--fg-subtle);
+}
+.hero-whisper label,
+.hero-whisper a {
+  color: var(--accent-soft);
+  cursor: pointer;
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in oklab, var(--accent) 40%, transparent);
+}
+.hero-whisper label:hover,
+.hero-whisper a:hover { color: var(--accent); }
 .hero-actions { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 10px; }
 .hero-stats {
   margin-top: 36px;
