@@ -1,8 +1,11 @@
-# Humanitas
+# Humanity’s Atlas
+
+Public name of the site at [humanitysatlas.com](https://humanitysatlas.com). The repository and Vercel project remain `humanitas-timeline` / `humanitas`.
+
 
 Living phylogeny of greatness and truth. Interactive timeline of **115 lives** across about **4,600 years**, with a thesis composed from their principles.
 
-Public site: [https://humanitas.ameriking.io](https://humanitas.ameriking.io)
+Public site: [https://humanitysatlas.com](https://humanitysatlas.com)
 
 ## What it is
 Prophets, mothers of faith, Native nations, Americans, philosophers, and captains. Each life has a biography, principles, creations, and a portrait. Scan a name, open the full page, or generate a thesis.

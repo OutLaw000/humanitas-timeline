@@ -64,8 +64,28 @@
 
   function setMeta(title, description) {
     document.title = title;
+    const desc = description.slice(0, 160);
     const d = document.querySelector('meta[name="description"]');
-    if (d) d.setAttribute("content", description.slice(0, 160));
+    if (d) d.setAttribute("content", desc);
+    const set = (sel, attr, key, value) => {
+      let el = document.querySelector(sel);
+      if (!el) {
+        el = document.createElement(sel.startsWith("link") ? "link" : "meta");
+        el.setAttribute(attr, key);
+        document.head.appendChild(el);
+      }
+      if (sel.startsWith("link")) el.setAttribute("href", value);
+      else el.setAttribute("content", value);
+    };
+    set('meta[property="og:title"]', "property", "og:title", title);
+    set('meta[property="og:description"]', "property", "og:description", desc);
+    set('meta[property="og:site_name"]', "property", "og:site_name", "Humanity’s Atlas");
+    set('meta[name="twitter:title"]', "name", "twitter:title", title);
+    set('meta[name="twitter:description"]', "name", "twitter:description", desc);
+    if (location.pathname) {
+      set('meta[property="og:url"]', "property", "og:url", "https://humanitysatlas.com" + location.pathname + location.search);
+      set('link[rel="canonical"]', "rel", "canonical", "https://humanitysatlas.com" + location.pathname + location.search);
+    }
   }
 
   function sentences(text, min, max) {
@@ -215,8 +235,8 @@
     }
 
     setMeta(
-      `${name} is not in Humanitas`,
-      `The Humanitas archive has no record of ${name}. The phylogeny of greatness did not keep a chair.`
+      `${name} is not in Humanity’s Atlas`,
+      `The Humanity’s Atlas archive has no record of ${name}. The phylogeny of greatness did not keep a chair.`
     );
 
     root.innerHTML = `
@@ -230,7 +250,7 @@
         <p>${pick(closers, seed, 13)}</p>
       </div>
       <ol class="who-log" aria-label="Search log">
-        <li>Humanitas 115 — no match</li>
+        <li>Humanity’s Atlas 115 — no match</li>
         <li>Public encyclopedia — ${reason === "wiki-miss" ? "no biographical page" : "no usable record"}</li>
         <li>Consequence residue — none filed</li>
         <li>Recommendation — search a name that dented the species</li>
@@ -605,7 +625,7 @@
     }
 
     const cat = cats[0] || "";
-    let view = `The public record keeps ${n} as ${occ}. Humanitas does not invent a school they never wrote. It reads what they left in the world, and the cost the same record names.`;
+    let view = `The public record keeps ${n} as ${occ}. Humanity’s Atlas does not invent a school they never wrote. It reads what they left in the world, and the cost the same record names.`;
     let operate = `Study the residue: the acts, the works, the sentences they actually spoke. Measure them the way the 115 are measured — did the weather of the species change?`;
     if (cat === "scientific") {
       view = `The record treats ${n} as someone who made nature more legible. That is a moral claim as much as a technical one: the world can be known, and knowing it can spare people.`;
@@ -614,10 +634,10 @@
       view = `Power is a tool that either publishes law or hides it. The record of ${n} is a ledger of which they chose, and who paid.`;
       operate = `Ask of every ruler what Hammurabi asked of himself: was justice written down, and were the strong restrained?`;
     } else if (cat === "military") {
-      view = `${n} moved armies. The record is not shy about victory or about the bodies it took. Humanitas reads both columns.`;
+      view = `${n} moved armies. The record is not shy about victory or about the bodies it took. Humanity’s Atlas reads both columns.`;
       operate = `Do not confuse tactics with civilization. A campaign is residue; a code, a hospital, a school is what still stands.`;
     } else if (cat === "spiritual") {
-      view = `The record places ${n} inside a claim about the soul and the neighbor. Humanitas does not baptize them into the 115 by force. It asks whether the teaching still binds.`;
+      view = `The record places ${n} inside a claim about the soul and the neighbor. Humanity’s Atlas does not baptize them into the 115 by force. It asks whether the teaching still binds.`;
       operate = `Test the teaching by the fruit the encyclopedia actually kept: mercy, law, or spectacle.`;
     } else if (cat === "humanitarian") {
       view = `${n} is kept because suffering was not abstract to them. The record is a trail of institutions, refusals, and people they would not leave behind.`;
@@ -656,7 +676,7 @@
     if (cat === "scientific") return `${title} left a way of seeing that later hands still have to use.`;
     if (cat === "spiritual") return `The teaching associated with ${title} is still a claim on the living, or it is a museum.`;
     if (cat === "humanitarian") return `${title} is kept because an institution of care still bears the fingerprint.`;
-    if (cat === "military") return `Campaigns end. What Humanitas weighs is whether anything civilizing stood when the smoke lifted.`;
+    if (cat === "military") return `Campaigns end. What Humanity’s Atlas weighs is whether anything civilizing stood when the smoke lifted.`;
     if (cat === "political") return `Rule is residue. The record of ${title} is whether the office became more than a name.`;
     return `The public record still bothers to keep ${title}. That labor is the first fact.`;
   }
@@ -797,7 +817,7 @@
       (wd.fields || []).length ? ["Field", wd.fields.join(" · ")] : null,
     ].filter(Boolean);
 
-    setMeta(`${title} — Humanitas lookup`, (summaryText || epithet).slice(0, 160));
+    setMeta(`${title} — Humanity’s Atlas lookup`, (summaryText || epithet).slice(0, 160));
 
     root.innerHTML = `
       <p class="who-kicker">Generated life · public record · not one of the 115</p>
@@ -831,7 +851,7 @@
         <p><strong>How we should operate</strong><br/>${esc(phil.operate)}</p>
         <p><strong>Core principles</strong></p>
         <ul>${phil.principles.map((p) => `<li>${esc(p)}</li>`).join("")}</ul>
-        <p class="who-phil-note">A Humanitas reading of documented acts, offices, works, and quoted speech. Not a private diary we invented, and not a chair among the 115.</p>
+        <p class="who-phil-note">A Humanity’s Atlas reading of documented acts, offices, works, and quoted speech. Not a private diary we invented, and not a chair among the 115.</p>
       </section>
       ${quoteHtml ? `<section><h2>Words that endure</h2>${quoteHtml}</section>` : ""}
       ${creationHtml ? `<section><h2>Creations</h2>${creationHtml}</section>` : ""}
@@ -848,7 +868,7 @@
           : ""
       }
       ${relatedHtml ? `<section><h2>Related figures</h2><div class="related-list">${relatedHtml}</div></section>` : ""}
-      <p class="who-source">Composed for Humanitas from the public encyclopedia (Wikipedia), structured facts (Wikidata), and quoted speech (Wikiquote) where those pages exist. This is not a seat among the 115. It does not invent a biography they never lived.</p>
+      <p class="who-source">Composed for Humanity’s Atlas from the public encyclopedia (Wikipedia), structured facts (Wikidata), and quoted speech (Wikiquote) where those pages exist. This is not a seat among the 115. It does not invent a biography they never lived.</p>
     `;
 
     document.getElementById("btn-share")?.addEventListener("click", async () => {
@@ -908,11 +928,11 @@
     if (input && q) input.value = q;
 
     if (!q) {
-      setMeta("Search a name — Humanitas", "Look up any name. The 115, the public record, or a polite rejection.");
+      setMeta("Search a name — Humanity’s Atlas", "Look up any name. The 115, the public record, or a polite rejection.");
       root.innerHTML = `
         <p class="who-kicker">Lookup</p>
         <h1>Name someone.</h1>
-        <p class="who-epithet">If they are in the 115, you get the Humanitas page. If the encyclopedia kept them, you get a generated life in the same shape. If neither did, you get the jokes.</p>
+        <p class="who-epithet">If they are in the 115, you get the Humanity’s Atlas page. If the encyclopedia kept them, you get a generated life in the same shape. If neither did, you get the jokes.</p>
       `;
       return;
     }

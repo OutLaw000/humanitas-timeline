@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Humanitas" class="humanitas-dna" data-dna-prefix="hdna">
-  <title>Humanitas — original DNA strand</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Humanity’s Atlas" class="humanitas-dna" data-dna-prefix="hdna">
+  <title>Humanity’s Atlas — original DNA strand</title>
   <style>#hdna-glow-layer{animation:hdna-breathe 4.2s ease-in-out infinite}@keyframes hdna-breathe{0%,100%{opacity:.22}50%{opacity:.42}}@media (prefers-reduced-motion:reduce){#hdna-glow-layer{animation:none!important;opacity:.22}}</style>
   
   <defs>

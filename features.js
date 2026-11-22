@@ -46,7 +46,7 @@
     const shareUrl = location.origin + "/figure/" + f.slug;
     if (navigator.share) {
       try {
-        await navigator.share({ title: f.name + " — Humanitas", text: f.summary || f.epithet, url: shareUrl });
+        await navigator.share({ title: f.name + " — Humanity’s Atlas", text: f.summary || f.epithet, url: shareUrl });
         return;
       } catch (_) {}
     }

@@ -3,8 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Figure — Humanitas</title>
-  <meta name="description" content="Historical figure profile from Humanitas — living phylogeny of greatness and truth." />
+  <title>Figure — Humanity’s Atlas</title>
+  <meta name="description" content="Historical figure profile from Humanity’s Atlas — living phylogeny of greatness and truth." />
+  <meta property="og:title" content="Figure — Humanity’s Atlas" />
+  <meta property="og:description" content="Historical figure profile from Humanity’s Atlas — living phylogeny of greatness and truth." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://humanitysatlas.com/figure" />
+  <meta property="og:site_name" content="Humanity’s Atlas" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Figure — Humanity’s Atlas" />
+  <meta name="twitter:description" content="Historical figure profile from Humanity’s Atlas — living phylogeny of greatness and truth." />
+  <link rel="canonical" href="https://humanitysatlas.com/figure" />
   <meta name="theme-color" content="#03050a" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon.ico" sizes="32x32" />
@@ -13,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.css?v=11" />
+  <link rel="stylesheet" href="/styles.css?v=12" />
   <style>
     .fig-page { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; padding: 40px 20px 80px; }
     .fig-back { display: inline-flex; margin-bottom: 24px; color: var(--fg-muted); font-size: 14px; }
@@ -45,8 +54,8 @@
     <div class="header-inner">
       <a href="/" class="brand">
         <span class="brand-mark" aria-hidden="true">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Humanitas" class="humanitas-dna" data-dna-prefix="figdna">
-  <title>Humanitas — original DNA strand</title>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Humanity’s Atlas" class="humanitas-dna" data-dna-prefix="figdna">
+  <title>Humanity’s Atlas — original DNA strand</title>
   <style>#figdna-glow-layer{animation:figdna-breathe 4.2s ease-in-out infinite}@keyframes figdna-breathe{0%,100%{opacity:.22}50%{opacity:.42}}@media (prefers-reduced-motion:reduce){#figdna-glow-layer{animation:none!important;opacity:.22}}</style>
   
   <defs>
@@ -73,7 +82,7 @@
 </svg>
         </span>
         <span class="brand-text">
-          <span class="brand-name">Humanitas</span>
+          <span class="brand-name">Humanity’s Atlas</span>
           <span class="brand-sub">Phylogeny of greatness</span>
         </span>
       </a>
@@ -93,7 +102,7 @@
   </header>
 
   <main class="fig-page" id="fig-page">
-    <a class="fig-back" href="/">← Humanitas timeline</a>
+    <a class="fig-back" href="/">← Humanity’s Atlas timeline</a>
     <div id="fig-root"><p class="section-lead">Loading…</p></div>
   </main>
 
@@ -170,7 +179,7 @@
         return;
       }
 
-      document.title = f.name + " — Humanitas";
+      document.title = f.name + " — Humanity’s Atlas";
       const desc = (f.summary || f.epithet || "").slice(0, 160);
       document.querySelector('meta[name="description"]').setAttribute("content", desc);
       let og = document.querySelector('meta[property="og:title"]');
@@ -179,7 +188,25 @@
         og.setAttribute("property", "og:title");
         document.head.appendChild(og);
       }
-      og.setAttribute("content", f.name + " — Humanitas");
+      og.setAttribute("content", f.name + " — Humanity’s Atlas");
+
+      function upsertMeta(sel, attr, key, value) {
+        let el = document.querySelector(sel);
+        if (!el) {
+          el = document.createElement(sel.startsWith("link") ? "link" : "meta");
+          el.setAttribute(attr, key);
+          document.head.appendChild(el);
+        }
+        if (sel.startsWith("link")) el.setAttribute("href", value);
+        else el.setAttribute("content", value);
+      }
+      const pageUrl = "https://humanitysatlas.com/figure/" + f.slug;
+      upsertMeta('meta[property="og:url"]', "property", "og:url", pageUrl);
+      upsertMeta('meta[property="og:site_name"]', "property", "og:site_name", "Humanity’s Atlas");
+      upsertMeta('meta[name="twitter:card"]', "name", "twitter:card", "summary");
+      upsertMeta('meta[name="twitter:title"]', "name", "twitter:title", f.name + " — Humanity’s Atlas");
+      upsertMeta('link[rel="canonical"]', "rel", "canonical", pageUrl);
+
 
       const badges = (f.categories || []).map((c) => `<span class="badge">${CAT[c] || c}</span>`).join(" ");
       const photo = f.image?.url

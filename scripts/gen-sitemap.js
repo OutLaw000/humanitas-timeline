@@ -8,9 +8,10 @@ const c =
   fs.readFileSync(path.join(root, "data3.js"), "utf8") +
   fs.readFileSync(path.join(root, "data4.js"), "utf8") +
   fs.readFileSync(path.join(root, "data5.js"), "utf8") +
-  fs.readFileSync(path.join(root, "data6.js"), "utf8");
+  fs.readFileSync(path.join(root, "data6.js"), "utf8") +
+  fs.readFileSync(path.join(root, "data7.js"), "utf8");
 eval(c.replace(/window\./g, "g.window."));
-const base = "https://humanitas.ameriking.io";
+const base = "https://humanitysatlas.com";
 const figs = g.window.HUMANITAS.figures;
 let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
 xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
