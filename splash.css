@@ -47,7 +47,7 @@ html.ha-splash:not(.ha-splash-out) .ha-splash-brand {
   height: 112px;
   display: grid;
   place-items: center;
-  filter: drop-shadow(0 0 18px rgba(45, 212, 191, 0.28))
+  filter: drop-shadow(0 0 18px rgba(56, 189, 248, 0.28))
           drop-shadow(0 0 28px rgba(167, 139, 250, 0.18));
 }
 
@@ -64,7 +64,7 @@ html.ha-splash:not(.ha-splash-out) .ha-splash-brand {
   height: 1.5px;
   margin: 22px 0 18px;
   border-radius: 2px;
-  background: linear-gradient(90deg, #5eead4, #f5c16c 50%, #a78bfa);
+  background: linear-gradient(90deg, #7dd3fc, #f5c16c 50%, #a78bfa);
   opacity: 0.9;
 }
 
@@ -89,7 +89,7 @@ html.ha-splash:not(.ha-splash-out) .ha-splash-word {
   font-weight: 400;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--fg-muted, #8aa8a4);
+  color: var(--fg-muted, #8a9ea8);
   opacity: 0.9;
 }
 

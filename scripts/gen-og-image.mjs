@@ -86,7 +86,7 @@ body { background: #000; }
 .veil {
   position: absolute; inset: 0;
   background:
-    radial-gradient(ellipse 70% 80% at 18% 50%, rgba(45, 212, 191, 0.14), transparent 58%),
+    radial-gradient(ellipse 70% 80% at 18% 50%, rgba(56, 189, 248, 0.14), transparent 58%),
     radial-gradient(ellipse 55% 70% at 88% 30%, rgba(167, 139, 250, 0.12), transparent 62%),
     radial-gradient(ellipse 50% 55% at 70% 90%, rgba(255, 184, 77, 0.07), transparent 55%),
     radial-gradient(ellipse 90% 70% at 50% 120%, rgba(10, 18, 32, 0.9), transparent 50%);
@@ -110,7 +110,7 @@ body { background: #000; }
   flex: 0 0 390px;
   width: 390px;
   height: 486px;
-  filter: drop-shadow(0 0 18px rgba(45, 212, 191, 0.22))
+  filter: drop-shadow(0 0 18px rgba(56, 189, 248, 0.22))
           drop-shadow(0 0 36px rgba(167, 139, 250, 0.14));
 }
 .strand svg { width: 100%; height: 100%; display: block; overflow: visible; }
@@ -130,8 +130,8 @@ body { background: #000; }
   height: 2px;
   margin: 28px 0 22px;
   border-radius: 2px;
-  background: linear-gradient(90deg, #5eead4, #f5c16c 50%, #a78bfa);
-  box-shadow: 0 0 16px rgba(45, 212, 191, 0.35);
+  background: linear-gradient(90deg, #7dd3fc, #f5c16c 50%, #a78bfa);
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.35);
 }
 .tagline {
   font-family: "Outfit", system-ui, sans-serif;
@@ -139,7 +139,7 @@ body { background: #000; }
   font-size: 20px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #8aa8a4;
+  color: #8a9ea8;
   line-height: 1.35;
 }
 .guides {
