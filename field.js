@@ -94,18 +94,25 @@
       meteors.push(makeMeteor(true));
     }
 
-    // Atoms (kept)
-    const aCount = mobile() ? 5 : 9;
+    // Atoms: three on a phone, parked toward the edges so they do not cover type.
+    const aCount = mobile() ? 3 : 9;
+    const phoneSlots = [
+      { x: 0.14, y: 0.18 },
+      { x: 0.86, y: 0.42 },
+      { x: 0.22, y: 0.82 },
+    ];
+    const drift = mobile() ? 0.1 : 0.25;
     for (let i = 0; i < aCount; i++) {
+      const slot = mobile() ? phoneSlots[i] : null;
       atoms.push({
-        x: Math.random() * innerWidth,
-        y: Math.random() * innerHeight,
-        vx: (Math.random() - 0.5) * 0.25,
-        vy: (Math.random() - 0.5) * 0.25,
+        x: slot ? slot.x * innerWidth + (Math.random() - 0.5) * 20 : Math.random() * innerWidth,
+        y: slot ? slot.y * innerHeight + (Math.random() - 0.5) * 20 : Math.random() * innerHeight,
+        vx: (Math.random() - 0.5) * drift,
+        vy: (Math.random() - 0.5) * drift,
         r: 2 + Math.random() * 1.5,
         mass: 1,
         phase: Math.random() * Math.PI * 2,
-        electrons: 2 + (Math.random() * 3 | 0),
+        electrons: mobile() ? 2 : 2 + (Math.random() * 3 | 0),
         spin: 0.015 + Math.random() * 0.02,
       });
     }
