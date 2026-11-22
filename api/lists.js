@@ -1,5 +1,6 @@
 /**
- * GET /api/lists?kind=recent|week|community   → public, read-only, cached briefly.
+ * GET /api/lists?kind=recent|week|community   → public, read-only, never CDN-cached
+ * (an empty response must not hide a person who was just added).
  */
 const store = require("./_lib/store");
 const guard = require("./_lib/guard");
@@ -9,7 +10,7 @@ const L = config.limits;
 function send(res, code, obj, cache) {
   res.statusCode = code;
   res.setHeader("Content-Type", "application/json; charset=utf-8");
-  res.setHeader("Cache-Control", cache || "public, s-maxage=30, stale-while-revalidate=120");
+  res.setHeader("Cache-Control", cache || "no-store");
   res.end(JSON.stringify(obj));
 }
 const parse = (s) => { try { return JSON.parse(s); } catch { return null; } };
@@ -40,8 +41,11 @@ module.exports = async function handler(req, res) {
       return send(res, 200, { configured: true, kind, week, items });
     }
     const all = (await store.cmd("HGETALL", "community")) || [];
+    const vals = Array.isArray(all)
+      ? all.filter((_, i) => i % 2 === 1)
+      : (all && typeof all === "object" ? Object.values(all) : []);
     const items = [];
-    for (let i = 1; i < all.length; i += 2) { const m = parse(all[i]); if (m) items.push({ ...pub(m), score: m.sc }); }
+    for (const v of vals) { const m = parse(v); if (m) items.push({ ...pub(m), score: m.sc }); }
     items.sort((a, b) => (a.birth == null ? 9999 : a.birth) - (b.birth == null ? 9999 : b.birth));
     return send(res, 200, { configured: true, kind, count: items.length, items });
   } catch {

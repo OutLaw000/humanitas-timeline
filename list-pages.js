@@ -71,7 +71,7 @@
   async function run() {
     rubric();
     try {
-      const r = await fetch("/api/lists?kind=" + encodeURIComponent(kind));
+      const r = await fetch("/api/lists?kind=" + encodeURIComponent(kind), { cache: "no-store" });
       if (!r.ok) throw new Error("http");
       const j = await r.json();
       if (!j.configured) { root.innerHTML = offline; return; }
