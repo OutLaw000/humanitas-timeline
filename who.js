@@ -81,6 +81,13 @@
     set('meta[property="og:description"]', "property", "og:description", desc);
     set('meta[property="og:site_name"]', "property", "og:site_name", "Humanity’s Atlas");
     set('meta[name="twitter:title"]', "name", "twitter:title", title);
+    set('meta[name="twitter:card"]', "name", "twitter:card", "summary_large_image");
+    set('meta[property="og:image"]', "property", "og:image", "https://humanitysatlas.com/og/humanitys-atlas.png");
+    set('meta[name="twitter:image"]', "name", "twitter:image", "https://humanitysatlas.com/og/humanitys-atlas.png");
+    set('meta[property="og:image:width"]', "property", "og:image:width", "1200");
+    set('meta[property="og:image:height"]', "property", "og:image:height", "630");
+    set('meta[property="og:image:alt"]', "property", "og:image:alt", "Humanity’s Atlas — DNA strand and wordmark");
+
     set('meta[name="twitter:description"]', "name", "twitter:description", desc);
     if (location.pathname) {
       set('meta[property="og:url"]', "property", "og:url", "https://humanitysatlas.com" + location.pathname + location.search);

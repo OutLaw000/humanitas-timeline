@@ -1,0 +1,156 @@
+/* Intro splash: hidden unless html.ha-splash. Timing mirrors the TrafTag intro. */
+.ha-splash-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  background: #03050a;
+  color: #f5f7f8;
+  pointer-events: auto;
+}
+
+html.ha-splash .ha-splash-overlay,
+html.ha-splash-out .ha-splash-overlay {
+  display: flex;
+}
+
+html.ha-splash {
+  overflow: hidden;
+}
+
+html.ha-splash-out .ha-splash-overlay {
+  pointer-events: none;
+  animation: ha-splash-overlay-out 400ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.ha-splash-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateY(-8px);
+  text-align: center;
+}
+
+html.ha-splash:not(.ha-splash-out) .ha-splash-brand {
+  animation: ha-splash-enter 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.ha-splash-mark {
+  width: 112px;
+  height: 112px;
+  display: grid;
+  place-items: center;
+  filter: drop-shadow(0 0 18px rgba(45, 212, 191, 0.28))
+          drop-shadow(0 0 28px rgba(167, 139, 250, 0.18));
+}
+
+.ha-splash-mark svg {
+  width: 112px;
+  height: 112px;
+  display: block;
+  overflow: visible;
+}
+
+.ha-splash-hairline {
+  display: block;
+  width: 36px;
+  height: 1.5px;
+  margin: 22px 0 18px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #5eead4, #f5c16c 50%, #a78bfa);
+  opacity: 0.9;
+}
+
+.ha-splash-word {
+  font-family: var(--font-display), "Times New Roman", serif;
+  font-weight: 500;
+  font-size: clamp(2rem, 5.4vw, 2.75rem);
+  line-height: 1;
+  letter-spacing: 0.015em;
+  color: #f5f7f8;
+  -webkit-font-smoothing: antialiased;
+}
+
+html.ha-splash:not(.ha-splash-out) .ha-splash-word {
+  animation: ha-splash-tracking 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.ha-splash-sub {
+  margin-top: 14px;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fg-muted, #8aa8a4);
+  opacity: 0.9;
+}
+
+html.ha-splash:not(.ha-splash-out) .ha-splash-sub {
+  animation: ha-splash-sub 700ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both;
+}
+
+@keyframes ha-splash-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-8px) scale(1);
+  }
+}
+
+@keyframes ha-splash-tracking {
+  from {
+    opacity: 0;
+    letter-spacing: 0.12em;
+  }
+  to {
+    opacity: 1;
+    letter-spacing: 0.015em;
+  }
+}
+
+@keyframes ha-splash-sub {
+  from { opacity: 0; }
+  to { opacity: 0.9; }
+}
+
+@keyframes ha-splash-overlay-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@media (max-width: 480px) {
+  .ha-splash-mark,
+  .ha-splash-mark svg {
+    width: 88px;
+    height: 88px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.ha-splash:not(.ha-splash-out) .ha-splash-brand,
+  html.ha-splash:not(.ha-splash-out) .ha-splash-word,
+  html.ha-splash:not(.ha-splash-out) .ha-splash-sub {
+    animation: none;
+    opacity: 1;
+    letter-spacing: 0.015em;
+  }
+
+  html.ha-splash:not(.ha-splash-out) .ha-splash-brand {
+    transform: translateY(-8px);
+  }
+
+  html.ha-splash-out .ha-splash-overlay {
+    animation-duration: 160ms;
+  }
+}
