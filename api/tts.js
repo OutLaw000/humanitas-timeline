@@ -2,16 +2,15 @@
  * POST /api/tts  { "slug": "socrates" }
  *
  * Speaks a curated life with Grok Voice (Ara). The browser never sees XAI_API_KEY.
- * Client may only name a catalog slug — the script is built here.
+ * Client may only name a catalog slug — the script is baked into speak.json.
  */
 const store = require("./_lib/store");
 const guard = require("./_lib/guard");
-const { bySlug } = require("./_lib/figures");
+const speak = require("./_lib/speak.json");
 
 const VOICE = "ara";
 const CACHE_TTL = 30 * 86400;
 const MAX_CACHE = 800000;
-const MAX_CHARS = 1400;
 const TTS_LIMITS = { perMinute: 4, perHour: 24, globalPerMinute: 20 };
 
 const mem = new Map();
@@ -42,35 +41,16 @@ async function readBody(req) {
       return null;
     }
   }
-  return null;
-}
-
-function formatYear(y) {
-  if (y == null || Number.isNaN(Number(y))) return "";
-  return (y < 0 ? String(Math.abs(y)) + " BCE" : String(y) + " CE");
-}
-
-function formatLifespan(f) {
-  const b = formatYear(f.birthYear);
-  if (!b) return "";
-  if (f.deathYear == null) return b + " to the present";
-  return b + " to " + formatYear(f.deathYear);
-}
-
-function scriptFor(f) {
-  const parts = [f.name + "."];
-  if (f.epithet) parts.push(f.epithet + ".");
-  const life = formatLifespan(f);
-  if (life) parts.push("Lived " + life + ".");
-  if (f.summary) parts.push(String(f.summary).trim());
-  const acc = (f.accomplishments || []).slice(0, 4);
-  if (acc.length) parts.push("Accomplishments. " + acc.join(". ") + ".");
-  const bio = (f.biography || []).slice(0, 2).join(" ").trim();
-  if (bio) parts.push(bio);
-  const pr = ((f.philosophy && f.philosophy.corePrinciples) || []).slice(0, 3);
-  if (pr.length) parts.push("Principles. " + pr.join(". ") + ".");
-  if (f.legacy) parts.push(String(f.legacy).trim());
-  return parts.filter(Boolean).join(" [pause] ").slice(0, MAX_CHARS);
+  if (typeof req[Symbol.asyncIterator] !== "function") return null;
+  const chunks = [];
+  for await (const c of req) chunks.push(c);
+  const raw = Buffer.concat(chunks).toString("utf8");
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
 }
 
 async function ttsLimit(req) {
@@ -102,7 +82,7 @@ async function ttsLimit(req) {
 async function cachedAudio(slug) {
   if (!store.configured()) return null;
   try {
-    const raw = await store.cmd("GET", "tts:v1:" + VOICE + ":" + slug);
+    const raw = await store.cmd("GET", "tts:v2:" + VOICE + ":" + slug);
     return raw ? Buffer.from(String(raw), "base64") : null;
   } catch {
     return null;
@@ -114,7 +94,7 @@ async function saveAudio(slug, buf) {
   const b64 = buf.toString("base64");
   if (b64.length > MAX_CACHE) return;
   try {
-    await store.cmd("SET", "tts:v1:" + VOICE + ":" + slug, b64, "EX", CACHE_TTL);
+    await store.cmd("SET", "tts:v2:" + VOICE + ":" + slug, b64, "EX", CACHE_TTL);
   } catch {}
 }
 
@@ -151,7 +131,7 @@ async function grokSpeak(text) {
   }
 }
 
-module.exports = async function handler(req, res) {
+async function handle(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return sendJson(res, 405, { error: "method" });
@@ -161,10 +141,7 @@ module.exports = async function handler(req, res) {
   if (Number(req.headers["content-length"] || 0) > 400) return sendJson(res, 413, { error: "too-large" });
   const body = await readBody(req);
   if (!body || typeof body !== "object") return sendJson(res, 400, { error: "bad-json" });
-  if (!guard.validSlug(body.slug)) return sendJson(res, 400, { error: "unknown-slug" });
-
-  const f = bySlug(body.slug);
-  if (!f) return sendJson(res, 400, { error: "unknown-slug" });
+  if (!guard.validSlug(body.slug) || !speak[body.slug]) return sendJson(res, 400, { error: "unknown-slug" });
 
   let rl;
   try {
@@ -183,7 +160,7 @@ module.exports = async function handler(req, res) {
 
   if (!process.env.XAI_API_KEY) return sendJson(res, 503, { error: "no-tts" });
 
-  const hit = await cachedAudio(f.slug);
+  const hit = await cachedAudio(body.slug);
   if (hit) {
     res.statusCode = 200;
     res.setHeader("Content-Type", "audio/mpeg");
@@ -193,18 +170,26 @@ module.exports = async function handler(req, res) {
     return res.end(hit);
   }
 
-  const spoken = scriptFor(f);
-  const out = await grokSpeak(spoken);
+  const out = await grokSpeak(speak[body.slug]);
   if (out.error === "no-key") return sendJson(res, 503, { error: "no-tts" });
   if (out.error) return sendJson(res, 502, { error: "upstream" });
 
-  await saveAudio(f.slug, out.buf);
+  await saveAudio(body.slug, out.buf);
   res.statusCode = 200;
   res.setHeader("Content-Type", "audio/mpeg");
   res.setHeader("Cache-Control", "public, max-age=86400");
   res.setHeader("X-Voice", VOICE);
   res.setHeader("X-TTS-Cache", "miss");
   return res.end(out.buf);
+}
+
+module.exports = async function handler(req, res) {
+  try {
+    await handle(req, res);
+  } catch (err) {
+    console.error("tts", err && err.message ? String(err.message).slice(0, 120) : "error");
+    if (!res.headersSent) sendJson(res, 500, { error: "tts" });
+  }
 };
 
 module.exports.config = { maxDuration: 30 };
