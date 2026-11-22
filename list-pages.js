@@ -50,6 +50,7 @@
         img.decoding = "async";
         img.referrerPolicy = "no-referrer";
         img.onerror = () => img.remove();
+        el.style.position = "relative";
         el.appendChild(img);
       } catch {}
     });
