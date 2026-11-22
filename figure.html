@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Figure — Humanitas</title>
+  <meta name="description" content="Historical figure profile from Humanitas — living phylogeny of greatness and truth." />
+  <meta name="theme-color" content="#03050a" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="profile" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css?v=2" />
+  <style>
+    .fig-page { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; padding: 40px 20px 80px; }
+    .fig-back { display: inline-flex; margin-bottom: 24px; color: var(--fg-muted); font-size: 14px; }
+    .fig-back:hover { color: var(--accent-soft); }
+    .fig-page h1 { font-family: var(--font-display); font-weight: 500; font-size: clamp(2rem, 5vw, 2.8rem); margin: 8px 0 6px; letter-spacing: -0.02em; }
+    .fig-page .epithet { color: var(--fg-muted); font-style: italic; margin: 0 0 16px; font-size: 1.15rem; }
+    .fig-hero-photo { margin: 0 0 24px; border-radius: 1rem; overflow: hidden; border: 1px solid var(--border); }
+    .fig-hero-photo img { width: 100%; height: auto; max-height: min(52vh, 480px); object-fit: contain; object-position: center; display: block; background: linear-gradient(160deg, #0a1520, #0c0a18); }
+    .fig-hero-photo figcaption { padding: 10px 14px; font-size: 12px; color: var(--fg-subtle); background: var(--bg-panel); }
+    .fig-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin: 20px 0; }
+    .fig-meta div { padding: 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg-panel); }
+    .fig-meta dt { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--fg-subtle); }
+    .fig-meta dd { margin: 4px 0 0; font-size: 14px; }
+    .fig-page section { margin: 28px 0; }
+    .fig-page h2 { font-family: var(--font-display); font-weight: 500; font-size: 1.45rem; margin: 0 0 12px; }
+    .fig-page p { color: var(--fg-muted); line-height: 1.65; }
+    .fig-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0; }
+    .fig-missing { text-align: center; padding: 80px 20px; }
+  </style>
+</head>
+<body>
+  <canvas id="phylo-field" aria-hidden="true"></canvas>
+  <div class="field-veil" aria-hidden="true"></div>
+
+  <main class="fig-page" id="fig-page">
+    <a class="fig-back" href="/">← Humanitas timeline</a>
+    <div id="fig-root"><p class="section-lead">Loading…</p></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <ameriking-made></ameriking-made>
+    </div>
+  </footer>
+
+  <script src="/data1.js"></script>
+  <script src="/data2.js"></script>
+  <script src="/data3.js"></script>
+  <script src="/data4.js"></script>
+  <script src="/data5.js"></script>
+  <script src="/data6.js"></script>
+  <script src="/data-enrichment.js"></script>
+  <script src="/data-images.js"></script>
+  <script>
+    (() => {
+      const figures = window.HUMANITAS.figures;
+      const CAT = window.HUMANITAS.CATEGORY_LABELS || {};
+      const STATUS = window.HUMANITAS.STATUS_LABELS || {};
+
+      function resolveSlug(raw) {
+        if (!raw) return null;
+        const s = decodeURIComponent(raw).toLowerCase().replace(/^\//, "");
+        if (figures.some((f) => f.slug === s)) return s;
+        const aliases = { mlk: "martin-luther-king-jr", gandhi: "mahatma-gandhi", mandela: "nelson-mandela" };
+        return aliases[s] || s;
+      }
+
+      function getSlug() {
+        const params = new URLSearchParams(location.search);
+        if (params.get("slug")) return resolveSlug(params.get("slug"));
+        const parts = location.pathname.split("/").filter(Boolean);
+        const i = parts.indexOf("figure");
+        if (i >= 0 && parts[i + 1]) return resolveSlug(parts[i + 1]);
+        if (parts.length === 1 && parts[0] !== "figure.html") return resolveSlug(parts[0]);
+        return null;
+      }
+
+      function formatYear(y) {
+        if (y < 0) return Math.abs(y) + " BCE";
+        return y + " CE";
+      }
+      function formatLifespan(b, d) {
+        return d == null ? formatYear(b) + " – present" : formatYear(b) + " – " + formatYear(d);
+      }
+
+      const slug = getSlug();
+      const f = figures.find((x) => x.slug === slug);
+      const root = document.getElementById("fig-root");
+
+      if (!f) {
+        root.innerHTML = `<div class="fig-missing"><h1>Figure not found</h1><p>Return to the <a href="/">timeline</a>.</p></div>`;
+        return;
+      }
+
+      document.title = f.name + " — Humanitas";
+      const desc = (f.summary || f.epithet || "").slice(0, 160);
+      document.querySelector('meta[name="description"]').setAttribute("content", desc);
+      let og = document.querySelector('meta[property="og:title"]');
+      if (!og) {
+        og = document.createElement("meta");
+        og.setAttribute("property", "og:title");
+        document.head.appendChild(og);
+      }
+      og.setAttribute("content", f.name + " — Humanitas");
+
+      const badges = (f.categories || []).map((c) => `<span class="badge">${CAT[c] || c}</span>`).join(" ");
+      const photo = f.image?.url
+        ? `<figure class="fig-hero-photo"><img src="${f.image.url}" alt="${f.name}" /><figcaption>${f.image.caption || f.name}${f.image.credit ? " · " + f.image.credit : ""}</figcaption></figure>`
+        : "";
+      const principles = (f.philosophy?.corePrinciples || []).map((p) => `<li>${p}</li>`).join("");
+      const quotes = (f.philosophy?.keyQuotes || []).map((q) =>
+        `<blockquote class="quote-block"><p>“${q.text}”</p>${q.source ? `<footer>— ${q.source}</footer>` : ""}</blockquote>`
+      ).join("");
+      const creations = (f.creations || []).map((c) =>
+        `<div class="creation-card"><h3>${c.name}</h3><span class="badge badge-status ${c.status}">${STATUS[c.status] || c.status}</span><p>${c.description || ""}</p></div>`
+      ).join("");
+      const related = (f.relatedSlugs || []).map((s) => figures.find((x) => x.slug === s)).filter(Boolean)
+        .map((r) => `<a class="related-btn" href="/figure/${r.slug}"><span><strong>${r.name}</strong><span>${r.epithet || ""}</span></span><span>→</span></a>`).join("");
+
+      root.innerHTML = `
+        ${photo}
+        <div class="tl-badges">${badges}</div>
+        <h1>${f.name}</h1>
+        <p class="epithet">${f.epithet || ""}</p>
+        <dl class="fig-meta">
+          <div><dt>Lived</dt><dd>${formatLifespan(f.birthYear, f.deathYear)}</dd></div>
+          <div><dt>Era</dt><dd>${f.eraLabel || ""}</dd></div>
+          <div><dt>Region</dt><dd>${f.region || ""}</dd></div>
+          <div><dt>Civilization</dt><dd>${f.civilization || ""}</dd></div>
+        </dl>
+        <div class="fig-actions">
+          <a class="btn btn-primary btn-sm" href="/#figure=${f.slug}">Open in app</a>
+          <button type="button" class="btn btn-ghost btn-sm" id="btn-share">Share</button>
+          <a class="btn btn-ghost btn-sm" href="/embed/${f.slug}" target="_blank">Embed card</a>
+        </div>
+        <section><p style="color:var(--fg);font-size:1.08rem">${f.summary || ""}</p></section>
+        ${(f.accomplishments || []).length ? `<section><h2>Greatest accomplishments</h2><ol class="accomplishments-list">${(f.accomplishments || []).map((a) => `<li>${a}</li>`).join("")}</ol></section>` : ""}
+        <section><h2>Historical life</h2>${(f.biography || []).map((p) => `<p>${p}</p>`).join("")}</section>
+        <section>
+          <h2>Philosophy</h2>
+          <p><strong>View of humanity</strong><br/>${f.philosophy?.viewOfHumanity || ""}</p>
+          <p><strong>How we should operate</strong><br/>${f.philosophy?.howWeOperate || ""}</p>
+          <p><strong>Core principles</strong></p>
+          <ul>${principles}</ul>
+        </section>
+        ${quotes ? `<section><h2>Words that endure</h2>${quotes}</section>` : ""}
+        <section><h2>Creations</h2>${creations || "<p>—</p>"}</section>
+        <section><h2>Legacy</h2><p>${f.legacy || ""}</p></section>
+        ${related ? `<section><h2>Related figures</h2><div class="related-list">${related}</div></section>` : ""}
+      `;
+
+      document.getElementById("btn-share")?.addEventListener("click", async () => {
+        const url = location.href;
+        if (navigator.share) {
+          try { await navigator.share({ title: f.name, text: f.summary, url }); return; } catch (_) {}
+        }
+        try { await navigator.clipboard.writeText(url); alert("Link copied"); } catch { prompt("Copy:", url); }
+      });
+
+      // JSON-LD
+      const ld = {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        name: f.name,
+        description: f.summary,
+        url: location.href,
+        image: f.image?.url || undefined,
+        birthDate: String(f.birthYear),
+        deathDate: f.deathYear != null ? String(f.deathYear) : undefined,
+      };
+      const s = document.createElement("script");
+      s.type = "application/ld+json";
+      s.textContent = JSON.stringify(ld);
+      document.head.appendChild(s);
+    })();
+  </script>
+  <script src="https://ameriking.io/made.js?v=6" defer></script>
+</body>
+</html>

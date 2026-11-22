@@ -1,0 +1,5 @@
+.vercel
+.env*
+images/fetch-report.json
+images/new-portraits-map.json
+images/new-portraits-report.json

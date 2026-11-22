@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://humanitas.ameriking.io/sitemap.xml

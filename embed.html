@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Embed — Humanitas</title>
+  <meta name="robots" content="noindex" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Outfit:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #070b14;
+      --fg: #e8f4f2;
+      --muted: #8aa8a4;
+      --accent: #5eead4;
+      --border: rgba(64, 224, 208, 0.18);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Outfit, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; }
+    .card {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .media { height: 42vh; min-height: 160px; background: #0a1220; }
+    .media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .fallback {
+      height: 100%;
+      display: grid;
+      place-items: center;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 4rem;
+      color: var(--accent);
+    }
+    .body { padding: 16px 18px 18px; flex: 1; display: flex; flex-direction: column; }
+    .brand { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+    h1 { margin: 0 0 4px; font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 1.55rem; line-height: 1.15; }
+    .epithet { margin: 0 0 10px; color: var(--muted); font-size: 13px; font-style: italic; }
+    .summary { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; flex: 1;
+      display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+    .foot {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .cta { color: var(--accent); font-weight: 500; }
+    .missing { padding: 40px 20px; text-align: center; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div id="root" class="missing">Loading…</div>
+  <script src="/data1.js"></script>
+  <script src="/data2.js"></script>
+  <script src="/data3.js"></script>
+  <script src="/data4.js"></script>
+  <script src="/data5.js"></script>
+  <script src="/data6.js"></script>
+  <script src="/data-images.js"></script>
+  <script>
+    (() => {
+      const figures = window.HUMANITAS.figures;
+      function slugFrom() {
+        const p = new URLSearchParams(location.search);
+        if (p.get("slug")) return p.get("slug");
+        const parts = location.pathname.split("/").filter(Boolean);
+        const i = parts.indexOf("embed");
+        if (i >= 0 && parts[i + 1]) return decodeURIComponent(parts[i + 1]);
+        return null;
+      }
+      const slug = slugFrom();
+      const f = figures.find((x) => x.slug === slug);
+      const root = document.getElementById("root");
+      if (!f) {
+        root.textContent = "Figure not found";
+        return;
+      }
+      const img = f.image?.url
+        ? `<img src="${f.image.url}" alt="${f.name}" />`
+        : `<div class="fallback">${(f.name || "?").charAt(0)}</div>`;
+      const href = `/figure/${f.slug}`;
+      root.className = "";
+      root.innerHTML = `
+        <a class="card" href="${href}" target="_blank" rel="noopener">
+          <div class="media">${img}</div>
+          <div class="body">
+            <div class="brand">Humanitas</div>
+            <h1>${f.name}</h1>
+            <p class="epithet">${f.epithet || ""}</p>
+            <p class="summary">${f.summary || ""}</p>
+            <div class="foot">
+              <span>${f.region || ""}</span>
+              <span class="cta">Open →</span>
+            </div>
+          </div>
+        </a>`;
+    })();
+  </script>
+</body>
+</html>

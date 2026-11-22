@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Classroom Pack — Humanitas</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <meta name="description" content="Printable classroom discussion pack from Humanitas: six lives, principle comparison, community design prompt." />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Outfit:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    .pack {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+    .pack h1 {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 2.4rem;
+      margin: 0 0 8px;
+    }
+    .pack .lead { color: var(--fg-muted); margin-bottom: 28px; }
+    .pack-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; }
+    .worksheet {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      background: var(--bg-panel);
+      margin-bottom: 20px;
+    }
+    .worksheet h2 {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 1.4rem;
+      margin: 0 0 12px;
+    }
+    .worksheet ol, .worksheet ul { color: var(--fg-muted); line-height: 1.7; }
+    .life-block {
+      border-top: 1px solid var(--border);
+      padding: 14px 0;
+    }
+    .life-block strong { color: var(--fg); }
+    .write-lines {
+      margin-top: 12px;
+      border-bottom: 1px dashed var(--border-strong);
+      height: 28px;
+    }
+    .write-lines + .write-lines { margin-top: 8px; }
+    @media print {
+      #phylo-field, .field-veil, .pack-actions, .site-footer, .no-print { display: none !important; }
+      body { background: #fff !important; color: #111 !important; }
+      .pack, .worksheet { background: #fff !important; color: #111 !important; border-color: #ccc !important; }
+      .worksheet ol, .worksheet ul, .pack .lead { color: #333 !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="pack">
+    <p class="eyebrow">Humanitas · Classroom</p>
+    <h1>Discussion pack</h1>
+    <p class="lead">Six lives across traditions. Compare principles, design one community practice, and name what still stands in your world.</p>
+    <div class="pack-actions no-print">
+      <button type="button" class="btn btn-primary" onclick="window.print()">Print / Save PDF</button>
+      <a class="btn btn-ghost" href="/">Back to timeline</a>
+      <a class="btn btn-ghost" href="https://ameriking.io" target="_blank" rel="noopener">AmeriKing.io</a>
+    </div>
+    <div id="pack-body"></div>
+  </main>
+  <footer class="site-footer no-print">
+    <div class="footer-inner">
+      <p class="footer-credit">Created by <a href="https://ameriking.io" target="_blank" rel="noopener">AmeriKing.io</a></p>
+    </div>
+  </footer>
+  <script src="/data1.js"></script>
+  <script src="/data2.js"></script>
+  <script src="/data3.js"></script>
+  <script src="/data4.js"></script>
+  <script src="/data5.js"></script>
+  <script src="/data6.js"></script>
+  <script src="/data-images.js"></script>
+  <script>
+    (() => {
+      const SLUGS = [
+        "socrates",
+        "jesus",
+        "mahatma-gandhi",
+        "martin-luther-king-jr",
+        "marie-curie",
+        "malala-yousafzai",
+      ];
+      const figures = window.HUMANITAS.figures;
+      const sample = SLUGS.map((s) => figures.find((f) => f.slug === s)).filter(Boolean);
+      const lives = sample.map((f, i) => `
+        <div class="life-block">
+          <strong>${i + 1}. ${f.name}</strong> — ${f.epithet || ""}
+          <div>Core principle: ${(f.philosophy?.corePrinciples || [])[0] || "—"}</div>
+          <div style="font-size:13px;color:var(--fg-subtle);margin-top:4px">${(f.summary || "").slice(0, 180)}…</div>
+        </div>`).join("");
+
+      document.getElementById("pack-body").innerHTML = `
+        <div class="worksheet">
+          <h2>Part A — Six lives</h2>
+          <p style="color:var(--fg-muted);font-size:14px">Read each epithet. Underline one principle that could guide a school or town.</p>
+          ${lives}
+        </div>
+        <div class="worksheet">
+          <h2>Part B — Compare</h2>
+          <ol>
+            <li>Which two figures disagree most sharply about power? Why?</li>
+            <div class="write-lines"></div><div class="write-lines"></div>
+            <li>Which principle appears in more than one tradition?</li>
+            <div class="write-lines"></div><div class="write-lines"></div>
+            <li>Name one creation that still stands (institution, text, or idea).</li>
+            <div class="write-lines"></div>
+          </ol>
+        </div>
+        <div class="worksheet">
+          <h2>Part C — Design a community practice</h2>
+          <p style="color:var(--fg-muted)">Invent a weekly practice (30 minutes or less) that a classroom or neighborhood could run for a month.</p>
+          <ul>
+            <li>Name of practice:</li>
+            <div class="write-lines"></div>
+            <li>Rooted in which figure(s)?</li>
+            <div class="write-lines"></div>
+            <li>How do you know it worked after 4 weeks?</li>
+            <div class="write-lines"></div><div class="write-lines"></div>
+          </ul>
+        </div>
+        <div class="worksheet">
+          <h2>Part D — Pledge</h2>
+          <p style="color:var(--fg-muted)">Write one principle you will practice for seven days. Sign below.</p>
+          <div class="write-lines"></div>
+          <div class="write-lines"></div>
+          <p style="margin-top:20px;font-size:13px;color:var(--fg-subtle)">Name ________________________ Date ________</p>
+        </div>
+        <p class="mono-meta">Source: Humanitas · humanitas-six.vercel.app · Created by AmeriKing.io</p>
+      `;
+    })();
+  </script>
+</body>
+</html>
