@@ -273,10 +273,13 @@
         birthDate: String(f.birthYear),
         deathDate: f.deathYear != null ? String(f.deathYear) : undefined,
       };
-      const s = document.createElement("script");
-      s.type = "application/ld+json";
+      let s = document.querySelector('script[type="application/ld+json"]');
+      if (!s) {
+        s = document.createElement("script");
+        s.type = "application/ld+json";
+        document.head.appendChild(s);
+      }
       s.textContent = JSON.stringify(ld);
-      document.head.appendChild(s);
     })();
   </script>
   <script src="https://ameriking.io/made.js?v=6" defer></script>
