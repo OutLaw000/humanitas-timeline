@@ -485,11 +485,11 @@ function initExplore() {
     const w = canvas.clientWidth, h = canvas.clientHeight;
     ctx.clearRect(0, 0, w, h);
     const g = ctx.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, Math.max(w, h) * 0.7);
-    g.addColorStop(0, "rgba(10, 30, 36, 0.9)");
+    g.addColorStop(0, "rgba(22, 12, 40, 0.9)");
     g.addColorStop(1, "rgba(3, 5, 10, 1)");
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, w, h);
-    ctx.strokeStyle = "rgba(45,212,191,0.05)";
+    ctx.strokeStyle = "rgba(167, 139, 250,0.05)";
     ctx.lineWidth = 1;
     for (let r = 40; r < 420; r += 40) {
       const c = worldToScreen(0, 0);
@@ -503,7 +503,7 @@ function initExplore() {
         if (!m) return;
         const a = worldToScreen(n.x, n.y), b = worldToScreen(m.x, m.y);
         const grad = ctx.createLinearGradient(a.x, a.y, b.x, b.y);
-        grad.addColorStop(0, "rgba(45,212,191,0.2)");
+        grad.addColorStop(0, "rgba(167, 139, 250,0.2)");
         grad.addColorStop(1, "rgba(167,139,250,0.18)");
         ctx.strokeStyle = grad;
         ctx.lineWidth = 1;
@@ -518,13 +518,13 @@ function initExplore() {
       const active = explore.hover === n;
       const r = (active ? n.r + 3 : n.r) * Math.min(explore.scale, 1.6);
       const pulse = 0.7 + Math.sin(tick * 0.04 + n.phase) * 0.3;
-      ctx.strokeStyle = active ? "rgba(255,184,77,0.45)" : "rgba(45,212,191,0.2)";
+      ctx.strokeStyle = active ? "rgba(255,184,77,0.45)" : "rgba(167, 139, 250,0.2)";
       ctx.lineWidth = 0.8;
       ctx.beginPath();
       ctx.ellipse(p.x, p.y, r + 8, r + 4, n.phase + tick * 0.01, 0, Math.PI * 2);
       ctx.stroke();
       const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * 4);
-      glow.addColorStop(0, active ? "rgba(94,234,212,0.45)" : "rgba(45,212,191,0.2)");
+      glow.addColorStop(0, active ? "rgba(196, 181, 253,0.45)" : "rgba(167, 139, 250,0.2)");
       glow.addColorStop(1, "transparent");
       ctx.fillStyle = glow;
       ctx.beginPath();
@@ -532,11 +532,11 @@ function initExplore() {
       ctx.fill();
       ctx.beginPath();
       ctx.arc(p.x, p.y, r * pulse, 0, Math.PI * 2);
-      ctx.fillStyle = active ? "#e8f4f2" : n.hue > 0.6 ? "#a78bfa" : n.hue > 0.3 ? "#5eead4" : "#ffb84d";
+      ctx.fillStyle = active ? "#ece8f4" : n.hue > 0.6 ? "#a78bfa" : n.hue > 0.3 ? "#c4b5fd" : "#ffb84d";
       ctx.fill();
       if (active || explore.scale > 0.9) {
         ctx.font = (active ? 13 : 11) + "px Outfit, sans-serif";
-        ctx.fillStyle = active ? "#e8f4f2" : "rgba(232,244,242,0.65)";
+        ctx.fillStyle = active ? "#ece8f4" : "rgba(232,244,242,0.65)";
         ctx.textAlign = "center";
         ctx.fillText(n.f.name.split("(")[0].trim(), p.x, p.y + r + 16);
       }

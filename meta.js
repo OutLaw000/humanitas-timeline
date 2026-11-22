@@ -220,9 +220,9 @@
     { maxYear: 500, name: "Late antiquity", fundamental: 73, fifth: 110, tempo: 0.24, color: "#f472b6" },
     { maxYear: 1200, name: "Medieval weave", fundamental: 82, fifth: 123, tempo: 0.26, color: "#a78bfa" },
     { maxYear: 1700, name: "Early modern", fundamental: 98, fifth: 147, tempo: 0.3, color: "#818cf8" },
-    { maxYear: 1900, name: "Reform & industry", fundamental: 110, fifth: 165, tempo: 0.34, color: "#5eead4" },
-    { maxYear: 2000, name: "Twentieth century", fundamental: 130, fifth: 196, tempo: 0.38, color: "#2dd4bf" },
-    { maxYear: 9999, name: "Living history", fundamental: 146, fifth: 220, tempo: 0.4, color: "#34d399" },
+    { maxYear: 1900, name: "Reform & industry", fundamental: 110, fifth: 165, tempo: 0.34, color: "#c4b5fd" },
+    { maxYear: 2000, name: "Twentieth century", fundamental: 130, fifth: 196, tempo: 0.38, color: "#a78bfa" },
+    { maxYear: 9999, name: "Living history", fundamental: 146, fifth: 220, tempo: 0.4, color: "#8a66de" },
   ];
 
   function eraSoundForYear(y) {
